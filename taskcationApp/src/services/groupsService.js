@@ -21,14 +21,14 @@ export async function createGroup(db, groupData) {
 }
 
 
-export async function getGroupById(db, groupId) {
-    const docSnap = await getDoc(doc(db, 'Groups', groupId));
+export async function getGroupById(db, groupID) {
+    const docSnap = await getDoc(doc(db, 'Groups', groupID));
     return docSnap.exists() ? docSnap.data() : null;
 }
 
 
-export async function updateGroup(db, groupId, updatedData) {
-    const docRef = doc(db, 'Groups', groupId);
+export async function updateGroup(db, groupID, updatedData) {
+    const docRef = doc(db, 'Groups', groupID);
     await updateDoc(docRef, {
         ...updatedData,
         updated_at: serverTimestamp()
@@ -36,8 +36,8 @@ export async function updateGroup(db, groupId, updatedData) {
 }
 
 
-export async function deleteGroup(db, groupId) {
-    await deleteDoc(doc(db, 'Groups', groupId));
+export async function deleteGroup(db, groupID) {
+    await deleteDoc(doc(db, 'Groups', groupID));
 }
 
 

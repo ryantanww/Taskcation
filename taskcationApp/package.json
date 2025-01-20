@@ -11,9 +11,13 @@
     "test:updateSnapshots": "jest -u"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-community/datetimepicker": "^8.2.0",
-    "@react-native-picker/picker": "^2.11.0",
+    "@react-native-picker/picker": "^2.9.0",
+    "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.1.1",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "12.9.0",
     "expo": "~52.0.25",
@@ -27,7 +31,8 @@
     "jest-expo": "^52.0.3",
     "react": "18.3.1",
     "react-native": "0.76.6",
-    "react-native-elements": "^3.4.3"
+    "react-native-elements": "^3.4.3",
+    "react-native-safe-area-context": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

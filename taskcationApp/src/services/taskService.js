@@ -69,12 +69,12 @@ export async function createTask(db, taskData) {
     return docRef.id;
 }
 
-export async function getTaskById(db, taskId) {
-    const snap = await getDoc(doc(db, 'Tasks', taskId));
+export async function getTaskById(db, taskID) {
+    const snap = await getDoc(doc(db, 'Tasks', taskID));
     return snap.exists() ? snap.data() : null;
 }
 
-export async function updateTask(db, taskId, updatedData) {
+export async function updateTask(db, taskID, updatedData) {
 
     if (updatedData.task_name !== undefined) {
         if (
@@ -131,18 +131,31 @@ export async function updateTask(db, taskId, updatedData) {
         throw new Error('sub_tasks must be an array of objects if provided');
     }
 
-    await updateDoc(doc(db, 'Tasks', taskId), {
+    await updateDoc(doc(db, 'Tasks', taskID), {
         ...updatedData,
         updated_at: serverTimestamp(),
     });
 }
 
-export async function deleteTask(db, taskId) {
-    await deleteDoc(doc(db, 'Tasks', taskId));
+export async function deleteTask(db, taskID) {
+    await deleteDoc(doc(db, 'Tasks', taskID));
 }
 
-export async function getTasksByCreator(db, userId) {
-    const q = query(collection(db, 'Tasks'), where('created_by', '==', userId));
-    const snap = await getDocs(q);
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+export async function getTasksByCreator(db, userID) {
+    try {
+        // Create a query to get tasks created by the user
+        const q = query(collection(db, 'Tasks'), where('created_by', '==', userID));
+        const snap = await getDocs(q);
+
+        // If no documents exist, return null
+        if (snap.empty) {
+            return null;
+        }
+
+        // Map documents to task objects
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (error) {
+        console.error('Error fetching tasks by creator:', error);
+        throw error; // Optionally re-throw the error for higher-level handling
+    }
 }
