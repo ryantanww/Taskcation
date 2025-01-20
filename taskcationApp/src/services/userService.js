@@ -15,12 +15,12 @@ import {
  */
 export async function createUser(db, userData) {
     // e.g., userData = { username: 'temp_12345', is_temporary: true }
-
+    if (!db) throw new Error("Firestore instance is not defined");
     // Check if you want to ensure 'username' unique across Users
     if (!userData.username) {
         throw new Error('username is required');
     }
-
+    console.log('Firestore instance:', db);
     // Optionally check if username is taken:
     const q = query(collection(db, 'Users'), where('username', '==', userData.username));
     const snap = await getDocs(q);
@@ -42,8 +42,8 @@ export async function createUser(db, userData) {
 /**
  * GET user by doc ID
  */
-export async function getUserById(db, userId) {
-    const snap = await getDoc(doc(db, 'Users', userId));
+export async function getUserById(db, userID) {
+    const snap = await getDoc(doc(db, 'Users', userID));
     return snap.exists() ? snap.data() : null;
 }
 

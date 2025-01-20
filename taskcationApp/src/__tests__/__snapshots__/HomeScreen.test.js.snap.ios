@@ -1,0 +1,512 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeScreen should match snapshot for no tasks 1`] = `
+<RNCSafeAreaView
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "#8B4513",
+        "borderBottomWidth": 1,
+        "borderColor": "#8B4513",
+        "padding": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#FFFFFF",
+          "fontSize": 24,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Taskcation
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "paddingHorizontal": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#5A3311",
+          "fontSize": 28,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Upcoming
+    </Text>
+  </View>
+  <View>
+    <View
+      style={
+        {
+          "paddingHorizontal": 16,
+          "paddingTop": 16,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#5A3311",
+            "fontSize": 18,
+          }
+        }
+      >
+        20/01/2025
+      </Text>
+      <View
+        style={
+          {
+            "backgroundColor": "#5A3311",
+            "height": 2,
+            "marginVertical": 8,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFF8DC",
+            "borderColor": "#8B4513",
+            "borderRadius": 8,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginHorizontal": 16,
+            "marginTop": 16,
+            "padding": 10,
+          },
+          false,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#5A3311",
+              "flex": 1,
+              "fontSize": 18,
+            },
+            false,
+          ]
+        }
+      >
+        Add task to start using Taskcation!
+      </Text>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="checkbox-no-tasks"
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#8B4513",
+                "fontSize": 24,
+              },
+              undefined,
+              {
+                "fontFamily": "ionicons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;
+
+exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
+<RNCSafeAreaView
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "#8B4513",
+        "borderBottomWidth": 1,
+        "borderColor": "#8B4513",
+        "padding": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#FFFFFF",
+          "fontSize": 24,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Taskcation
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "paddingHorizontal": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#5A3311",
+          "fontSize": 28,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Upcoming
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "paddingHorizontal": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#5A3311",
+          "fontSize": 18,
+        }
+      }
+    >
+      20/01/2025
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#5A3311",
+          "height": 2,
+          "marginVertical": 8,
+        }
+      }
+    />
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFF8DC",
+            "borderColor": "#8B4513",
+            "borderRadius": 8,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginHorizontal": 16,
+            "marginTop": 16,
+            "padding": 10,
+          },
+          {
+            "backgroundColor": "#8B4513",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "backgroundColor": "#FFFFFF",
+            "height": 2,
+            "left": 5,
+            "position": "absolute",
+            "top": "90%",
+            "width": "95%",
+            "zIndex": 0,
+          }
+        }
+        testID="strikeThrough-1"
+      />
+      <Text
+        style={
+          [
+            undefined,
+            {
+              "color": "#FFFFFF",
+            },
+          ]
+        }
+      >
+        Task 1
+      </Text>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="checkbox-1"
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#FFFFFF",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "ionicons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "paddingHorizontal": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#5A3311",
+          "fontSize": 18,
+        }
+      }
+    >
+      21/01/2025
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#5A3311",
+          "height": 2,
+          "marginVertical": 8,
+        }
+      }
+    />
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFF8DC",
+            "borderColor": "#8B4513",
+            "borderRadius": 8,
+            "borderWidth": 2,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginHorizontal": 16,
+            "marginTop": 16,
+            "padding": 10,
+          },
+          {
+            "backgroundColor": "#8B4513",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "backgroundColor": "#FFFFFF",
+            "height": 2,
+            "left": 5,
+            "position": "absolute",
+            "top": "90%",
+            "width": "95%",
+            "zIndex": 0,
+          }
+        }
+        testID="strikeThrough-2"
+      />
+      <Text
+        style={
+          [
+            undefined,
+            {
+              "color": "#FFFFFF",
+            },
+          ]
+        }
+      >
+        Task 2
+      </Text>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="checkbox-2"
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#FFFFFF",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "ionicons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

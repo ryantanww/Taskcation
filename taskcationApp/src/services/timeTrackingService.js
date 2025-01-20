@@ -23,17 +23,17 @@ export async function createTimeRecord(db, data) {
     return docRef.id;
 }
 
-export async function getTimeRecordById(db, timeId) {
-    const docSnap = await getDoc(doc(db, 'TimeTracking', timeId));
+export async function getTimeRecordById(db, timeID) {
+    const docSnap = await getDoc(doc(db, 'TimeTracking', timeID));
     return docSnap.exists() ? docSnap.data() : null;
 }
 
-export async function deleteTimeRecord(db, timeId) {
-    await deleteDoc(doc(db, 'TimeTracking', timeId));
+export async function deleteTimeRecord(db, timeID) {
+    await deleteDoc(doc(db, 'TimeTracking', timeID));
 }
 
-export async function getTimeRecordsByTask(db, taskId) {
-    const q = query(collection(db, 'TimeTracking'), where('task_id', '==', taskId));
+export async function getTimeRecordsByTask(db, taskID) {
+    const q = query(collection(db, 'TimeTracking'), where('task_id', '==', taskID));
     const snap = await getDocs(q);
     return snap.docs.map(docSnap => ({
         id: docSnap.id,

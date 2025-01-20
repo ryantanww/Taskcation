@@ -26,18 +26,18 @@ export async function createAttachment(db, attachmentData) {
 }
 
 
-export async function getAttachmentById(db, attachmentId) {
-    const docSnap = await getDoc(doc(db, 'Attachments', attachmentId));
+export async function getAttachmentById(db, attachmentID) {
+    const DocSnap = await getDoc(doc(db, 'Attachments', attachmentID));
     return docSnap.exists() ? docSnap.data() : null;
 }
 
 
-export async function deleteAttachment(db, attachmentId) {
-    await deleteDoc(doc(db, 'Attachments', attachmentId));
+export async function deleteAttachment(db, attachmentID) {
+    await deleteDoc(doc(db, 'Attachments', attachmentID));
 }
 
-export async function getAttachmentsByTaskId(db, taskId) {
-    const q = query(collection(db, 'Attachments'), where('task_id', '==', taskId));
+export async function getAttachmentsByTaskId(db, taskID) {
+    const q = query(collection(db, 'Attachments'), where('task_id', '==', taskID));
     const snap = await getDocs(q);
     return snap.docs.map(docSnap => ({
         id: docSnap.id,
@@ -45,8 +45,8 @@ export async function getAttachmentsByTaskId(db, taskId) {
     }));
 }
 
-export async function getAttachmentsByTaskId(db, subTaskId) {
-    const q = query(collection(db, 'Attachments'), where('subtask_id', '==', subTaskId));
+export async function getAttachmentsByTaskId(db, subTaskID) {
+    const q = query(collection(db, 'Attachments'), where('subtask_id', '==', subTaskID));
     const snap = await getDocs(q);
     return snap.docs.map(docSnap => ({
         id: docSnap.id,

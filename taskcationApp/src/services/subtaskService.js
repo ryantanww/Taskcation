@@ -67,12 +67,12 @@ export async function createSubTask(db, subtaskData) {
     return docRef.id;
 }
 
-export async function getSubTaskById(db, subTaskId) {
-    const snap = await getDoc(doc(db, 'SubTasks', subTaskId));
+export async function getSubTaskById(db, subTaskID) {
+    const snap = await getDoc(doc(db, 'SubTasks', subTaskID));
     return snap.exists() ? snap.data() : null;
 }
 
-export async function updateSubTask(db, subTaskId, updatedData) {
+export async function updateSubTask(db, subTaskID, updatedData) {
 
     if (updatedData.subtask_name !== undefined) {
         if (
@@ -115,12 +115,12 @@ export async function updateSubTask(db, subTaskId, updatedData) {
         throw new Error('attachments must be an array of strings if provided.');
     }
 
-    await updateDoc(doc(db, 'SubTasks', subTaskId), {
+    await updateDoc(doc(db, 'SubTasks', subTaskID), {
         ...updatedData,
         updated_at: serverTimestamp(),
     });
 }
 
-export async function deleteSubTask(db, subTaskId) {
-    await deleteDoc(doc(db, 'SubTasks', subTaskId));
+export async function deleteSubTask(db, subTaskID) {
+    await deleteDoc(doc(db, 'SubTasks', subTaskID));
 }

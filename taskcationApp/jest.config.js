@@ -2,23 +2,36 @@
 module.exports = async () => {
     return {
         verbose: true,
-        projects: [
-            {
-                preset: "jest-expo/ios"
-            },
-            {
-                preset: "jest-expo/android"
-            }
+        roots: ['<rootDir>', '<rootDir>/src'],
+        setupFilesAfterEnv: [
+            '@testing-library/jest-native/extend-expect',
+            '<rootDir>/jest.setup.js',
         ],
-        setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
-        roots: ['<rootDir>'],
-        moduleFileExtensions: ["js"],
+        moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
         transform: {
             '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { rootMode: 'upward' }],
         },
-        transformIgnorePatterns: [
-            "node_modules/(?!(@react-native|jest-)?@react-native|react-native|react-native-payfort-sdk|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
-        ]
-
+        projects: [
+            {
+                preset: "jest-expo/ios",
+                transformIgnorePatterns: [
+                    "node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)"
+                ],
+                setupFilesAfterEnv: [
+                    '@testing-library/jest-native/extend-expect',
+                    '<rootDir>/jest.setup.js',
+                ],
+            },
+            {
+                preset: "jest-expo/android",
+                transformIgnorePatterns: [
+                    "node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)"
+                ],
+                setupFilesAfterEnv: [
+                    '@testing-library/jest-native/extend-expect',
+                    '<rootDir>/jest.setup.js',
+                ],
+            }
+        ],
     };
 };
