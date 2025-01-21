@@ -10,7 +10,6 @@ import {
     StyleSheet,
     Image
 } from "react-native";
-import { CheckBox } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from "expo-document-picker";
@@ -29,22 +28,9 @@ const AddTaskScreen = () => {
     const [taskNotes, setTaskNotes] = useState('');
     const [selectedGroup, setSelectedGroup] = useState('');
     const [selectedPriority, setSelectedPriority] = useState('');
+    const [attachments, setAttachments] = useState([]);
 
 
-    const handleAdd = () => {
-        // On Press "Add" - do something
-        // e.g., call createTask, navigate back, etc.
-        console.log('Task added:', {
-            taskName,
-            startDate,
-            startTime,
-            endDate,
-            endTime,
-            taskNotes,
-            selectedGroup,
-            selectedPriority,
-        });
-    };
 }
 
 export default AddTaskScreen;

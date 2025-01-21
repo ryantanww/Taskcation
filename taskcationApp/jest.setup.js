@@ -23,6 +23,12 @@ jest.mock('./src/services/userService', () => ({
     createUser: jest.fn(),
 }));
 
+jest.mock('./src/services/groupsService', () => ({
+    createGroup: jest.fn(),
+    getGroupsByCreator: jest.fn().mockResolvedValue([]), 
+    
+}));
+
 jest.mock('./src/services/taskService', () => ({
     getTasksByCreator: jest.fn().mockResolvedValue([]), 
     updateTask: jest.fn().mockResolvedValue(undefined),

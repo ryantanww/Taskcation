@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen'; // Adjust the path as needed
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createUser } from '../services/userService';
 import { getTasksByCreator } from '../services/taskService';
+import { createGroup, getGroupsByCreator } from '../services/groupsService';
 
 // Array of mocked tasks 
 const mockTasks = [
@@ -12,99 +13,23 @@ const mockTasks = [
     { id: '2', task_name: 'Task 2', status: true, end_date: '2025-01-21T01:20:30Z' },
 ];
 
+const mockGroups = [
+    { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123' },
+    { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123' },
+];
+
 describe('HomeScreen', () => {
 
     // Clear all mocks including AsyncStorage and getTaskByCreator before each test
     beforeEach(() => {
         AsyncStorage.getItem.mockClear();
+        createGroup.mockClear();
+        getGroupsByCreator.mockClear();
         getTasksByCreator.mockClear();
         jest.clearAllMocks();
     });
 
-    // Tests whether the loading state is rendered correctly
-    it('should render loading state', () => {
-        // Renders the HomeScreen component
-        const { getByText } = render(<HomeScreen />);
-
-        // Verify the 'Loading tasks...' is displayed
-        expect(getByText('Loading tasks...')).toBeTruthy();
-    });
-
-    // Test to handle error when user initialisation fails
-    it('should display an error message when initialising the user fails', async () => {
-        // Simulate the AsyncStorage error
-        AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage Error'));
-
-        // Renders the HomeScreen component
-        const { getByText } = render(<HomeScreen />);
-
-        await waitFor(() => {
-            // Verify that the error message is shown
-            expect(getByText('Failed to initialise user!')).toBeTruthy();
-        });
-    });
-
-    // Test to handle when creating a user fails
-    it('should display an error message when creating a user fails', async () => {
-        // Simulate no stored user ID
-        AsyncStorage.getItem.mockResolvedValueOnce(null);
-
-        // Simulate user creation error
-        createUser.mockRejectedValueOnce(new Error('Create User Error'));
-
-        // Renders the HomeScreen component
-        const { getByText } = render(<HomeScreen />);
-
-        await waitFor(() => {
-            // Verify that the error message is shown
-            expect(getByText('Failed to initialise user!')).toBeTruthy();
-        });
-    });
-
-    // Test to handle error when fetching tasks fails
-    it('should display an error message when fetching tasks fails', async () => {
-        // Mock stored user ID
-        AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
-        // Simulate task fetching error
-        getTasksByCreator.mockRejectedValueOnce(new Error('Fetch Tasks Error'));
-
-        // Renders the HomeScreen component
-        const { getByText } = render(<HomeScreen />);
-
-        await waitFor(() => {
-            // Verify that the error message is shown
-            expect(getByText('Failed to fetch tasks!')).toBeTruthy();
-        });
-    });
-
-    // Test to handle error when updating task status fails
-    it('should display an error message when updating task status fails', async () => {
-        // Mock stored user ID
-        AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
-        // Mock tasks
-        getTasksByCreator.mockResolvedValueOnce(mockTasks);
-
-        // Renders the HomeScreen component
-        const { getByTestId, getByText } = render(<HomeScreen />);
-
-        await waitFor(() => {
-            // Verify that Task 1 is displayed
-            expect(getByText('Task 1')).toBeTruthy();
-        });
-
-        // Mock update failure
-        jest.spyOn(require('../services/taskService'), 'updateTask').mockRejectedValueOnce(new Error('Update Task Error'));
-
-        // Select Task 1 checkbox
-        const checkbox = getByTestId(`checkbox-${mockTasks[0].id}`);
-        // Simulate checkbox press
-        fireEvent.press(checkbox);
-
-        await waitFor(() => {
-            // Verify that the error message is shown
-            expect(getByText('Failed to update task status!')).toBeTruthy();
-        });
-    });
+    /** Function testing */
     
     // Test to check if user ID is stored inn AsyncStorage
     it('should store user ID in AsyncStorage', async () => {
@@ -114,6 +39,38 @@ describe('HomeScreen', () => {
         const userId = await AsyncStorage.getItem('user_id');
         // Verify that the user ID is correctly stored
         expect(userId).toBe('temp_user_123');
+    });
+
+    // Test to create default groups when no groups exist
+    it('should create default groups when no groups exist', async () => {
+        AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
+        getGroupsByCreator.mockResolvedValueOnce([]);
+        const { getByText } = render(<HomeScreen />);
+        await waitFor(() => {
+            expect(createGroup).toHaveBeenCalledTimes(2);
+            expect(createGroup).toHaveBeenCalledWith(expect.anything(), {
+                group_name: 'Math',
+                group_type: 'Subjects',
+                grade_id: 'N/A',
+                created_by: 'temp_user_123',
+            });
+            expect(createGroup).toHaveBeenCalledWith(expect.anything(), {
+                group_name: 'General',
+                group_type: 'Categories',
+                grade_id: 'N/A',
+                created_by: 'temp_user_123',
+            });
+        });
+    });
+
+    // Test to ensure groups are not created if they already exist
+    it('should not create default groups if groups already exist', async () => {
+        AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+        const { getByText } = render(<HomeScreen />);
+        await waitFor(() => {
+            expect(createGroup).not.toHaveBeenCalled();
+        });
     });
 
     // Test to verify empty state message when there no tasks exist
@@ -233,6 +190,113 @@ describe('HomeScreen', () => {
         // Verify if strike through is displayed
         expect(strikeThrough).toBeTruthy();
     });
+
+        /** Loading and Error state testing */
+
+        // Tests whether the loading state is rendered correctly
+        it('should render loading state', () => {
+            // Renders the HomeScreen component
+            const { getByText } = render(<HomeScreen />);
+    
+            // Verify the 'Loading tasks...' is displayed
+            expect(getByText('Loading tasks...')).toBeTruthy();
+        });
+    
+        // Test to handle error when user initialisation fails
+        it('should display an error message when initialising the user fails', async () => {
+            // Simulate the AsyncStorage error
+            AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage Error'));
+    
+            // Renders the HomeScreen component
+            const { getByText } = render(<HomeScreen />);
+    
+            await waitFor(() => {
+                // Verify that the error message is shown
+                expect(getByText('Failed to initialise user!')).toBeTruthy();
+            });
+        });
+    
+        // Test to handle when creating a user fails
+        it('should display an error message when creating a user fails', async () => {
+            // Simulate no stored user ID
+            AsyncStorage.getItem.mockResolvedValueOnce(null);
+    
+            // Simulate user creation error
+            createUser.mockRejectedValueOnce(new Error('Create User Error'));
+    
+            // Renders the HomeScreen component
+            const { getByText } = render(<HomeScreen />);
+    
+            await waitFor(() => {
+                // Verify that the error message is shown
+                expect(getByText('Failed to initialise user!')).toBeTruthy();
+            });
+        });
+    
+        // Test to handle error when fetching tasks fails
+        it('should display an error message when fetching tasks fails', async () => {
+            // Mock stored user ID
+            AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
+            // Simulate task fetching error
+            getTasksByCreator.mockRejectedValueOnce(new Error('Fetch Tasks Error'));
+    
+            // Renders the HomeScreen component
+            const { getByText } = render(<HomeScreen />);
+    
+            await waitFor(() => {
+                // Verify that the error message is shown
+                expect(getByText('Failed to fetch tasks!')).toBeTruthy();
+            });
+        });
+    
+        // Test to handle error when updating task status fails
+        it('should display an error message when updating task status fails', async () => {
+            // Mock stored user ID
+            AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
+            // Mock tasks
+            getTasksByCreator.mockResolvedValueOnce(mockTasks);
+    
+            // Renders the HomeScreen component
+            const { getByTestId, getByText } = render(<HomeScreen />);
+    
+            await waitFor(() => {
+                // Verify that Task 1 is displayed
+                expect(getByText('Task 1')).toBeTruthy();
+            });
+    
+            // Mock update failure
+            jest.spyOn(require('../services/taskService'), 'updateTask').mockRejectedValueOnce(new Error('Update Task Error'));
+    
+            // Select Task 1 checkbox
+            const checkbox = getByTestId(`checkbox-${mockTasks[0].id}`);
+            // Simulate checkbox press
+            fireEvent.press(checkbox);
+    
+            await waitFor(() => {
+                // Verify that the error message is shown
+                expect(getByText('Failed to update task status!')).toBeTruthy();
+            });
+        });
+    
+        // Test to handle error when initializing groups fails
+        it('should display an error message when initializing groups fails', async () => {
+            // Simulate setting user ID
+            AsyncStorage.getItem.mockResolvedValueOnce('temp_user_123');
+    
+            // Simulate group creation error
+            getGroupsByCreator.mockRejectedValueOnce(new Error('Group Initialization Error'));
+    
+            // Renders the HomeScreen component
+            const { getByText } = render(<HomeScreen />);
+            
+            await waitFor(() => {
+                // Verify that the error message is shown
+                expect(getByText('Failed to initialise groups!')).toBeTruthy();
+            });
+        });
+
+
+    /** Snapshot testing */
 
     // Snapshot test for empty state
     it('should match snapshot for no tasks', async () => {

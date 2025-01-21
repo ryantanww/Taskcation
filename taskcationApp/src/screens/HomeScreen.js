@@ -1,4 +1,3 @@
-
 // Import dependencies and libraries used in Home Screen
 import React, { useEffect, useState } from 'react';
 import {
@@ -17,6 +16,8 @@ import { db } from '../../firebaseConfig';
 import { createUser } from '../services/userService';
 
 import { getTasksByCreator } from '../services/taskService';
+
+import { createGroup, getGroupsByCreator } from '../services/groupService'; 
 
 const HomeScreen = () => {
     // State to store user ID
@@ -58,15 +59,16 @@ const HomeScreen = () => {
                 // Initialise user
                 await initialiseUser();
 
-                // If userID exists, fetch the tasks linked to the user
+                // If userID exists, initialise group and fetch tasks
                 if (userID) {
+                    await initialiseGroup(userID);
                     await fetchTasks(userID);
                 }
             } catch (error) {
                 // Set error if initialising user and fetching tasks fails
-                setError('Failed to initialise user and fetch tasks!');
+                setError('Failed to initialise user, group or fetch tasks!');
             } finally {
-                // Set loading to false once the user and tasks is fetched
+                // Set loading to false once the user, group and tasks are fetched
                 setLoading(false);
             }
         }
@@ -108,8 +110,37 @@ const HomeScreen = () => {
         } catch (err) {
             // Log any errors when initialising the user
             console.error('Error initialising user:', err);
-            // Set error if initialising user
+            // Set error if initialising user fails
             setError('Failed to initialise user!');
+        }
+    }
+
+    // Function to initialise a default group if no groups exist
+    async function initialiseGroup(userID) {
+        try {
+            // Fetch groups created by the user
+            const userGroups = await getGroupsByCreator(db, userID);
+
+            // If no groups exist, create a default category and subject
+            if (userGroups.length === 0) {
+                await createGroup(db, {
+                    group_name: 'Math',
+                    group_type: 'Subjects',
+                    grade_id: 'N/A',
+                    created_by: userID,
+                });
+                await createGroup(db, {
+                    group_name: 'General',
+                    group_type: 'Categories',
+                    grade_id: 'N/A',
+                    created_by: userID,
+                });
+            }
+        } catch (err) {
+            // Log any errors when initialising the group
+            console.error('Error initialising groups:', err);
+            // Set error if initialising groups fails
+            setError('Failed to initialise groups!');
         }
     }
 
