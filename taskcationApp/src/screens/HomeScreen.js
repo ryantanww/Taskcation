@@ -78,6 +78,7 @@ const HomeScreen = () => {
     useEffect(() => {
         (async () => {
             try {
+                // Set loading state to true
                 setLoading(true);
                 // Retrieve the user ID and joined date from AsyncStorage
                 let storedUserId = await AsyncStorage.getItem('user_id');

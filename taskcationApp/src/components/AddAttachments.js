@@ -36,7 +36,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
     // Ref for managing the timer interval
     const intervalRef = useRef(null);
 
-    // Function to format the dates into dd/mm/yyyy format
+    // Function to format the dates into dd/mm/yyyy HH:MM:SS format
     const formatDate = (date) => {
         const formattedDate = new Date(date).toLocaleDateString('en-GB', 
         {

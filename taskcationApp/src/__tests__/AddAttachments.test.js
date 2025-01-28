@@ -530,6 +530,11 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
     
+        // Verify that the 'Insert Attachment' is displayed
+        expect(getByText('Insert Attachment')).toBeTruthy();
+        // Press the 'Insert Attachment' button
+        fireEvent.press(getByText('Insert Attachment'));
+        
         // Verify that the 'Audio' option is displayed
         expect(getByText('Audio')).toBeTruthy();
         // Press the 'Audio' option

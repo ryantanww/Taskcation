@@ -1,3 +1,4 @@
+// Import dependencies and libraries used in Add Task Screen
 import React, { useEffect, useState } from 'react';
 import {
     Text,
@@ -16,7 +17,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AddAttachments from '../components/AddAttachments';
 import ViewAttachments from '../components/ViewAttachments';
-
 import { createTask } from '../services/taskService';
 import { getGroupsByCreator } from '../services/groupsService';
 import { getAllPriorities } from '../services/priorityLevelsService';
@@ -25,58 +25,84 @@ import { db } from '../../firebaseConfig';
 
 
 const AddTaskScreen = () => {
+    // Access the navigation object
     const navigation = useNavigation();
 
+    // State to store user ID
     const [userID, setUserID] = useState(null);
 
-    // State
+    // State for storing the task name 
     const [taskName, setTaskName] = useState('');
+    
+    // State for storing the task start date 
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);  
+
+    // State for storing the task end date 
+    const [endDate, setEndDate] = useState(null);
+
+    // State for storing the task notes 
     const [taskNotes, setTaskNotes] = useState('');
+
+    // State for storing the task group 
     const [selectedGroup, setSelectedGroup] = useState('');
+
+    // State for storing the task priority
     const [selectedPriority, setSelectedPriority] = useState('');
+
+    // State for storing the attachments
     const [attachments, setAttachments] = useState([]);
 
+    // State for date pickers visibility
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showStartTimePicker, setShowStartTimePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
     const [showEndTimePicker, setShowEndTimePicker] = useState(false);
 
+    // State for storing groups from database
     const [groups, setGroups] = useState([]);
+    // State for storing priorities from database
     const [priorities, setPriorities] = useState([]);
 
-    // Dropdown state
+    // State for dropdown visibilities
     const [groupOpen, setGroupOpen] = useState(false);
     const [priorityOpen, setPriorityOpen] = useState(false);
 
+    // useEffect to initialise user and fetch groups and priorities on component mount
     useEffect(() => {
         const initialise = async () => {
             try {
-                // Fetch user ID from AsyncStorage
+                // Retrieve the user ID from AsyncStorage
                 const storedUserID = await AsyncStorage.getItem('user_id');
+                // Set user ID in state
                 setUserID(storedUserID);
 
-                // Fetch groups and priorities
+                // Fetch user's groups from the database
                 const userGroups = await getGroupsByCreator(db, storedUserID);
+                // Map groups to dropdown format
                 setGroups(userGroups.map(group => ({ label: group.group_name, value: group.id })));
 
+                // Fetch all priorities from the database
                 const allPriorities = await getAllPriorities(db);
+                // Sort the priority in their order
                 const orderedPriorities = allPriorities.sort((a, b) => {
                     const priorityOrder = ['Urgent', 'High', 'Medium', 'Low', 'N/A'];
                     return priorityOrder.indexOf(a.priority_name) - priorityOrder.indexOf(b.priority_name);
                 });
+                // Map priorities to dropdown format
                 setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
             } catch (error) {
-                console.error('Error initialising AddTaskScreen:', error);
-                Alert.alert('Error', 'Failed to initialise the screen.');
+                // Log any errors when initialising user, groups and priorities
+                console.error('Initialisation error:', error);
+                // Set error if initialising fails
+                Alert.alert('Initialising Error', 'Failed to initialise the screen.');
             }
         }
 
+        // Initialise the screen data
         initialise();
 
+        // Reset all input fields when navigating away from the screen
         const resetStates = navigation.addListener('blur', () => {
-            // Reset all states when the screen loses focus
             setTaskName('');
             setStartDate(new Date());
             setEndDate(null);
@@ -86,33 +112,41 @@ const AddTaskScreen = () => {
             setAttachments([]);
         });
     
+        // Reset all states on component unmount
         return resetStates;
     }, [navigation]);
     
 
-    // Handling date/time pickers
+    // Function to handle start date change when picking start date
     const handleStartDateChange = (event, date) => {
+        // Hide the start date picker
         setShowStartDatePicker(false);
         if (date) {
+            // Update the start date
             setStartDate(date);
         }
     };
 
+    // Function to handle start time change when picking start time
     const handleStartTimeChange = (event, time) => {
+        // Hide the start time picker
         setShowStartTimePicker(false);
         if (time) {
             const updatedDate = new Date(startDate);
             updatedDate.setHours(time.getHours(), time.getMinutes());
+            // Update the start time
             setStartDate(updatedDate);
         }
     };
 
+    // Function to handle end date change when picking end date
     const handleEndDateChange = (event, date) => {
+        // Hide the end date picker
         setShowEndDatePicker(false);
         if (date) {
+            // Update the end date
             setEndDate((prevEndDate) => {
                 const newDate = new Date(date);
-                // If the user had already chosen a time, preserve it:
                 if (prevEndDate) {
                     const hours = prevEndDate.getHours();
                     const minutes = prevEndDate.getMinutes();
@@ -121,16 +155,16 @@ const AddTaskScreen = () => {
                 return newDate;
             });
         }
-
     };
     
+    // Function to handle end time change when picking end time
     const handleEndTimeChange = (event, time) => {
+        // Hide the end time picker
         setShowEndTimePicker(false);
         if (time) {
-            // If endDate was previously set, use that as the base.
-            // If endDate is still null, then fallback to startDate.
             const updatedDate = endDate ? new Date(endDate) : new Date(startDate);
             updatedDate.setHours(time.getHours(), time.getMinutes());
+            // Update the end time
             setEndDate(updatedDate);
         }
     };
@@ -145,6 +179,8 @@ const AddTaskScreen = () => {
         });
         return formattedDate;
     }
+
+    // Function to format the time into HH::MM
     const formatTime = (time) => {
         const formattedTime = new Date(time).toLocaleTimeString('en-GB', {
             hour: '2-digit',
@@ -153,42 +189,53 @@ const AddTaskScreen = () => {
         return formattedTime;
     };
 
+    // Function to calculate the duration in milliseconds between the start date and end date
     const calculateDuration = (start, end) => {
         const startTime = new Date(start).getTime();
         const endTime = new Date(end).getTime();
         return endTime - startTime;
     };
 
+    // Function to handle updating the list of attachments
     const handleAttachmentsChange = (newAttachments) => {
         setAttachments(newAttachments);
     };
 
-
+    // Function to handle adding task and attachment into database
     const handleAddTask = async () => {
+        // Validate if task name is entered
         if (!taskName) {
+            // Alert error when task name is not entered
             Alert.alert('Incomplete Task', 'Please enter the Task Name.');
             return;
         }
 
+        // Validate if task end date is selected
         if (!endDate) {
+            // Alert error when task end date is not selected
             Alert.alert('Incomplete Task', 'Please select an End Date and Time.');
             return;
         }
 
+        // Validate if task end date is after or equal to task start date
         if (endDate <= startDate) {
+            // Alert error when task end date is after or equal to task start date
             Alert.alert('Invalid Date', 'End Date must be on or after the Start Date.');
             return;
         }
 
+        // Validate if task group is selected
         if (!selectedGroup) {
+            // Alert error when task group is not selected
             Alert.alert('Incomplete Task', 'Please select a Group.');
             return;
         }
 
+        // Calculate the task duration
         const duration = calculateDuration(startDate, endDate);
-        console.log("duration:", duration);
 
         try {
+            // Create a new tasks with the provided details and store it in the database
             const taskID = await createTask(db, {
                 task_name: taskName,
                 created_by: userID,
@@ -202,8 +249,7 @@ const AddTaskScreen = () => {
                 attachments: [],
             });
 
-            console.log('Task created with ID:', taskID);
-
+            // If there are attachments, store them to the database
             if (attachments.length > 0) {
                 const attachmentPromises = attachments.map((attachment) =>
                     createAttachment(db, {
@@ -215,11 +261,11 @@ const AddTaskScreen = () => {
                         durationMillis: attachment.durationMillis || null,
                     })
                 );
-
+                // Wait for all attachments to be stored
                 await Promise.all(attachmentPromises);
             }
             
-            // **Clear the form before navigating back**
+            // Reset all input fields after task creation is successful
             setTaskName('');
             setStartDate(new Date());
             setEndDate(null);
@@ -228,15 +274,19 @@ const AddTaskScreen = () => {
             setSelectedPriority('');
             setAttachments([]);
 
+            // Alert success when task is created successfully
             Alert.alert('Success', 'Task created successfully!');
+            // Navigate back to the previous screen
             navigation.goBack();
         } catch (error) {
+            // Log any errors when creating task or attachments
             console.log('Error creating task or attachments:', error);
-            Alert.alert('Error', 'Failed to create the task or attachments.');
+            // Alert error for task or attachments creation 
+            Alert.alert('Task Creation Error', 'Failed to create the task or attachments.');
         }
     };
 
-    // Delete attachment handler
+    // Function to handle deleting attachment from the list
     const handleDeleteAttachment = (attachment) => {
         setAttachments((prev) =>
             prev.filter((item) => item.uri !== attachment.uri)
@@ -251,13 +301,11 @@ const AddTaskScreen = () => {
                     <Ionicons name='arrow-back' size={24} color='#FFFFFF' />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Add Task</Text>
-
             </View>
             
-            <TouchableWithoutFeedback onPress={() => { setGroupOpen(false); setPriorityOpen(false);} }
-            >
+            {/* TouchableWithoutFeedback to allow pressing outside of the dropdowns to close the dropdowns */}
+            <TouchableWithoutFeedback onPress={() => { setGroupOpen(false); setPriorityOpen(false); }}>
                 <View style={styles.contentContainer}>
-
                     {/* Task Name */}
                     <TextInput
                         style={styles.textInput}
@@ -267,17 +315,19 @@ const AddTaskScreen = () => {
                         onChangeText={setTaskName}
                     />
 
-                    {/* Row for Start date/time */}
+                    {/* Row for start date and time*/}
                     <View style={styles.dateTimeRow}>
+                        {/* Start date button */}
                         <TouchableOpacity style={[styles.dateTimeButton]} onPress={() => setShowStartDatePicker(true)}>
                             <Text style={styles.text}>{formatDate(startDate)}</Text>
                         </TouchableOpacity>
-                        
+                        {/* Start time button */}
                         <TouchableOpacity style={[styles.dateTimeButton]} onPress={() => setShowStartTimePicker(true)}>
                             <Text style={styles.text}>{formatTime(startDate)}</Text>
                         </TouchableOpacity>
-                        
                     </View>
+
+                    {/* Conditional rendering of the start date and time pickers */}
                     {showStartDatePicker && (
                         <DateTimePicker
                             testID="startDatePicker"
@@ -297,39 +347,37 @@ const AddTaskScreen = () => {
                         />
                     )}
 
-
-                    {/* Row for End date/time */}
+                    {/* Row for end date and time */}
                     <View style={styles.dateTimeRow}>
-                    <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
-                        <Text style={!endDate ? styles.placeholderText : styles.text}>
-                            { !endDate ? 'End Date' : formatDate(endDate) }
-                        </Text>
-                    </TouchableOpacity>
-
+                        {/* End date button */}
+                        <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Date' : formatDate(endDate) }</Text>
+                        </TouchableOpacity>
+                        {/* End time button */}
                         <TouchableOpacity onPress={() => setShowEndTimePicker(true)}>
-                        <Text style={!endDate ? styles.placeholderText : styles.text}>
-                            { !endDate ? 'End Time' : formatTime(endDate) }
-                        </Text>
+                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Time' : formatTime(endDate) }</Text>
                         </TouchableOpacity>
                     </View>
-                    {showEndDatePicker && (
-                        <DateTimePicker
-                            testID="endDatePicker"
-                            value={endDate || startDate}
-                            mode='date'
-                            display='default'
-                            onChange={handleEndDateChange}
-                        />
-                    )}
-                    {showEndTimePicker && (
-                        <DateTimePicker
-                            testID="endTimePicker"
-                            value={endDate || startDate}
-                            mode='time'
-                            display='spinner'
-                            onChange={handleEndTimeChange}
-                        />
-                    )}
+
+                        {/* Conditional rendering of the end date and time pickers */}
+                        {showEndDatePicker && (
+                            <DateTimePicker
+                                testID="endDatePicker"
+                                value={endDate || startDate}
+                                mode='date'
+                                display='default'
+                                onChange={handleEndDateChange}
+                            />
+                        )}
+                        {showEndTimePicker && (
+                            <DateTimePicker
+                                testID="endTimePicker"
+                                value={endDate || startDate}
+                                mode='time'
+                                display='spinner'
+                                onChange={handleEndTimeChange}
+                            />
+                        )}
 
                     {/* Task Notes */}
                     <TextInput
@@ -392,20 +440,16 @@ const AddTaskScreen = () => {
                         />
                     </View>
 
-                    {/* Attachment */}
+                    {/* Attachments */}
                     <View style={styles.attachmentContainer}>
+                        {/* Add Attachments Component */}
                         <AddAttachments attachments={attachments} onAttachmentsChange={handleAttachmentsChange} testID="insert-attachment-button"/>
-                        <ViewAttachments
-                            attachments={attachments}
-                            onDeleteAttachment={handleDeleteAttachment}
-                        />
+                        {/* View Attachments Component */}
+                        <ViewAttachments attachments={attachments} onDeleteAttachment={handleDeleteAttachment}/>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
             
-
-            
-
             {/* Add Button */}
             <View style={styles.addButtonContainer}>
                 <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
@@ -418,19 +462,23 @@ const AddTaskScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    // Style for the container
     container: {
         flex: 1,
         backgroundColor: '#F5F5DC',
     },
+    // Style for the contentContainer
     contentContainer: {
         flex: 1,
     },
+    // Style for the header
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#8B4513',
         padding: 16,
     },
+    // Style for the headerTitle
     headerTitle: {
         flex: 1,
         fontSize: 32,
@@ -438,6 +486,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
     },
+    // Style for the textInput
     textInput: {
         borderWidth: 2,
         borderColor: '#8B4513',
@@ -451,10 +500,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
     },
+    // Style for the notesInput
     notesInput: {
         height: 100,
         textAlignVertical: 'top',
     },
+    // Style for the dateTimeRow
     dateTimeRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -467,25 +518,30 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: '#FFF8DC',
     },
+    // Style for the text
     text: {
         color: '#8B4513',
         fontSize: 20,
         fontWeight: '500',
     },
+    // Style for the placeholderText
     placeholderText: {
         color: '#A5734D',
         fontSize: 20,
         fontWeight: '500',
     },
+    // Style for the pickerContainer
     pickerContainer: {
         marginHorizontal: 16,
         marginTop: 12,
     },
+    // Style for the dropdownContainer
     dropdownContainer: {
         borderWidth: 2,
         borderColor: '#8B4513',
         backgroundColor: '#FFF8DC',
     },
+    // Style for the dropdown
     dropdown: {
         borderWidth: 2,
         borderColor: '#8B4513',
@@ -494,17 +550,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: '#FFF8DC',
     },
+    // Style for the attachmentContainer
     attachmentContainer: {
         flex: 1,
         marginHorizontal: 16,
         marginTop: 12,
     },
+    // Style for the addButtonContainer
     addButtonContainer: {
         alignItems: 'center',
         marginBottom: 10,
         padding: 10,
         backgroundColor: '#F5F5DC',
     },
+    // Style for the addButton
     addButton: {
         backgroundColor: '#8B4513',
         paddingVertical: 12,
@@ -513,6 +572,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
+    // Style for the addButtonText
     addButtonText: {
         fontWeight: '800',
         color: '#FFFFFF',
