@@ -23,7 +23,7 @@ export async function createTimeRecord(db, data) {
     return docRef.id;
 }
 
-export async function getTimeRecordById(db, timeID) {
+export async function getTimeRecordByID(db, timeID) {
     const docSnap = await getDoc(doc(db, 'TimeTracking', timeID));
     return docSnap.exists() ? docSnap.data() : null;
 }

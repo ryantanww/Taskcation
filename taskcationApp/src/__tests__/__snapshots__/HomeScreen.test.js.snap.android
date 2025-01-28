@@ -31,8 +31,9 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
       style={
         {
           "color": "#FFFFFF",
-          "fontSize": 24,
-          "fontWeight": "bold",
+          "fontSize": 32,
+          "fontWeight": "800",
+          "textAlign": "center",
         }
       }
     >
@@ -50,44 +51,43 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
     <Text
       style={
         {
-          "color": "#5A3311",
+          "color": "#8B4513",
           "fontSize": 28,
-          "fontWeight": "bold",
+          "fontWeight": "700",
         }
       }
     >
       Upcoming
     </Text>
   </View>
-  <View>
-    <View
+  <View
+    style={
+      {
+        "paddingHorizontal": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <Text
       style={
         {
-          "paddingHorizontal": 16,
-          "paddingTop": 16,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
         }
       }
     >
-      <Text
-        style={
-          {
-            "color": "#5A3311",
-            "fontSize": 18,
-          }
+      20/01/2025
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#8B4513",
+          "height": 2,
+          "marginVertical": 8,
         }
-      >
-        01/01/1970
-      </Text>
-      <View
-        style={
-          {
-            "backgroundColor": "#5A3311",
-            "height": 2,
-            "marginVertical": 8,
-          }
-        }
-      />
-    </View>
+      }
+    />
     <View
       style={
         [
@@ -98,22 +98,26 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
             "borderRadius": 8,
             "borderWidth": 2,
             "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 16,
-            "marginTop": 16,
-            "padding": 10,
+            "justifyContent": "center",
+            "marginTop": 6,
+            "paddingHorizontal": 10,
+            "paddingVertical": 12,
           },
           false,
         ]
       }
     >
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={1}
         style={
           [
             {
-              "color": "#5A3311",
+              "color": "#8B4513",
               "flex": 1,
-              "fontSize": 18,
+              "fontSize": 20,
+              "fontWeight": "500",
+              "overflow": "hidden",
             },
             false,
           ]
@@ -163,7 +167,7 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
             [
               {
                 "color": "#8B4513",
-                "fontSize": 24,
+                "fontSize": 28,
               },
               undefined,
               {
@@ -214,8 +218,9 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
       style={
         {
           "color": "#FFFFFF",
-          "fontSize": 24,
-          "fontWeight": "bold",
+          "fontSize": 32,
+          "fontWeight": "800",
+          "textAlign": "center",
         }
       }
     >
@@ -233,9 +238,9 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     <Text
       style={
         {
-          "color": "#5A3311",
+          "color": "#8B4513",
           "fontSize": 28,
-          "fontWeight": "bold",
+          "fontWeight": "700",
         }
       }
     >
@@ -253,8 +258,9 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     <Text
       style={
         {
-          "color": "#5A3311",
-          "fontSize": 18,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
         }
       }
     >
@@ -263,7 +269,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     <View
       style={
         {
-          "backgroundColor": "#5A3311",
+          "backgroundColor": "#8B4513",
           "height": 2,
           "marginVertical": 8,
         }
@@ -279,38 +285,28 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
             "borderRadius": 8,
             "borderWidth": 2,
             "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 16,
-            "marginTop": 16,
-            "padding": 10,
+            "justifyContent": "center",
+            "marginTop": 6,
+            "paddingHorizontal": 10,
+            "paddingVertical": 12,
           },
-          {
-            "backgroundColor": "#8B4513",
-          },
+          false,
         ]
       }
     >
-      <View
-        style={
-          {
-            "backgroundColor": "#FFFFFF",
-            "height": 2,
-            "left": 5,
-            "position": "absolute",
-            "top": "90%",
-            "width": "95%",
-            "zIndex": 0,
-          }
-        }
-        testID="strikeThrough-1"
-      />
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={1}
         style={
           [
-            undefined,
             {
-              "color": "#FFFFFF",
+              "color": "#8B4513",
+              "flex": 1,
+              "fontSize": 20,
+              "fontWeight": "500",
+              "overflow": "hidden",
             },
+            false,
           ]
         }
       >
@@ -357,7 +353,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
           style={
             [
               {
-                "color": "#FFFFFF",
+                "color": "#8B4513",
                 "fontSize": 28,
               },
               undefined,
@@ -370,7 +366,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
             ]
           }
         >
-          
+          
         </Text>
       </View>
     </View>
@@ -386,8 +382,9 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     <Text
       style={
         {
-          "color": "#5A3311",
-          "fontSize": 18,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
         }
       }
     >
@@ -396,7 +393,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     <View
       style={
         {
-          "backgroundColor": "#5A3311",
+          "backgroundColor": "#8B4513",
           "height": 2,
           "marginVertical": 8,
         }
@@ -412,10 +409,10 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
             "borderRadius": 8,
             "borderWidth": 2,
             "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 16,
-            "marginTop": 16,
-            "padding": 10,
+            "justifyContent": "center",
+            "marginTop": 6,
+            "paddingHorizontal": 10,
+            "paddingVertical": 12,
           },
           {
             "backgroundColor": "#8B4513",
@@ -431,18 +428,30 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
             "left": 5,
             "position": "absolute",
             "top": "90%",
-            "width": "95%",
+            "width": "90%",
             "zIndex": 0,
           }
         }
         testID="strikeThrough-2"
       />
       <Text
+        ellipsizeMode="tail"
+        numberOfLines={1}
         style={
           [
-            undefined,
+            {
+              "color": "#8B4513",
+              "flex": 1,
+              "fontSize": 20,
+              "fontWeight": "500",
+              "overflow": "hidden",
+            },
             {
               "color": "#FFFFFF",
+              "flex": 1,
+              "fontSize": 20,
+              "fontWeight": "500",
+              "overflow": "hidden",
             },
           ]
         }

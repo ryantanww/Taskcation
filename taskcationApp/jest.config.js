@@ -13,9 +13,9 @@ module.exports = async () => {
         },
         projects: [
             {
-                preset: "jest-expo/ios",
+                preset: 'jest-expo/ios',
                 transformIgnorePatterns: [
-                    "node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)"
+                    'node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-dropdown-picker|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-intent-launcher|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)'
                 ],
                 setupFilesAfterEnv: [
                     '@testing-library/jest-native/extend-expect',
@@ -23,9 +23,9 @@ module.exports = async () => {
                 ],
             },
             {
-                preset: "jest-expo/android",
+                preset: 'jest-expo/android',
                 transformIgnorePatterns: [
-                    "node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)"
+                    'node_modules/(?!(@react-native|react-native|@react-native-community|@react-navigation|react-native-elements|react-native-size-matters|react-native-dropdown-picker|react-native-ratings|expo-constants|expo-web-browser|expo-asset|expo-font|expo-location|expo-intent-launcher|expo-file-system|expo-av|expo-document-picker|expo-image-picker|expo-modules-core|@expo-modules|expo(nent)?|@expo(nent)?/.*|@unimodules|unimodules|sentry-expo|native-base|react-navigation|@firebase|firebase)/)'
                 ],
                 setupFilesAfterEnv: [
                     '@testing-library/jest-native/extend-expect',

@@ -18,7 +18,7 @@ export async function createGroup(db, groupData) {
         throw new Error('created_by user doc ID is required (string)');
     }
 
-    const groupTypes = ['Categories', 'Subject'];
+    const groupTypes = ['Categories', 'Subjects'];
     if (!groupData.group_type || !groupTypes.includes(groupData.group_type)) {
         throw new Error(`Invalid group_type. Must be one of: ${groupTypes.join(', ')}`);
     }
@@ -35,7 +35,7 @@ export async function createGroup(db, groupData) {
 }
 
 
-export async function getGroupById(db, groupID) {
+export async function getGroupByID(db, groupID) {
     const docSnap = await getDoc(doc(db, 'Groups', groupID));
     return docSnap.exists() ? docSnap.data() : null;
 }

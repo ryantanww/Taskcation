@@ -31,9 +31,7 @@ export async function createTask(db, taskData) {
     if (taskData.group_id === undefined || typeof taskData.group_id !== 'string') {
         throw new Error('group_id is required (string)');
     }
-    if (taskData.priority_id === undefined || typeof taskData.priority_id !== 'string') {
-        throw new Error('priority_id is required (string)');
-    }
+
     if (taskData.status === undefined || typeof taskData.status !== 'boolean') {
         throw new Error('status is required (boolean)');
     }
@@ -54,9 +52,9 @@ export async function createTask(db, taskData) {
         start_date: taskData.start_date,
         end_date: taskData.end_date,
         duration: taskData.duration,
-        task_notes: taskData.task_notes || null,
+        task_notes: taskData.task_notes || '',
         group_id: taskData.group_id,
-        priority_id: taskData.priority_id,
+        priority_id: taskData.priority_id || 'N/A',
         status: taskData.status,
         time: Array.isArray(taskData.time) ? taskData.time : [],
         attachments: Array.isArray(taskData.attachments) ? taskData.attachments : [],
@@ -69,7 +67,7 @@ export async function createTask(db, taskData) {
     return docRef.id;
 }
 
-export async function getTaskById(db, taskID) {
+export async function getTaskByID(db, taskID) {
     const snap = await getDoc(doc(db, 'Tasks', taskID));
     return snap.exists() ? snap.data() : null;
 }

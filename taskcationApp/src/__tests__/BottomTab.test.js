@@ -6,23 +6,23 @@ import BottomTab from '../components/BottomTab';
 
 // Mock the screens used in the BottomTab navigation with corresponding test ID
 jest.mock('../screens/HomeScreen', () => {
-    return jest.fn(() => <div testID="home-screen">Home</div>);
+    return jest.fn(() => <div testID='home-screen'>Home</div>);
 });
 
 jest.mock('../screens/GroupsScreen', () => {
-    return () => <div testID="groups-screen">Groups</div>;
+    return () => <div testID='groups-screen'>Groups</div>;
 });
 
 jest.mock('../screens/AddTaskScreen', () => {
-    return () => <div testID="add-task-screen">Add Task</div>;
+    return () => <div testID='add-task-screen'>Add Task</div>;
 });
 
 jest.mock('../screens/CalendarScreen', () => {
-    return () => <div testID="calendar-screen">Calendar</div>;
+    return () => <div testID='calendar-screen'>Calendar</div>;
 });
 
 jest.mock('../screens/TimerScreen', () => {
-    return () => <div testID="timer-screen">Timer</div>;
+    return () => <div testID='timer-screen'>Timer</div>;
 });
 
 describe('BottomTab', () => {
