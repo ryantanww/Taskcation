@@ -8,7 +8,7 @@ describe('<App />', () => {
     // Snapshot test for App
     it('should match snapshot of App', () => {
         // Renders the App component
-        const { toJSON } = render(<App />);
+        const { toJSON } = render( <App /> );
         // Verify snapshot matches
         expect(toJSON()).toMatchSnapshot();
     });

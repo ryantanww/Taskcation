@@ -20,7 +20,7 @@ export async function createCalendarEntry(db, dateID, data) {
     });
 }
 
-export async function getCalendarEntryByDateId(db, dateID) {
+export async function getCalendarEntryByDateID(db, dateID) {
     const docSnap = await getDoc(doc(db, 'Calendar', dateID));
     return docSnap.exists() ? docSnap.data() : null;
     }

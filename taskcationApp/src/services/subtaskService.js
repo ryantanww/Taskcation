@@ -67,7 +67,7 @@ export async function createSubTask(db, subtaskData) {
     return docRef.id;
 }
 
-export async function getSubTaskById(db, subTaskID) {
+export async function getSubTaskByID(db, subTaskID) {
     const snap = await getDoc(doc(db, 'SubTasks', subTaskID));
     return snap.exists() ? snap.data() : null;
 }

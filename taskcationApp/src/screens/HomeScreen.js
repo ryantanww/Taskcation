@@ -1,22 +1,20 @@
-
 // Import dependencies and libraries used in Home Screen
 import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
-    FlatList,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 import { db } from '../../firebaseConfig';
-
 import { createUser } from '../services/userService';
-
-import { getTasksByCreator } from '../services/taskService';
+import { getTasksByCreator, updateTask } from '../services/taskService';
+import { createGroup, getGroupsByCreator } from '../services/groupsService'; 
 
 const HomeScreen = () => {
     // State to store user ID
@@ -37,9 +35,37 @@ const HomeScreen = () => {
     // State for error messages if fetching data fails
     const [error, setError] = useState(null);
 
+    // Hook for rerendering the screen
+    const isFocused = useIsFocused();
+
+    // Convert a Firestore Timestamp to a JS Date
+    function convertToDate(possibleTimestamp) {
+        if (!possibleTimestamp) return null;
+
+        // Check if it's a Firestore Timestamp
+        if (typeof possibleTimestamp.toDate === 'function') {
+            return possibleTimestamp.toDate();
+        }
+
+        // If it's not a Firestore Timestamp, check if it's a valid date string or number
+        const dateObj = new Date(possibleTimestamp);
+        if (!isNaN(dateObj.getTime())) {
+            // Return as a JS Date if it's valid
+            return dateObj; 
+        }
+
+        // Return null for invalid dates
+        return null; 
+    }
+
+
     // Function to format the dates into dd/mm/yyyy format
-    const formatDate = (dateString) => {
-        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', 
+    const formatDate = (date) => {
+        const dateObj = convertToDate(date);
+        if (!dateObj) {
+            return 'Invalid Date';
+        }
+        const formattedDate = new Date(dateObj).toLocaleDateString('en-GB', 
         {
             day: '2-digit',
             month: '2-digit',
@@ -50,74 +76,91 @@ const HomeScreen = () => {
 
     // useEffect to initialise user and fetch tasks on component mount
     useEffect(() => {
-        async function initialiseAndFetch() {
+        (async () => {
             try {
-                // Set loading state to true while waiting to initialise user and fetch tasks
+                // Set loading state to true
                 setLoading(true);
+                // Retrieve the user ID and joined date from AsyncStorage
+                let storedUserId = await AsyncStorage.getItem('user_id');
+                let storedJoinedDate = await AsyncStorage.getItem('joined_date');
+        
+                // If there is no user ID, create a temporary user
+                if (!storedUserId) {
+                    // Generate a random temporary username
+                    const tempName = `temp_user_${Math.floor(Math.random() * 10000)}`;
 
-                // Initialise user
-                await initialiseUser();
+                    // Use the temporary username to create a temporary user in the Firebase database
+                    const newUserId = await createUser(db, { username: tempName, is_temporary: true });
+                    // Store the new user ID
+                    storedUserId = newUserId;
 
-                // If userID exists, fetch the tasks linked to the user
-                if (userID) {
-                    await fetchTasks(userID);
+                    // Get the current date
+                    const today = new Date().toISOString();
+                    // Set the joined date to today
+                    storedJoinedDate = today;
+
+                    // Save the user ID and joined date into AsyncStorage
+                    await AsyncStorage.setItem('user_id', storedUserId);
+                    await AsyncStorage.setItem('joined_date', storedJoinedDate);
                 }
-            } catch (error) {
-                // Set error if initialising user and fetching tasks fails
-                setError('Failed to initialise user and fetch tasks!');
+        
+                // Set user ID and joined date in state
+                setUserID(storedUserId);
+                setJoinedDate(formatDate(storedJoinedDate));
+        
+                // Fetch groups created by the user
+                const userGroups = await getGroupsByCreator(db, storedUserId);
+
+                // If no groups exist, create a default category and subject
+                if (userGroups.length === 0) {
+                    await createGroup(db, {
+                        group_name: 'Math',
+                        group_type: 'Subjects',
+                        grade_id: 'N/A',
+                        created_by: storedUserId,
+                    });
+                    await createGroup(db, {
+                        group_name: 'General',
+                        group_type: 'Categories',
+                        grade_id: 'N/A',
+                        created_by: storedUserId,
+                    });
+                }
+        
+                // Fetch the tasks from the Firebase database
+                const fetchedTasks = await getTasksByCreator(db, storedUserId);
+        
+                // If there are no tasks found return an empty array else retrieve and store the user tasks
+                if (!fetchedTasks) {
+                    // Set the tasks state to an empty array
+                    setTasks([]);
+                } else {
+                    // Store the users tasks into the tasks state
+                    setTasks(fetchedTasks);
+                }
+            } catch (err) {
+                // Log any errors when initialising tasks
+                console.error('Initialisation error:', err);
+                // Set error if initialising fails
+                setError('Failed to initialise user, groups or tasks!');
             } finally {
-                // Set loading to false once the user and tasks is fetched
                 setLoading(false);
             }
+            })();
+    }, []);
+    
+    useEffect(() => {
+        // Call the fetchTasks function whenever 'isFocused' or 'userID' changes
+        if (isFocused && userID) {
+            fetchTasks(userID);
         }
-    
-        initialiseAndFetch();
-    }, [userID]);
-
-    // Function to initialise user by checking the AsyncStorage or creating a new user
-    async function initialiseUser() {
-        try {
-            // Retrieve the user ID and joined date from AsyncStorage
-            let storedUserId = await AsyncStorage.getItem('user_id');
-            let storedJoinedDate = await AsyncStorage.getItem('joined_date');
-
-            // Get the current date
-            const today = new Date();
-    
-            // If there is no user ID, create a temporary user
-            if (!storedUserId) {
-                // Generate a random temporary username
-                const tempName = `temp_user_${Math.floor(Math.random() * 10000)}`;
-                
-                // Use the temporary username to create a temporary user in the Firebase database
-                const newUserId = await createUser(db, { username: tempName, is_temporary: true });
-
-                // Store the new user ID
-                storedUserId = newUserId;
-                // Set the joined date to today
-                storedJoinedDate = today.toISOString();
-    
-                // Save the user ID and joined date into AsyncStorage
-                await AsyncStorage.setItem('user_id', storedUserId);
-                await AsyncStorage.setItem('joined_date', storedJoinedDate);
-            }
-    
-            // Update the user ID and joined date state
-            setUserID(storedUserId);
-            setJoinedDate(formatDate(storedJoinedDate));
-        } catch (err) {
-            // Log any errors when initialising the user
-            console.error('Error initialising user:', err);
-            // Set error if initialising user
-            setError('Failed to initialise user!');
-        }
-    }
+    }, [isFocused, userID]);
 
     // Function to fetch tasks for the user
-    async function fetchTasks(userID) {
+    const fetchTasks = async (creatorID) => {
         try {
             // Fetch the tasks from the Firebase database
-            const fetchedTasks = await getTasksByCreator(db, userID);
+            const fetchedTasks = await getTasksByCreator(db, creatorID);
     
             // If there are no tasks found return an empty array else retrieve and store the user tasks
             if (!fetchedTasks) {
@@ -127,13 +170,15 @@ const HomeScreen = () => {
                 // Store the users tasks into the tasks state
                 setTasks(fetchedTasks);
             }
-        } catch (err) {
+        } catch (error) {
             // Log any errors when fetching tasks
-            console.error('Error fetching tasks:', err);
+            console.error('Error fetching tasks:', error);
             // Set error if fetching tasks fails
             setError('Failed to fetch tasks!');
         }
     }
+
+    
     
     // Render each task of the users
     const renderTask = ({ task }) => {
@@ -148,15 +193,18 @@ const HomeScreen = () => {
             >
                 {/* Strike through line only when task is completed */}
                 {task.status && <View style={styles.strikeThrough} testID={`strikeThrough-${task.id}`}/>}
+
                 {/* Task name */}
-                <Text
-                    style={[
-                        styles.taskText,
+                <Text style={[
+                        styles.tasksText,
                         task.status && styles.tasksCompletedText,
                     ]}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
                 >
                     {task.task_name}
                 </Text>
+                
                 {/* Clickable Checkbox for toggling task completion */}
                 <TouchableOpacity onPress={() => toggleTaskCompletion(task.id)} testID={`checkbox-${task.id}`} >
                     <Ionicons
@@ -203,8 +251,7 @@ const HomeScreen = () => {
             await updateTask(db, taskID, { status: updatedStatus });
     
             // Refresh the tasks so that it is updated and reflected on the screen
-            const refreshedTasks = await getTasksByCreator(db, userID);
-            setTasks(refreshedTasks || []);
+            fetchTasks(userID);
         } catch (error) {
             // Log any errors when updating task status
             console.error('Error updating task status:', error);
@@ -235,7 +282,7 @@ const HomeScreen = () => {
         <SafeAreaView style={styles.container}>
             {/* Render the header component */}
             <View style={styles.header}>
-                <Text style={styles.appTitle}>Taskcation</Text>
+                <Text style={styles.headerTitle}>Taskcation</Text>
             </View>
 
             {/* Render the upcoming container */}
@@ -245,40 +292,42 @@ const HomeScreen = () => {
 
             {/* Rendering for tasks or empty state */}
             {tasks.length === 0 ? (
-                <View> 
+                <>
                     {/* Render the date container with relevant information like date and a line */}
                     <View style={styles.dateContainer}>
                         <Text style={styles.dateText}>{joinedDate}</Text>
                         <View style={styles.line} />
-                    </View>
-                    {/* Render the task container, changed when completed */}
-                    <View style={[
-                            styles.tasksContainer,
-                            isChecked && styles.tasksCompletedContainer,
-                    ]}>
-                        {/* Strike through line only when task is completed */}
-                        {isChecked && <View style={styles.strikeThrough} testID='strikeThrough-no-tasks' />}
+                    
+                        {/* Render the task container, changed when completed */}
+                        <View style={[
+                                styles.tasksContainer,
+                                isChecked && styles.tasksCompletedContainer,
+                        ]}>
+                            {/* Strike through line only when task is completed */}
+                            {isChecked && <View style={styles.strikeThrough} testID='strikeThrough-no-tasks' />}
 
-                        {/* Task name */}
-                        <Text style={[
-                                styles.tasksText,
-                                isChecked && styles.tasksCompletedText,
-                            ]}
-                        >
-                            Add task to start using Taskcation!
-                        </Text>
+                            {/* Task name */}
+                            <Text style={[
+                                    styles.tasksText,
+                                    isChecked && styles.tasksCompletedText,
+                                ]}
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                            >
+                                Add task to start using Taskcation!
+                            </Text>
 
-                        {/* Clickable Checkbox for toggling task completion */}
-                        <TouchableOpacity onPress={handleCheckboxToggle} testID='checkbox-no-tasks' >
-                            <Ionicons
-                                name={isChecked ? 'checkbox' : 'square-outline'}
-                                size={24}
-                                color={isChecked ? '#FFFFFF' : '#8B4513'}
-                            />
-                        </TouchableOpacity>
-                        
+                            {/* Clickable Checkbox for toggling task completion */}
+                            <TouchableOpacity onPress={handleCheckboxToggle} testID='checkbox-no-tasks' >
+                                <Ionicons
+                                    name={isChecked ? 'checkbox' : 'square-outline'}
+                                    size={28}
+                                    color={isChecked ? '#FFFFFF' : '#8B4513'}
+                                />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
+                </>
             ) : (
                 // Iterates over each date in groupedTasks and renders a date header and list of tasks for that date
                 Object.keys(groupedTasks).map((date) => (
@@ -312,11 +361,12 @@ const styles = StyleSheet.create({
         borderColor: '#8B4513',
         backgroundColor: '#8B4513',
     },
-    // Style for the app title
-    appTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+    // Style for the header title
+    headerTitle: {
+        fontSize: 32,
+        fontWeight: '800',
         color: '#FFFFFF',
+        textAlign: 'center',
     },
     // Style for the upcoming container
     upcomingContainer: {
@@ -326,8 +376,8 @@ const styles = StyleSheet.create({
     // Style for the upcoming title
     upcomingTitle: {
         fontSize: 28,
-        fontWeight: 'bold',
-        color: '#5A3311',
+        fontWeight: '700',
+        color: '#8B4513',
     },
     // Style for the date container
     dateContainer: {
@@ -336,27 +386,28 @@ const styles = StyleSheet.create({
     },
     // Style for the date text
     dateText: {
-        fontSize: 18,
-        color: '#5A3311',
+        fontSize: 20,
+        color: '#8B4513',
+        fontWeight: '500',
     },
     // Style for the line
     line: {
         height: 2,
-        backgroundColor: '#5A3311',
+        backgroundColor: '#8B4513',
         marginVertical: 8,
     },
     // Style for the task container
     tasksContainer: {
         flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFF8DC',
-        padding: 10,
-        borderRadius: 8,
-        marginHorizontal: 16,
-        marginTop: 16,
+        marginTop: 6,
         borderWidth: 2,
         borderColor: '#8B4513',
-        justifyContent: 'space-between',
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        backgroundColor: '#FFF8DC',        
     },
     // Style for the task completed container
     tasksCompletedContainer: {
@@ -364,20 +415,26 @@ const styles = StyleSheet.create({
     },
     // Style for the task text
     tasksText: {
-        fontSize: 18,
-        color: '#5A3311',
+        fontSize: 20,
+        color: '#8B4513',
         flex: 1,
+        fontWeight: '500',
+        overflow: 'hidden',
     },
     // Style for the task completed text
     tasksCompletedText: {
+        fontSize: 20,
         color: '#FFFFFF',
+        flex: 1,
+        fontWeight: '500',
+        overflow: 'hidden',
     },
     // Style for the strike through
     strikeThrough: {
         position: 'absolute',
         height: 2,
         backgroundColor: '#FFFFFF',
-        width: '95%',
+        width: '90%',
         left: 5,
         top: '90%',
         zIndex: 0,
@@ -385,7 +442,8 @@ const styles = StyleSheet.create({
     // Style for the error text
     errorText: {
         color: 'red',
-        fontSize: 18,
+        fontSize: 20,
+        fontWeight: '500',
     },
 });
 

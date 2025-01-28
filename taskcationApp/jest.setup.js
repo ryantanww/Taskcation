@@ -3,6 +3,15 @@ jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
 
+jest.mock('@react-navigation/native', () => {
+    const actualNav = jest.requireActual('@react-navigation/native');
+    
+    return {
+        ...actualNav,
+        useIsFocused: jest.fn(() => true),
+    };
+});
+
 jest.mock('expo-font', () => ({
     loadAsync: jest.fn().mockResolvedValue(undefined),
     isLoaded: jest.fn().mockReturnValue(true),
@@ -23,24 +32,77 @@ jest.mock('./src/services/userService', () => ({
     createUser: jest.fn(),
 }));
 
-jest.mock('./src/services/taskService', () => ({
-    getTasksByCreator: jest.fn().mockResolvedValue([]), 
-    updateTask: jest.fn().mockResolvedValue(undefined),
+jest.mock('./src/services/groupsService', () => ({
+    createGroup: jest.fn(),
+    getGroupsByCreator: jest.fn().mockResolvedValue([]), 
+    
 }));
 
+jest.mock('./src/services/priorityLevelsService', () => ({
+    getAllPriorities: jest.fn().mockResolvedValue([]),
+}));
+
+// Mock Firestore Timestamp
+const Timestamp = {
+    fromDate: (date) => ({
+        seconds: Math.floor(date.getTime() / 1000),
+        nanoseconds: (date.getTime() % 1000) * 1e6,
+        toDate: () => date,
+        toMillis: () => date.getTime(),
+    }),
+};
+
+jest.mock('./src/services/taskService', () => ({
+    getTasksByCreator: jest.fn().mockResolvedValue([
+        { id: '1', task_name: 'Task 1', status: false, end_date: Timestamp.fromDate(new Date('2025-01-20T03:05:00Z')), },
+        { id: '2', task_name: 'Task 2', status: true, end_date: Timestamp.fromDate(new Date('2025-01-21T01:20:30Z')), },
+    ]), 
+    updateTask: jest.fn().mockResolvedValue(undefined),
+    createTask: jest.fn(),
+}));
+
+jest.mock('./src/services/attachmentService', () => ({
+    createAttachment: jest.fn().mockResolvedValue(undefined),
+}));
+
+
+
 jest.mock('@react-native-community/datetimepicker', () => {
-    const mockDateTimePicker = ({ value, onChange }) => {
+    const React = require('react');
+    const { View, TouchableOpacity, Text } = require('react-native');
+    return jest.fn(({ testID, onChange }) => (
+        <TouchableOpacity testID={testID} onPress={() => { /* Do nothing */ }}>
+            <Text>DateTimePicker</Text>
+        </TouchableOpacity>
+    ));
+});
+
+jest.mock('react-native-dropdown-picker', () => {
+    const React = require('react');
+    const { TouchableOpacity, Text, View } = require('react-native');
+    return function MockDropDownPicker({ placeholder, open, setOpen, value, setValue, items }) {
         return (
-            <input
-                type="date"
-                value={value}
-                onChange={(event) => onChange({ nativeEvent: { timestamp: event.target.value } })}
-            />
+            <View>
+                {open && items.map((item) => (
+                        <TouchableOpacity
+                            key={item.value}
+                            onPress={() => {
+                            setValue(item.value);
+                            setOpen(false);
+                            }}
+                        >
+                            <Text>{item.label}</Text>
+                        </TouchableOpacity>
+                    ))
+                }
+                <TouchableOpacity
+                    testID={`${placeholder}-button`}
+                    onPress={() => setOpen(!open)}
+                >
+                    <Text>{placeholder}</Text>
+                </TouchableOpacity>
+            </View>
         );
-    };
-    return {
-        __esModule: true,
-        default: mockDateTimePicker,
     };
 });
 
@@ -75,6 +137,61 @@ jest.mock('react-native-gesture-handler', () => {
     };
 });
 
+jest.mock('expo-file-system', () => ({
+    documentDirectory: 'mock/document/directory/',
+    StorageAccessFramework: {
+        copyAsync: jest.fn(),
+    },
+    getContentUriAsync: jest.fn(() => Promise.resolve('mock-content-uri')),
+}));
+
+jest.mock('expo-intent-launcher', () => ({
+    startActivityAsync: jest.fn(),
+    ACTION_MANAGE_OVERLAY_PERMISSION: 'ACTION_MANAGE_OVERLAY_PERMISSION',
+}));
+
+jest.mock('expo-document-picker', () => ({
+    getDocumentAsync: jest.fn(),
+}));
+
+jest.mock('expo-image-picker', () => ({
+    requestCameraPermissionsAsync: jest.fn(),
+    requestMediaLibraryPermissionsAsync: jest.fn(),
+    launchCameraAsync: jest.fn(),
+    launchImageLibraryAsync: jest.fn(),
+}));
+
+jest.mock('expo-av', () => ({
+    Audio: {
+        requestPermissionsAsync: jest.fn(),
+        Recording: {
+            createAsync: jest.fn(),
+        },
+        RecordingOptionsPresets: {
+            HIGH_QUALITY: {},
+        },
+        Sound: jest.fn(() => ({
+            loadAsync: jest.fn(),
+            playAsync: jest.fn(),
+            pauseAsync: jest.fn(),
+            stopAsync: jest.fn(),
+            unloadAsync: jest.fn(),
+            setPositionAsync: jest.fn(),
+            setOnPlaybackStatusUpdate: jest.fn(),
+        })),
+        
+    },
+}));
+
+jest.mock('react-native/Libraries/Linking/Linking', () => ({
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    openURL: jest.fn(),
+    canOpenURL: jest.fn(() => Promise.resolve(true)),
+    getInitialURL: jest.fn().mockResolvedValue(null),
+}));
+
 
 jest.spyOn(console, 'log').mockImplementation(() => {});
 jest.spyOn(console, 'error').mockImplementation(() => {});
+jest.spyOn(console, 'warn').mockImplementation(() => {});

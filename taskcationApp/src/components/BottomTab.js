@@ -58,19 +58,19 @@ const BottomTab = () => {
             })}
         >
             {/* Tab for HomeScreen */}
-            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
             
             {/* Tab for GroupsScreen */}
-            <Tab.Screen name="Groups" component={GroupsScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='Groups' component={GroupsScreen} options={{ headerShown: false }} />
             
             {/* Tab for AddTaskScreen */}
-            <Tab.Screen name="Add Task" component={AddTaskScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='Add Task' component={AddTaskScreen} options={{ headerShown: false }} />
 
             {/* Tab for GroupsScreen */}
-            <Tab.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='Calendar' component={CalendarScreen} options={{ headerShown: false }} />
             
             {/* Tab for AddTaskScreen */}
-            <Tab.Screen name="Timer" component={TimerScreen} options={{ headerShown: false }} />
+            <Tab.Screen name='Timer' component={TimerScreen} options={{ headerShown: false }} />
 
 
         </Tab.Navigator>
