@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subheader Component should match the snapshot when there is a kebab menu 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#8B4513",
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "padding": 16,
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": "#F5F5DC",
+            "fontSize": 32,
+          },
+          undefined,
+          {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <Text
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      {
+        "color": "#F5F5DC",
+        "flex": 1,
+        "fontSize": 32,
+        "fontWeight": "800",
+        "textAlign": "center",
+      }
+    }
+  >
+    Task Title
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+        "padding": 8,
+      }
+    }
+    testID="kebab-button"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": "#F5F5DC",
+            "fontSize": 24,
+          },
+          undefined,
+          {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Subheader Component should match the snapshot when there is no kebab menu 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#8B4513",
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "padding": 16,
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": "#F5F5DC",
+            "fontSize": 32,
+          },
+          undefined,
+          {
+            "fontFamily": "ionicons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <Text
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      {
+        "color": "#F5F5DC",
+        "flex": 1,
+        "fontSize": 32,
+        "fontWeight": "800",
+        "textAlign": "center",
+      }
+    }
+  >
+    Test Title
+  </Text>
+  <View
+    style={
+      {
+        "width": 50,
+      }
+    }
+  />
+</View>
+`;

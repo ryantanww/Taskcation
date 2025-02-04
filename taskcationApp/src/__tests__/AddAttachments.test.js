@@ -6,29 +6,29 @@ import * as ImagePicker from 'expo-image-picker';
 import { Audio } from 'expo-av';
 import { Alert } from 'react-native';
 
-// Mock function for simulating 'onAttachmentsChangeMock' prop
+// Mock function for simulating onAttachmentsChangeMock prop
 let onAttachmentsChangeMock;
 
 describe('AddAttachments', () => {
     // Clear all mocks before each test
     beforeEach(() => {
         jest.clearAllMocks();
-        // Mock 'onAttachmentsChangeMock' prop
+        // Mock onAttachmentsChangeMock prop
         onAttachmentsChangeMock = jest.fn();
         // Spy on Alert.alert to verify alerts
         jest.spyOn(Alert, 'alert');
     });
 
-    // Test to check if the attachment modal opens when 'Insert Attachment' is pressed
-    it('should open the attachment modal when "Insert Attachment" button is pressed', () => {
+    // Test to check if the attachment modal opens when Insert Attachment is pressed
+    it('should open the attachment modal when Insert Attachment button is pressed', () => {
         // Renders the AddAttachments component
         const { getByText, getByTestId } = render(
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the  Insert Attachment  button
         fireEvent.press(getByText('Insert Attachment'));
 
         // Verifies that the attachment modal is opened with all the correct options
@@ -51,14 +51,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'File' option is displayed
+        // Verify that the File option is displayed
         expect(getByText('File')).toBeTruthy();
-        // Press the 'File' option
+        // Press the File option
         fireEvent.press(getByText('File'));
 
         // Wait for the attachment to be added and verify the mock function is called with the correct mock data
@@ -88,14 +88,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Camera' option is displayed
+        // Verify that the Camera option is displayed
         expect(getByText('Camera')).toBeTruthy();
-        // Press the 'Camera' option
+        // Press the Camera option
         fireEvent.press(getByText('Camera'));
 
         // Wait for the attachment to be added and verify the mock function is called with the correct mock data
@@ -125,14 +125,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Gallery' option is displayed
+        // Verify that the Gallery option is displayed
         expect(getByText('Gallery')).toBeTruthy();
-        // Press the 'Gallery' option
+        // Press the Gallery option
         fireEvent.press(getByText('Gallery'));
 
         // Wait for the attachment to be added and verify the mock function is called with the correct mock data
@@ -166,32 +166,32 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Audio' option is displayed
+        // Verify that the Audio option is displayed
         expect(getByText('Audio')).toBeTruthy();
-        // Press the 'Audio' option
+        // Press the Audio option
         fireEvent.press(getByText('Audio'));
 
         await waitFor(() => {
             // Wait for the recording modal to open and verify that it is displayed with the test ID
             expect(getByTestId('recording-modal')).toBeTruthy();
-            //  Verify that the 'Record' option is displayed
+            //  Verify that the Record option is displayed
             expect(getByText('Record')).toBeTruthy();
         });
 
-        // Press 'Record' 
+        // Press Record 
         fireEvent.press(getByText('Record'));
 
         await waitFor(() => {
-            // Wait for the 'Stop' to be displayed
+            // Wait for the Stop to be displayed
             expect(getByText('Stop')).toBeTruthy();
         });
 
-        // Press 'Stop' 
+        // Press Stop 
         fireEvent.press(getByText('Stop'));
 
         // Wait for the attachment to be added and verify the mock function is called with the correct mock data
@@ -214,9 +214,9 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
         // Verifies that the attachment modal is opened with all the correct options
@@ -242,9 +242,9 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
         // Verifies that the attachment modal is opened with all the correct options
@@ -270,20 +270,20 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
         
-        // Verify that the 'Audio' option is displayed
+        // Verify that the Audio option is displayed
         expect(getByText('Audio')).toBeTruthy();
-        // Press the 'Audio' option
+        // Press the Audio option
         fireEvent.press(getByText('Audio'));
 
         await waitFor(() => {
             // Wait for the recording modal to open and verify that it is displayed with the test ID
             expect(getByTestId('recording-modal')).toBeTruthy();
-            //  Verify that the 'Record' option is displayed
+            //  Verify that the Record option is displayed
             expect(getByText('Record')).toBeTruthy();
         });
 
@@ -305,20 +305,20 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Audio' option is displayed
+        // Verify that the Audio option is displayed
         expect(getByText('Audio')).toBeTruthy();
-        // Press the 'Audio' option
+        // Press the Audio option
         fireEvent.press(getByText('Audio'));
 
         await waitFor(() => {
             // Wait for the recording modal to open and verify that it is displayed with the test ID
             expect(getByTestId('recording-modal')).toBeTruthy();
-            //  Verify that the 'Record' option is displayed
+            //  Verify that the Record option is displayed
             expect(getByText('Record')).toBeTruthy();
         });
 
@@ -343,14 +343,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Camera' option is displayed
+        // Verify that the Camera option is displayed
         expect(getByText('Camera')).toBeTruthy();
-        // Press the 'Camera' option
+        // Press the Camera option
         fireEvent.press(getByText('Camera'));
 
         await waitFor(() => {
@@ -369,14 +369,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Gallery' option is displayed
+        // Verify that the Gallery option is displayed
         expect(getByText('Gallery')).toBeTruthy();
-        // Press the 'Gallery' option
+        // Press the Gallery option
         fireEvent.press(getByText('Gallery'));
 
         await waitFor(() => {
@@ -395,24 +395,24 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
 
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
 
-        // Verify that the 'Audio' option is displayed
+        // Verify that the Audio option is displayed
         expect(getByText('Audio')).toBeTruthy();
-        // Press the 'Audio' option
+        // Press the Audio option
         fireEvent.press(getByText('Audio'));
 
         await waitFor(() => {
             // Wait for the recording modal to open and verify that it is displayed with the test ID
             expect(getByTestId('recording-modal')).toBeTruthy();
-            //  Verify that the 'Record' option is displayed
+            //  Verify that the Record option is displayed
             expect(getByText('Record')).toBeTruthy();
         });
 
-        // Press 'Record' 
+        // Press Record 
         fireEvent.press(getByText('Record'));
 
         await waitFor(() => {
@@ -433,14 +433,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
     
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
     
-        // Verify that the 'File' option is displayed
+        // Verify that the File option is displayed
         expect(getByText('File')).toBeTruthy();
-        // Press the 'File' option
+        // Press the File option
         fireEvent.press(getByText('File'));
     
         await waitFor(() => {
@@ -463,14 +463,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
     
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
     
-        // Verify that the 'Camera' option is displayed
+        // Verify that the Camera option is displayed
         expect(getByText('Camera')).toBeTruthy();
-        // Press the 'Camera' option
+        // Press the Camera option
         fireEvent.press(getByText('Camera'));
     
         await waitFor(() => {
@@ -495,14 +495,14 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
     
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
     
-        // Verify that the 'Gallery' option is displayed
+        // Verify that the Gallery option is displayed
         expect(getByText('Gallery')).toBeTruthy();
-        // Press the 'Gallery' option
+        // Press the Gallery option
         fireEvent.press(getByText('Gallery'));
     
         await waitFor(() => {
@@ -530,32 +530,32 @@ describe('AddAttachments', () => {
             <AddAttachments attachments={[]} onAttachmentsChange={onAttachmentsChangeMock} />
         );
     
-        // Verify that the 'Insert Attachment' is displayed
+        // Verify that the Insert Attachment is displayed
         expect(getByText('Insert Attachment')).toBeTruthy();
-        // Press the 'Insert Attachment' button
+        // Press the Insert Attachment button
         fireEvent.press(getByText('Insert Attachment'));
         
-        // Verify that the 'Audio' option is displayed
+        // Verify that the Audio option is displayed
         expect(getByText('Audio')).toBeTruthy();
-        // Press the 'Audio' option
+        // Press the Audio option
         fireEvent.press(getByText('Audio'));
 
         await waitFor(() => {
             // Wait for the recording modal to open and verify that it is displayed with the test ID
             expect(getByTestId('recording-modal')).toBeTruthy();
-            //  Verify that the 'Record' option is displayed
+            //  Verify that the Record option is displayed
             expect(getByText('Record')).toBeTruthy();
         });
 
-        // Press 'Record' 
+        // Press Record 
         fireEvent.press(getByText('Record'));
     
         await waitFor(() => {
-            // Wait for the 'Stop' to be displayed
+            // Wait for the Stop to be displayed
             expect(getByText('Stop')).toBeTruthy();
         });
 
-        // Press 'Stop' 
+        // Press Stop 
         fireEvent.press(getByText('Stop'));
     
         await waitFor(() => {

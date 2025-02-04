@@ -45,12 +45,12 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
     const [currentPosition, setCurrentPosition] = useState(0);
 
     // State for the current formatted playback time
-    const [formattedDuration, setFormattedDuration] = useState("00:00");
+    const [formattedDuration, setFormattedDuration] = useState('00:00');
 
     // Function to handle deletion of an attachment with a confirmation alert
     const handleDelete = (attachment) => {
         Alert.alert(
-            'Delete Attachment',
+            'Confirm Delete Attachment',
             'Are you sure you want to delete this attachment?',
             [
                 { text: 'Cancel', style: 'cancel' },
@@ -126,7 +126,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                         // Reset the current position of the playback
                         setCurrentPosition(0)
                         // Reset the formatted time of the playback
-                        setFormattedDuration("00:00");
+                        setFormattedDuration('00:00');
                     }
                 } else if (status.error) {
                     // Log any errors during playback
@@ -193,10 +193,12 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
         // Function 
         const viewAttachment = async () => {
             if (isImage) {
+                console.log('item.uri', item.uri)
                 // Set the image URI
                 setCurrentImageUri(item.uri);
                 // Open image modal
                 setImageModalVisible(true);
+                console.log('currentImageUri', currentImageUri)
             } else if (isAudio) {
                 // Set the audio URI
                 setCurrentAudioUri(item.uri);
@@ -217,21 +219,23 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                     {isImage ? (
                         <Image source={{ uri: item.uri }} style={styles.attachmentImage} />
                     ) : isAudio ? (
-                        <Ionicons name="musical-notes" size={36} color="#8B4513" />
+                        <Ionicons name='musical-notes' size={40} color='#8B4513' />
                     ) : (
-                        <Ionicons name="document" size={36} color="#8B4513" />
+                        <Ionicons name='document' size={36} color='#8B4513' />
                     )}
                 </TouchableOpacity>
                 
                 {/* Display file name e */}
                 <TouchableOpacity style={styles.attachmentNameContainer} onPress={viewAttachment}>
-                    <Text style={styles.attachmentName} numberOfLines={1} ellipsizeMode="tail">{item.file_name}</Text>
+                    <Text style={styles.attachmentName} numberOfLines={1} ellipsizeMode='tail'>{item.file_name}</Text>
                 </TouchableOpacity>
 
                 {/* Display delete attachment button */}
-                <TouchableOpacity onPress={() => handleDelete(item)} style={styles.deleteButton} testID={`delete-${item.id}`}>
-                    <Ionicons name="trash" size={24} color="#FFFFFF" />
-                </TouchableOpacity>
+                {onDeleteAttachment && (
+                    <TouchableOpacity onPress={() => handleDelete(item)} style={styles.deleteButton} testID={`delete-${item.id}`}>
+                        <Ionicons name='trash' size={24} color='#FFFFFF' />
+                    </TouchableOpacity>
+                )}
             </View>
         );
     };
@@ -244,13 +248,15 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                 keyExtractor={(item, index) => `${item.uri}-${index}`}
                 renderItem={renderAttachments}
                 contentContainerStyle={styles.listContainer}
+                nestedScrollEnabled={true}
+                horizontal
             />
 
             {/* Modal for displaying images */}
             <Modal 
                 visible={imageModalVisible}
                 transparent
-                animationType='fade' 
+                animationType='slide' 
                 onRequestClose={() => setImageModalVisible(false)}
                 testID='image-modal'
             >
@@ -260,7 +266,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                         {/* TouchableWithoutFeedback to not close the modal when pressing within the overlay */}
                         <TouchableWithoutFeedback>
                             {/* Display the selected image */}
-                            <View>
+                            <View style={styles.imageModal}>
                                 <Image source={{ uri: currentImageUri }} style={styles.imagePreview} testID='image-preview'/>
                                 {/* Button to close the image modal */}
                                 <TouchableOpacity onPress={() => setImageModalVisible(false)} style={styles.closeButton} testID='image-close'>
@@ -295,7 +301,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                                             <Text style={styles.timerText}>{formattedDuration}</Text>
                                             {/* Slider for controlling the playback position */}
                                             <Slider
-                                                testID="audio-slider"
+                                                testID='audio-slider'
                                                 style={styles.slider}
                                                 minimumValue={0}
                                                 maximumValue={currentAudioDuration}
@@ -309,10 +315,9 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                                                         audioPlayback.setPositionAsync(value);
                                                     }
                                                 }}
-                                                
-                                                minimumTrackTintColor="#8B4513"
-                                                maximumTrackTintColor="#000000"
-                                                thumbTintColor="#8B4513"
+                                                minimumTrackTintColor='#8B4513'
+                                                maximumTrackTintColor='#000000'
+                                                thumbTintColor='#8B4513'
                                             />
                                         </View>
                                         {/* Pause and Resume switches between each other when clicked  */}
@@ -331,7 +336,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                                     <View style={styles.playContainer}>
                                         <View>
                                             <TouchableOpacity onPress={() => playAudio(currentAudioUri)} style={styles.iconContainer}>
-                                                <Ionicons name="play" size={48} color="#8B4513" />
+                                                <Ionicons name='play' size={48} color='#8B4513' />
                                             </TouchableOpacity>
                                             <TouchableOpacity onPress={() => playAudio(currentAudioUri)}>
                                                 <Text style={styles.iconLabel}>Play</Text>
@@ -362,6 +367,7 @@ const styles = StyleSheet.create({
     },
     // Style for the listContainer
     listContainer: {
+        flexGrow: 1,
         paddingBottom: 20,
     },
     // Style for the attachmentItem
@@ -373,7 +379,7 @@ const styles = StyleSheet.create({
         borderColor: '#8B4513',
         borderRadius: 8,
         marginBottom: 10,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the attachmentIconContainer
     attachmentIconContainer: {
@@ -395,8 +401,9 @@ const styles = StyleSheet.create({
     // Style for the attachmentName
     attachmentName: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 20,
         color: '#8B4513',
+        fontWeight: '500',
         textAlignVertical: 'center',
     },
     // Style for the deleteButton
@@ -404,6 +411,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#8B4513',
         borderRadius: 8,
         padding: 6,
+        marginHorizontal: 8,
     },
     // Style for the modalOverlay
     modalOverlay: {
@@ -411,13 +419,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        borderWidth: 2,
-        borderColor: '#8B4513'
+    },
+    // Style for the imageModal
+    imageModal: {
+        flex: 1,
+        width: '90%', 
+        height: '80%',
+        justifyContent: 'center', 
+        alignItems: 'center',
     },
     // Style for the imagePreview
     imagePreview: {
-        width: '90%',
-        height: '70%',
+        flex: 1,
+        width: '100%',
+        height: '100%',
         resizeMode: 'contain',
     },
     // Style for the closeButton
@@ -461,7 +476,7 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
         borderWidth: 3,
         borderColor: '#8B4513',
         marginHorizontal: 10,

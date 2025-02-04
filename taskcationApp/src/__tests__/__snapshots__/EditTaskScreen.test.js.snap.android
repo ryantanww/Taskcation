@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
+exports[`EditTaskScreen should match the snapshot 1`] = `
 <RNCSafeAreaView
   edges={
     {
@@ -98,7 +98,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
         }
       }
     >
-      Add Task
+      Edit Task
     </Text>
     <View
       style={
@@ -129,7 +129,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "flex": 1,
+        "flexGrow": 1,
       }
     }
   >
@@ -152,7 +152,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           "paddingHorizontal": 10,
         }
       }
-      value=""
+      value="Test Edit Task"
     />
     <View
       style={
@@ -213,7 +213,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
             }
           }
         >
-          01/01/2025
+          20/01/2025
         </Text>
       </View>
       <View
@@ -259,7 +259,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
             }
           }
         >
-          20:00
+          10:00
         </Text>
       </View>
     </View>
@@ -316,13 +316,13 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
         <Text
           style={
             {
-              "color": "#A5734D",
+              "color": "#8B4513",
               "fontSize": 20,
               "fontWeight": "500",
             }
           }
         >
-          End Date
+          21/01/2025
         </Text>
       </View>
       <View
@@ -362,13 +362,13 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
         <Text
           style={
             {
-              "color": "#A5734D",
+              "color": "#8B4513",
               "fontSize": 20,
               "fontWeight": "500",
             }
           }
         >
-          End Time
+          12:00
         </Text>
       </View>
     </View>
@@ -398,7 +398,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           },
         ]
       }
-      value=""
+      value="Test notes."
     />
     <View
       style={
@@ -450,7 +450,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           testID="Groups-button"
         >
           <Text>
-            Groups
+            Math
           </Text>
         </View>
       </View>
@@ -505,7 +505,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           testID="Priority Level-button"
         >
           <Text>
-            Priority Level
+            High
           </Text>
         </View>
       </View>
@@ -559,7 +559,52 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           Insert Attachment
         </Text>
       </View>
-      <View />
+      <View>
+        <View>
+          <Text>
+            test_attachment.pdf
+          </Text>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="delete-1"
+          >
+            <Text>
+              Delete
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
   <View
@@ -621,7 +666,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           }
         }
       >
-        Add
+        Update
       </Text>
     </View>
   </View>

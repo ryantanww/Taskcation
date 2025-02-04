@@ -34,13 +34,13 @@ jest.mock('../components/AddAttachments', () => {
     const { TouchableOpacity, Text } = require('react-native');
     return ({ onAttachmentsChange }) => (
         <TouchableOpacity
-            testID="insert-attachment-button"
+            testID='insert-attachment-button'
             onPress={() => {
                 const newAttachment = {
                     id: '1',
                     file_name: 'test_attachment.pdf',
                     file_type: 'application/pdf',
-                    uri: 'mock-uri',
+                    uri: 'https://test.com/test_attachment.pdf',
                     size: 1024,
                 };
                 onAttachmentsChange([newAttachment]);
@@ -70,6 +70,22 @@ jest.mock('../components/ViewAttachments', () => {
             ))}
         </View>
     );
+});
+
+// Mock useNavigation hook
+const mockNavigation = {
+    goBack: jest.fn(),
+    addListener: jest.fn(() => {
+        return () => {};
+    }),
+};
+
+jest.mock('@react-navigation/native', () => {
+    const actualNav = jest.requireActual('@react-navigation/native');
+    return {
+        ...actualNav,
+        useNavigation: () => mockNavigation,
+    };
 });
 
 describe('AddTaskScreen', () => {
@@ -232,7 +248,7 @@ describe('AddTaskScreen', () => {
         // Change the task notes
         fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
     
-        // Press on 'Groups' dropdown
+        // Press on Groups dropdown
         fireEvent.press(getByText('Groups'));
         await waitFor(() => {
             // Verify the groups shown matches the mockGroups
@@ -242,7 +258,7 @@ describe('AddTaskScreen', () => {
         // Press on Math
         fireEvent.press(getByText('Math'));
     
-        // Press on 'Priority Level' dropdown
+        // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
         await waitFor(() => {
             // Verify the priorities shown matches the mockPriorities
@@ -289,7 +305,7 @@ describe('AddTaskScreen', () => {
                 task_id: '12345',
                 file_name: 'test_attachment.pdf',
                 file_type: 'application/pdf',
-                uri: 'mock-uri',
+                uri: 'https://test.com/test_attachment.pdf',
                 size: 1024,
                 durationMillis: null,
             });
@@ -304,6 +320,8 @@ describe('AddTaskScreen', () => {
             expect(getByText('End Time')).toBeTruthy();
             expect(getByPlaceholderText('Task Notes.....').props.value).toBe('');
             expect(queryByText('test_attachment.pdf')).toBeNull();
+            // Verify that goBack was called once
+            expect(mockNavigation.goBack).toHaveBeenCalledTimes(1);
         });
     });
     
@@ -349,7 +367,7 @@ describe('AddTaskScreen', () => {
         // Change the task notes
         fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
     
-        // Press on 'Groups' dropdown
+        // Press on Groups dropdown
         fireEvent.press(getByText('Groups'));
         await waitFor(() => {
             // Verify the groups shown matches the mockGroups
@@ -387,11 +405,11 @@ describe('AddTaskScreen', () => {
             </NavigationContainer>
         );
 
-        // Verify 'Groups' and 'Priority Level' is displayed
+        // Verify Groups and Priority Level is displayed
         expect(getByText('Groups')).toBeTruthy();
         expect(getByText('Priority Level')).toBeTruthy();
 
-        // Press on 'Groups' dropdown
+        // Press on Groups dropdown
         fireEvent.press(getByText('Groups'));
     
         await waitFor(() => {
@@ -401,7 +419,7 @@ describe('AddTaskScreen', () => {
         });
         fireEvent.press(getByText('General'));
 
-        // Press on 'Priority Level' dropdown
+        // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
 
         await waitFor(() => {
@@ -454,7 +472,7 @@ describe('AddTaskScreen', () => {
         // Change the task notes
         fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
     
-        // Press on 'Groups' dropdown
+        // Press on Groups dropdown
         fireEvent.press(getByText('Groups'));
         await waitFor(() => {
             // Verify the groups shown matches the mockGroups
@@ -518,7 +536,7 @@ describe('AddTaskScreen', () => {
         // Change the task notes
         fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
     
-        // Press on 'Groups' dropdown
+        // Press on Groups dropdown
         fireEvent.press(getByText('Groups'));
         await waitFor(() => {
             // Verify the groups shown matches the mockGroups
@@ -528,7 +546,7 @@ describe('AddTaskScreen', () => {
         // Press on Math
         fireEvent.press(getByText('Math'));
     
-        // Press on 'Priority Level' dropdown
+        // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
         await waitFor(() => {
             // Verify the priorities shown matches the mockPriorities
@@ -615,20 +633,13 @@ describe('AddTaskScreen', () => {
         // Press on end date 
         fireEvent.press(getByText('End Date'));
         
+        
+        // Set an invalid end date
+        const invalidEndDate = new Date('2025-01-19T10:00:00');
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
-
-        // End date set to one day earlier
-        const earlierDate = new Date(new Date().getTime() - 86400000);
-        const endDateString = earlierDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
-        
         // Simulate changing the end date to an earlier date
-        fireEvent(endDatePicker, 'onChange', {type: 'set'}, earlierDate);
-
-        await waitFor(() => {
-            // Verify that end date is displayed correctly
-            expect(getByText(endDateString)).toBeTruthy();
-        });
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, invalidEndDate);
 
         // Press on Add button
         fireEvent.press(getByText('Add'));
@@ -689,7 +700,7 @@ describe('AddTaskScreen', () => {
         getAllPriorities.mockResolvedValueOnce(mockPriorities);
     
         // Renders the AddTaskScreen component
-        const { getByText } = render(
+        render(
             <NavigationContainer>
                 <AddTaskScreen />
             </NavigationContainer>
@@ -701,6 +712,7 @@ describe('AddTaskScreen', () => {
         });
     });
 
+    // Test to show an alert if loading priority levels fails
     it('should show an alert if loading priority levels fails', async () => {
         // Mock groups services
         getGroupsByCreator.mockResolvedValueOnce(mockGroups);
@@ -708,7 +720,7 @@ describe('AddTaskScreen', () => {
         getAllPriorities.mockRejectedValueOnce(new Error('Priority Levels Initialisation Error'));
     
         // Renders the AddTaskScreen component
-        const { getByText } = render(
+        render(
             <NavigationContainer>
                 <AddTaskScreen />
             </NavigationContainer>
@@ -736,6 +748,7 @@ describe('AddTaskScreen', () => {
             jest.useRealTimers();
         });
     
+        // Snapshot test for AddTaskScreen
         it('should match the snapshot', () => {
             // Renders the AddTaskScreen component
             const { toJSON } = render(

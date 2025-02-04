@@ -63,7 +63,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
         try {
             // Open document picker
             const result = await DocumentPicker.getDocumentAsync({
-                copyToCacheDirectory: false
+                copyToCacheDirectory: true
             });
 
             // If user did not cancel
@@ -443,22 +443,20 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
                                                 </TouchableOpacity>
 
                                             </View>
+                                        </View>
+                                    </>
+                                ) : (
+                                    /* Shows the 'Record' button so that user can record audio */
+                                    <View style={styles.recordContainer}>
+                                        <View>
+                                            <TouchableOpacity onPress={startRecording} style={styles.iconContainer}>
+                                                <Ionicons name='mic' size={48} color='#8B4513' />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={startRecording}>
+                                                <Text style={styles.iconLabel}>Record</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </>
-                            ) : (
-                                /* Shows the 'Record' button so that user can record audio */
-                                <View style={styles.recordContainer}>
-                                    <View>
-                                        <TouchableOpacity onPress={startRecording} style={styles.iconContainer}>
-                                            <Ionicons name='mic' size={48} color='#8B4513' />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={startRecording}>
-                                            <Text style={styles.iconLabel}>Record</Text>
-                                        </TouchableOpacity>
-                                        
-                                    </View>
-                                </View>
-                                
                                 )}
                             </View>
                         </TouchableWithoutFeedback>
@@ -468,7 +466,6 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>
-                
             </Modal>
         </View>
     );

@@ -12,6 +12,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
   <RCTScrollView
     contentContainerStyle={
       {
+        "flexGrow": 1,
         "paddingBottom": 20,
       }
     }
@@ -39,7 +40,9 @@ exports[`ViewAttachments should match the snapshot 1`] = `
     }
     getItem={[Function]}
     getItemCount={[Function]}
+    horizontal={true}
     keyExtractor={[Function]}
+    nestedScrollEnabled={true}
     onContentSizeChange={[Function]}
     onLayout={[Function]}
     onMomentumScrollBegin={[Function]}
@@ -57,13 +60,20 @@ exports[`ViewAttachments should match the snapshot 1`] = `
       <View
         onFocusCapture={[Function]}
         onLayout={[Function]}
-        style={null}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
       >
         <View
           style={
             {
               "alignItems": "center",
-              "backgroundColor": "#FFF8DC",
+              "backgroundColor": "#F5F5DC",
               "borderColor": "#8B4513",
               "borderRadius": 8,
               "borderWidth": 2,
@@ -167,7 +177,8 @@ exports[`ViewAttachments should match the snapshot 1`] = `
                 {
                   "color": "#8B4513",
                   "flex": 1,
-                  "fontSize": 16,
+                  "fontSize": 20,
+                  "fontWeight": "500",
                   "textAlignVertical": "center",
                 }
               }
@@ -207,6 +218,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               {
                 "backgroundColor": "#8B4513",
                 "borderRadius": 8,
+                "marginHorizontal": 8,
                 "opacity": 1,
                 "padding": 6,
               }
@@ -240,13 +252,20 @@ exports[`ViewAttachments should match the snapshot 1`] = `
       <View
         onFocusCapture={[Function]}
         onLayout={[Function]}
-        style={null}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
       >
         <View
           style={
             {
               "alignItems": "center",
-              "backgroundColor": "#FFF8DC",
+              "backgroundColor": "#F5F5DC",
               "borderColor": "#8B4513",
               "borderRadius": 8,
               "borderWidth": 2,
@@ -298,7 +317,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
                 [
                   {
                     "color": "#8B4513",
-                    "fontSize": 36,
+                    "fontSize": 40,
                   },
                   undefined,
                   {
@@ -357,7 +376,8 @@ exports[`ViewAttachments should match the snapshot 1`] = `
                 {
                   "color": "#8B4513",
                   "flex": 1,
-                  "fontSize": 16,
+                  "fontSize": 20,
+                  "fontWeight": "500",
                   "textAlignVertical": "center",
                 }
               }
@@ -397,6 +417,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               {
                 "backgroundColor": "#8B4513",
                 "borderRadius": 8,
+                "marginHorizontal": 8,
                 "opacity": 1,
                 "padding": 6,
               }
@@ -430,13 +451,20 @@ exports[`ViewAttachments should match the snapshot 1`] = `
       <View
         onFocusCapture={[Function]}
         onLayout={[Function]}
-        style={null}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
       >
         <View
           style={
             {
               "alignItems": "center",
-              "backgroundColor": "#FFF8DC",
+              "backgroundColor": "#F5F5DC",
               "borderColor": "#8B4513",
               "borderRadius": 8,
               "borderWidth": 2,
@@ -547,7 +575,8 @@ exports[`ViewAttachments should match the snapshot 1`] = `
                 {
                   "color": "#8B4513",
                   "flex": 1,
-                  "fontSize": 16,
+                  "fontSize": 20,
+                  "fontWeight": "500",
                   "textAlignVertical": "center",
                 }
               }
@@ -587,6 +616,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               {
                 "backgroundColor": "#8B4513",
                 "borderRadius": 8,
+                "marginHorizontal": 8,
                 "opacity": 1,
                 "padding": 6,
               }

@@ -47,9 +47,9 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
         
-        // Verify that 'Image 1' is displayed
+        // Verify that Image 1 is displayed
         expect(getByText('Image 1')).toBeTruthy();
-        // Press 'Image 1'
+        // Press Image 1
         fireEvent.press(getByText('Image 1'));
     
         await waitFor(() => {
@@ -67,9 +67,9 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Document 1' is displayed
+        // Verify that Document 1 is displayed
         expect(getByText('Document 1')).toBeTruthy();
-        // Press 'Document 1'
+        // Press Document 1
         fireEvent.press(getByText('Document 1'));
     
         await waitFor(() => {
@@ -85,33 +85,33 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' option is displayed
+            //  Verify that the Play option is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {
-            //  Verify that the '00:00' is displayed
+            //  Verify that the 00:00 is displayed
             expect(getByText('00:00')).toBeTruthy();
-            //  Verify that the 'Pause' is displayed
+            //  Verify that the Pause is displayed
             expect(getByText('Pause')).toBeTruthy();
         });
 
-        // Press 'Pause'
+        // Press Pause
         fireEvent.press(getByText('Pause'));
 
         await waitFor(() => {
-            //  Verify that the 'Resume' is displayed
+            //  Verify that the Resume is displayed
             expect(getByText('Resume')).toBeTruthy();
         });
     });
@@ -138,23 +138,23 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
         
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' is displayed
+            //  Verify that the Play is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {
-            //  Verify that the 'Pause' is displayed
+            //  Verify that the Pause is displayed
             expect(getByText('Pause')).toBeTruthy();
         });
     
@@ -169,7 +169,7 @@ describe('ViewAttachments', () => {
 
     // Test to call onDeleteAttachment when delete is confirmed
     it('should call onDeleteAttachment when delete is confirmed', async () => {
-        // Nock alert to find the destructive button and press the delete button
+        // Mock alert to find the destructive button and press the delete button
         Alert.alert.mockImplementationOnce((title, message, buttons) => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
@@ -180,7 +180,7 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Image 1' is displayed
+        // Verify that Image 1 is displayed
         expect(getByText('Image 1')).toBeTruthy();
         // Press the delete button for the first attachment
         fireEvent.press(getByTestId('delete-1')); 
@@ -191,7 +191,7 @@ describe('ViewAttachments', () => {
 
     // Test to not call onDeleteAttachment if delete alert is cancelled 
     it('should not call onDeleteAttachment when deletion is cancelled', async () => {
-        // Nock alert to find the cancel button and press the cancel button
+        // Mock alert to find the cancel button and press the cancel button
         Alert.alert.mockImplementationOnce((title, message, buttons) => {
             const cancelButton = buttons.find(b => b.style === 'cancel');
             cancelButton?.onPress?.();
@@ -202,7 +202,7 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
 
-        // Verify that 'Image 1' is displayed
+        // Verify that Image 1 is displayed
         expect(getByText('Image 1')).toBeTruthy();
         // Press the delete button for the first attachment
         fireEvent.press(getByTestId('delete-1')); 
@@ -218,9 +218,9 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Image 1' is displayed
+        // Verify that Image 1 is displayed
         expect(getByText('Image 1')).toBeTruthy();
-        // Press 'Image 1'
+        // Press Image 1
         fireEvent.press(getByText('Image 1'));
     
         await waitFor(() => {
@@ -248,9 +248,9 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Image 1' is displayed
+        // Verify that Image 1 is displayed
         expect(getByText('Image 1')).toBeTruthy();
-        // Press 'Image 1'
+        // Press Image 1
         fireEvent.press(getByText('Image 1'));
     
         await waitFor(() => {
@@ -264,7 +264,7 @@ describe('ViewAttachments', () => {
         fireEvent.press(getByTestId('image-TouchableWithoutFeedback'));
 
         await waitFor(() => {
-            // Verify that the modal is closed
+            // Verify that the image modal is closed
             expect(queryByTestId('image-modal')).toBeNull();
             // Verify that the image is not displayed
             expect(queryByTestId('image-preview')).toBeNull();
@@ -278,25 +278,25 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' is displayed
+            //  Verify that the Play is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {
-            //  Verify that the '00:00' is displayed
+            //  Verify that the 00:00 is displayed
             expect(getByText('00:00')).toBeTruthy();
-            //  Verify that the 'Pause' is displayed
+            //  Verify that the Pause is displayed
             expect(getByText('Pause')).toBeTruthy();
         });
 
@@ -304,9 +304,9 @@ describe('ViewAttachments', () => {
         fireEvent.press(getByTestId('audio-close'));
 
         await waitFor(() => {
-            // Verify that the modal is closed
+            // Verify that the audio modal is closed
             expect(queryByTestId('audio-modal')).toBeNull();
-            // Verify that 'Play' is not displayed
+            // Verify that Play is not displayed
             expect(queryByText('Play')).toBeNull();
         });
 
@@ -319,25 +319,25 @@ describe('ViewAttachments', () => {
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
     
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' is displayed
+            //  Verify that the Play is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {
-            //  Verify that the '00:00' is displayed
+            //  Verify that the 00:00 is displayed
             expect(getByText('00:00')).toBeTruthy();
-            //  Verify that the 'Pause' is displayed
+            //  Verify that the Pause is displayed
             expect(getByText('Pause')).toBeTruthy();
         });
 
@@ -347,7 +347,7 @@ describe('ViewAttachments', () => {
         await waitFor(() => {
             // Verify that the modal is closed
             expect(queryByTestId('audio-modal')).toBeNull();
-            // Verify that 'Play' is not displayed
+            // Verify that Play is not displayed
             expect(queryByText('Play')).toBeNull();
         });
 
@@ -373,29 +373,29 @@ describe('ViewAttachments', () => {
         Audio.Sound.mockImplementation(() => MockSoundInstance);
 
         // Renders the ViewAttachments component
-        const { getByText, getByTestId, queryByTestId } = render(
+        const { getByText, getByTestId } = render(
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
 
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' is displayed
+            //  Verify that the Play is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {
-            //  Verify that the '00:00' is displayed
+            //  Verify that the 00:00 is displayed
             expect(getByText('00:00')).toBeTruthy();
-            //  Verify that the 'Pause' is displayed
+            //  Verify that the Pause is displayed
             expect(getByText('Pause')).toBeTruthy();
         });
 
@@ -426,23 +426,23 @@ describe('ViewAttachments', () => {
         Audio.Sound.mockImplementation(() => mockSoundInstance);
 
         // Renders the ViewAttachments component
-        const { getByText, getByTestId, queryByTestId } = render(
+        const { getByText, getByTestId } = render(
             <ViewAttachments attachments={mockAttachments} onDeleteAttachment={mockOnDeleteAttachment} />
         );
 
-        // Verify that 'Audio 1' is displayed
+        // Verify that Audio 1 is displayed
         expect(getByText('Audio 1')).toBeTruthy();
-        // Press 'Audio 1'
+        // Press Audio 1
         fireEvent.press(getByText('Audio 1'));
     
         await waitFor(() => {
             // Wait for the audio modal to open and verify that it is displayed with the test ID
             expect(getByTestId('audio-modal')).toBeTruthy();
-            //  Verify that the 'Play' is displayed
+            //  Verify that the Play is displayed
             expect(getByText('Play')).toBeTruthy();
         });
 
-        // Press 'Play'
+        // Press Play
         fireEvent.press(getByText('Play'));
 
         await waitFor(() => {

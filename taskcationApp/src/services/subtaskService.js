@@ -2,14 +2,17 @@ import {
     collection,
     doc,
     addDoc,
+    query,
+    where,
     getDoc,
+    getDocs,
     updateDoc,
     deleteDoc,
     serverTimestamp
 } from 'firebase/firestore';
 
 
-export async function createSubTask(db, subtaskData) {
+export async function createSubtask(db, subtaskData) {
 
     if (!subtaskData.subtask_name || typeof subtaskData.subtask_name !== 'string' || !subtaskData.subtask_name.trim()) {
         throw new Error('subtask_name is required (non-empty string).');
@@ -63,16 +66,16 @@ export async function createSubTask(db, subtaskData) {
         updated_at: serverTimestamp(),
     };
 
-    const docRef = await addDoc(collection(db, 'SubTasks'), docData);
+    const docRef = await addDoc(collection(db, 'Subtasks'), docData);
     return docRef.id;
 }
 
-export async function getSubTaskByID(db, subTaskID) {
-    const snap = await getDoc(doc(db, 'SubTasks', subTaskID));
+export async function getSubtaskByID(db, subtaskID) {
+    const snap = await getDoc(doc(db, 'Subtasks', subtaskID));
     return snap.exists() ? snap.data() : null;
 }
 
-export async function updateSubTask(db, subTaskID, updatedData) {
+export async function updateSubtask(db, subtaskID, updatedData) {
 
     if (updatedData.subtask_name !== undefined) {
         if (
@@ -115,12 +118,40 @@ export async function updateSubTask(db, subTaskID, updatedData) {
         throw new Error('attachments must be an array of strings if provided.');
     }
 
-    await updateDoc(doc(db, 'SubTasks', subTaskID), {
+    await updateDoc(doc(db, 'Subtasks', subtaskID), {
         ...updatedData,
         updated_at: serverTimestamp(),
     });
 }
 
-export async function deleteSubTask(db, subTaskID) {
-    await deleteDoc(doc(db, 'SubTasks', subTaskID));
+export async function getSubtasksByTaskID(db, taskID) {
+    const q = query(collection(db, 'Subtasks'), where('task_id', '==', taskID));
+    const snap = await getDocs(q);
+    return snap.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+    }));
+}
+
+export async function deleteSubtask(db, subtaskID) {
+    try {
+        // 2️⃣ Delete attachments related to the task
+        const attachmentQuery = query(collection(db, 'Attachments'), where('subtask_id', '==', taskID));
+        const attachmentSnapshots = await getDocs(attachmentQuery);
+
+        const attachmentDeletions = attachmentSnapshots.docs.map(attachmentDoc => 
+            deleteDoc(doc(db, 'Attachments', attachmentDoc.id))
+        );
+        await Promise.all(attachmentDeletions);
+        console.log(`Deleted ${attachmentSnapshots.size} attachments`);
+
+        // 3️⃣ Delete the task itself
+        await deleteDoc(doc(db, 'Subtasks', subtaskID));
+        console.log(`Task ${taskID} deleted successfully`);
+
+    } catch (error) {
+        console.error('Error deleting task and its dependencies:', error);
+        throw new Error('Failed to delete task and its related data.');
+    }
+    
 }

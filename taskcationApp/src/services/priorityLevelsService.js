@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
 
 export async function getAllPriorities(db) {
@@ -7,4 +7,9 @@ export async function getAllPriorities(db) {
         id: docSnap.id,
         ...docSnap.data()
     }));
+}
+
+export async function getPriorityByID(db, priorityID) {
+    const docSnap = await getDoc(doc(db, 'PriorityLevels', priorityID));
+    return docSnap.exists() ? docSnap.data() : null;
 }

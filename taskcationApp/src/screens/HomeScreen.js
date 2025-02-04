@@ -9,8 +9,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
-
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
 import { db } from '../../firebaseConfig';
 import { createUser } from '../services/userService';
 import { getTasksByCreator, updateTask } from '../services/taskService';
@@ -37,6 +37,9 @@ const HomeScreen = () => {
 
     // Hook for rerendering the screen
     const isFocused = useIsFocused();
+
+    // Hook for navigating to other screens
+    const navigation = useNavigation();
 
     // Convert a Firestore Timestamp to a JS Date
     function convertToDate(possibleTimestamp) {
@@ -116,13 +119,13 @@ const HomeScreen = () => {
                     await createGroup(db, {
                         group_name: 'Math',
                         group_type: 'Subjects',
-                        grade_id: 'N/A',
+                        grade_id: 'NA',
                         created_by: storedUserId,
                     });
                     await createGroup(db, {
                         group_name: 'General',
                         group_type: 'Categories',
-                        grade_id: 'N/A',
+                        grade_id: 'NA',
                         created_by: storedUserId,
                     });
                 }
@@ -144,6 +147,7 @@ const HomeScreen = () => {
                 // Set error if initialising fails
                 setError('Failed to initialise user, groups or tasks!');
             } finally {
+                // Set loading state to false
                 setLoading(false);
             }
             })();
@@ -184,36 +188,41 @@ const HomeScreen = () => {
     const renderTask = ({ task }) => {
         
         return (
-            // Task container for each task, changed when completed
-            <View
-                style={[
-                    styles.tasksContainer,
-                    task.status && styles.tasksCompletedContainer,
-                ]}
+            // Allows uers to navigate to TaskDetail screen when clicked
+            <TouchableOpacity
+                onPress={() => navigation.navigate('TaskDetail', { taskID: task.id })}
             >
-                {/* Strike through line only when task is completed */}
-                {task.status && <View style={styles.strikeThrough} testID={`strikeThrough-${task.id}`}/>}
-
-                {/* Task name */}
-                <Text style={[
-                        styles.tasksText,
-                        task.status && styles.tasksCompletedText,
+                {/* Task container for each task, changes when completed */}
+                <View
+                    style={[
+                        styles.tasksContainer,
+                        task.status && styles.tasksCompletedContainer,
                     ]}
-                    numberOfLines={1}
-                    ellipsizeMode="tail"
                 >
-                    {task.task_name}
-                </Text>
-                
-                {/* Clickable Checkbox for toggling task completion */}
-                <TouchableOpacity onPress={() => toggleTaskCompletion(task.id)} testID={`checkbox-${task.id}`} >
-                    <Ionicons
-                        name={task.status ? 'checkbox' : 'square-outline'}
-                        size={28}
-                        color={task.status ? '#FFFFFF' : '#8B4513'}
-                    />
-                </TouchableOpacity>
-            </View>
+                    {/* Strike through line only when task is completed */}
+                    {task.status && <View style={styles.strikeThrough} testID={`strikeThrough-${task.id}`}/>}
+
+                    {/* Task name */}
+                    <Text style={[
+                            styles.tasksText,
+                            task.status && styles.tasksCompletedText,
+                        ]}
+                        numberOfLines={1}
+                        ellipsizeMode='tail'
+                    >
+                        {task.task_name}
+                    </Text>
+                    
+                    {/* Clickable Checkbox for toggling task completion */}
+                    <TouchableOpacity onPress={() => toggleTaskCompletion(task.id)} testID={`checkbox-${task.id}`} >
+                        <Ionicons
+                            name={task.status ? 'checkbox' : 'square-outline'}
+                            size={28}
+                            color={task.status ? '#FFFFFF' : '#8B4513'}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
         );
     };
     
@@ -263,7 +272,7 @@ const HomeScreen = () => {
     // Display loading indicator if tasks are still loading
     if (loading) {
         return (
-            <View style={styles.container}>
+            <View style={styles.loadingContainer}>
                 <Text>Loading tasks...</Text>
             </View>
         );
@@ -281,9 +290,7 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             {/* Render the header component */}
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Taskcation</Text>
-            </View>
+            <Header />
 
             {/* Render the upcoming container */}
             <View style={styles.upcomingContainer}>
@@ -312,7 +319,7 @@ const HomeScreen = () => {
                                     isChecked && styles.tasksCompletedText,
                                 ]}
                                 numberOfLines={1}
-                                ellipsizeMode="tail"
+                                ellipsizeMode='tail'
                             >
                                 Add task to start using Taskcation!
                             </Text>
@@ -352,6 +359,12 @@ const styles = StyleSheet.create({
     // Style for the container
     container: {
         flex: 1,
+        backgroundColor: '#F5F5DC',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#F5F5DC',
     },
     // Style for the header

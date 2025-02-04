@@ -27,7 +27,7 @@ export async function createGroup(db, groupData) {
         group_name: groupData.group_name.trim(),
         created_by: groupData.created_by,
         group_type: groupData.group_type,
-        grade_id:   groupData.grade_id   ?? 'N/A',
+        grade_id:   groupData.grade_id  ?? 'NA',
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
     });

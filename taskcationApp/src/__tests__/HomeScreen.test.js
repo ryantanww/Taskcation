@@ -29,8 +29,19 @@ const mockGroups = [
     { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123' },
 ];
 
-describe('HomeScreen', () => {
+// Mock useNavigation hook
+const mockNavigate = jest.fn();
+jest.mock('@react-navigation/native', () => {
+    const actualNav = jest.requireActual('@react-navigation/native');
+    return {
+        ...actualNav,
+        useNavigation: () => ({
+            navigate: mockNavigate,
+        }),
+    };
+});
 
+describe('HomeScreen', () => {
     // Clear all mocks before each test
     beforeEach(() => {
         jest.clearAllMocks();
@@ -77,13 +88,13 @@ describe('HomeScreen', () => {
             expect(createGroup).toHaveBeenCalledWith(expect.anything(), {
                 group_name: 'Math',
                 group_type: 'Subjects',
-                grade_id: 'N/A',
+                grade_id: 'NA',
                 created_by: 'temp_user_123',
             });
             expect(createGroup).toHaveBeenCalledWith(expect.anything(), {
                 group_name: 'General',
                 group_type: 'Categories',
-                grade_id: 'N/A',
+                grade_id: 'NA',
                 created_by: 'temp_user_123',
             });
         });
@@ -108,7 +119,7 @@ describe('HomeScreen', () => {
     });
 
     // Test to verify empty state message when there no tasks exist
-    it('should render "Add task to start using Taskcation!" when no tasks exist', async () => {
+    it('should render Add task to start using Taskcation! when no tasks exist', async () => {
         // Mock no tasks state
         getTasksByCreator
             .mockResolvedValueOnce([])
@@ -122,13 +133,13 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify the 'Add task to start using Taskcation!' is displayed
+            // Verify the Add task to start using Taskcation! is displayed
             expect(getByText('Add task to start using Taskcation!')).toBeTruthy()
         });
     });
 
     // Test to verify UI updates when toggling completion for the empty state
-    it('should toggle "Add task to start using Taskcation!" completion and update UI', async () => {
+    it('should toggle Add task to start using Taskcation! completion and update UI', async () => {
         // Mock no tasks state
         getTasksByCreator
             .mockResolvedValueOnce([])
@@ -142,7 +153,7 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify the 'Add task to start using Taskcation!' is displayed
+            // Verify the Add task to start using Taskcation! is displayed
             expect(getByText('Add task to start using Taskcation!')).toBeTruthy()
         });
 
@@ -192,7 +203,7 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify that 'Task 1' is displayed
+            // Verify that Task 1 is displayed
             expect(getByText('Task 1')).toBeTruthy()
         });
 
@@ -220,7 +231,7 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify that 'Task 2' is displayed
+            // Verify that Task 2 is displayed
             expect(getByText('Task 2')).toBeTruthy()
         });
 
@@ -228,6 +239,35 @@ describe('HomeScreen', () => {
         const strikeThrough = getByTestId('strikeThrough-2');
         // Verify if strike through is displayed
         expect(strikeThrough).toBeTruthy();
+    });
+
+    // Test to navigate to Task Detail Screen when a task is pressed
+    it('should navigate to TaskDetailScreen when a task is pressed', async () => {
+        // Mock groups
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verifies the first group date and task name
+            expect(getByText('20/01/2025')).toBeTruthy();
+            expect(getByText('Task 1')).toBeTruthy();
+
+            // Verifies the second group date and task name 
+            expect(getByText('21/01/2025')).toBeTruthy();
+            expect(getByText('Task 2')).toBeTruthy();
+        });
+
+        // Press Task 1
+        fireEvent.press(getByText('Task 1'));
+
+        // Verify that navigation to TaskDetailScreen has been called with taskID as its parameter
+        expect(mockNavigate).toHaveBeenCalledWith('TaskDetail', { taskID: '1' });
     });
 
         // Tests whether the loading state is rendered correctly
@@ -239,7 +279,7 @@ describe('HomeScreen', () => {
                 </NavigationContainer>
             );
     
-            // Verify the 'Loading tasks...' is displayed
+            // Verify the Loading tasks... is displayed
             expect(getByText('Loading tasks...')).toBeTruthy();
         });
     
@@ -369,7 +409,7 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify the 'Add task to start using Taskcation!' is displayed
+            // Verify the Add task to start using Taskcation! is displayed
             expect(getByText('Add task to start using Taskcation!')).toBeTruthy()
         });
 
@@ -387,7 +427,7 @@ describe('HomeScreen', () => {
         );
 
         await waitFor(() => {
-            // Verify that 'Task 1' and 'Task 2' is displayed
+            // Verify that Task 1 and Task 2 is displayed
             expect(getByText('Task 1')).toBeTruthy();
             expect(getByText('Task 2')).toBeTruthy();
         });
