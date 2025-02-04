@@ -1,4 +1,4 @@
-// Import dependencies and libraries used in Add Task Screen
+// Import dependencies and libraries used in Edit Task Screen
 import React, { useEffect, useState } from 'react';
 import {
     Text,
@@ -11,20 +11,23 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
-import DropDownPicker from 'react-native-dropdown-picker';
 import AddAttachments from '../components/AddAttachments';
 import ViewAttachments from '../components/ViewAttachments';
-import { createTask } from '../services/taskService';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { getTaskByID, updateTask } from '../services/taskService';
 import { getGroupsByCreator } from '../services/groupsService';
 import { getAllPriorities } from '../services/priorityLevelsService';
-import { createAttachment } from '../services/attachmentService';
+import { getAttachmentsByTaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
 import { db } from '../../firebaseConfig';
 
+const EditTaskScreen = () => {
+    // Access the route  object to get the taskID passed from navigation
+    const route = useRoute();
+    const { taskID } = route.params;
 
-const AddTaskScreen = () => {
     // Access the navigation object
     const navigation = useNavigation();
 
@@ -48,10 +51,7 @@ const AddTaskScreen = () => {
 
     // State for storing the task priority
     const [selectedPriority, setSelectedPriority] = useState('');
-
-    // State for storing the attachments
-    const [attachments, setAttachments] = useState([]);
-
+    
     // State for date pickers visibility
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showStartTimePicker, setShowStartTimePicker] = useState(false);
@@ -66,6 +66,13 @@ const AddTaskScreen = () => {
     // State for dropdown visibilities
     const [groupOpen, setGroupOpen] = useState(false);
     const [priorityOpen, setPriorityOpen] = useState(false);
+
+    // State for storing the attachments
+    const [attachments, setAttachments] = useState([]);
+    const [attachmentsToDelete, setAttachmentsToDelete] = useState([]);
+
+    // State for loading status
+    const [loading, setLoading] = useState(true);
 
     // useEffect to initialise user and fetch groups and priorities on component mount
     useEffect(() => {
@@ -100,22 +107,91 @@ const AddTaskScreen = () => {
 
         // Initialise the screen data
         initialise();
+    }, []);
 
-        // Reset all input fields when navigating away from the screen
-        const resetStates = navigation.addListener('blur', () => {
-            setTaskName('');
-            setStartDate(new Date());
-            setEndDate(null);
-            setTaskNotes('');
-            setSelectedGroup('');
-            setSelectedPriority('');
-            setAttachments([]);
+    // useEffect to fetch tasks on component mount
+    useEffect(() => {
+        // Function to fetch task details from database
+        const fetchTask = async () => {
+            try {
+                // Fetch the task details from the Firebase database based on taskID
+                const fetchedTask = await getTaskByID(db, taskID);
+                // Check if there is a task
+                if (fetchedTask) {
+                    // Store task details into their respective states
+                    setTaskName(fetchedTask.task_name);
+                    setStartDate(convertToDate(fetchedTask.start_date));
+                    setEndDate(convertToDate(fetchedTask.end_date));
+                    setTaskNotes(fetchedTask.task_notes);
+                    setSelectedGroup(fetchedTask.group_id);
+                    setSelectedPriority(fetchedTask.priority_id);
+                    // Fetch the attachments from the Firebase database based on taskID in task
+                    const fetchedAttachments = await getAttachmentsByTaskID(db, taskID);
+                    // Store the attachments into the attachments state
+                    setAttachments(fetchedAttachments || []);
+                }
+            } catch (error) {
+                // Log error in fetching task details
+                console.error('Error fetching task details:', error);
+                // Alert error when failed to fetch task details
+                Alert.alert('Fetching Task Details Error', 'Failed to fetch task details.');
+            } finally {
+                // Set loading state to false
+                setLoading(false);
+            }
+        };
+    
+        fetchTask();
+    }, [taskID]);
+    
+
+    // Convert a Firestore Timestamp to a JS Date
+    function convertToDate(possibleTimestamp) {
+        if (!possibleTimestamp) return null;
+
+        // Check if it's a Firestore Timestamp
+        if (typeof possibleTimestamp.toDate === 'function') {
+            return possibleTimestamp.toDate();
+        }
+
+        // If it's not a Firestore Timestamp, check if it's a valid date string or number
+        const dateObj = new Date(possibleTimestamp);
+        if (!isNaN(dateObj.getTime())) {
+            // Return as a JS Date if it's valid
+            return dateObj; 
+        }
+
+        // Return null for invalid dates
+        return null; 
+    }
+
+    // Function to format the dates into dd/mm/yyyy format
+    const formatDate = (date) => {
+        const dateObj = convertToDate(date);
+        if (!dateObj) {
+            return 'Invalid Date';
+        }
+        const formattedDate = new Date(dateObj).toLocaleDateString('en-GB', 
+        {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
         });
-    
-        // Reset all states on component unmount
-        return resetStates;
-    }, [navigation]);
-    
+        return formattedDate;
+    }
+
+    // Function to format the time into HH::MM
+    const formatTime = (time) => {
+        const timeObj = convertToDate(time);
+        if (!timeObj) {
+            return 'Invalid Date';
+        }
+        const formattedTime = new Date(timeObj).toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+        return formattedTime;
+    };
 
     // Function to handle start date change when picking start date
     const handleStartDateChange = (event, date) => {
@@ -162,31 +238,11 @@ const AddTaskScreen = () => {
         // Hide the end time picker
         setShowEndTimePicker(false);
         if (time) {
-            const updatedDate = endDate ? new Date(endDate) : new Date(startDate);
+            const updatedDate = new Date(endDate) ;
             updatedDate.setHours(time.getHours(), time.getMinutes());
             // Update the end time
             setEndDate(updatedDate);
         }
-    };
-
-    // Function to format the dates into dd/mm/yyyy format
-    const formatDate = (date) => {
-        const formattedDate = new Date(date).toLocaleDateString('en-GB', 
-        {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        return formattedDate;
-    }
-
-    // Function to format the time into HH::MM
-    const formatTime = (time) => {
-        const formattedTime = new Date(time).toLocaleTimeString('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-        return formattedTime;
     };
 
     // Function to calculate the duration in milliseconds between the start date and end date
@@ -201,8 +257,18 @@ const AddTaskScreen = () => {
         setAttachments(newAttachments);
     };
 
-    // Function to handle adding task and attachment into database
-    const handleAddTask = async () => {
+    // Function to handle deleting attachment from the list
+    const handleDeleteAttachment = async (attachment) => {
+        // Remove it from the attachments shown on screen.
+        setAttachments(prev => prev.filter(item => item.uri !== attachment.uri));
+        // If the attachment already exists in the database, mark it for deletion
+        if (attachment.id) {
+            setAttachmentsToDelete(prev => [...prev, attachment]);
+        }
+    };
+
+    // Function to handle updating task and attachments into the database
+    const handleUpdateTask = async () => {
         // Validate if task name is entered
         if (!taskName) {
             // Alert error when task name is not entered
@@ -233,71 +299,70 @@ const AddTaskScreen = () => {
 
         // Calculate the task duration
         const duration = calculateDuration(startDate, endDate);
-
+        
         try {
-            // Create a new tasks with the provided details and store it in the database
-            const taskID = await createTask(db, {
+            // Update task details with the updated details and store it in the database
+            await updateTask(db, taskID, {
                 task_name: taskName,
-                created_by: userID,
                 start_date: startDate,
                 end_date: endDate,
                 duration: duration,
                 task_notes: taskNotes,
                 group_id: selectedGroup,
                 priority_id: selectedPriority,
-                status: false,
-                attachments: [],
             });
 
-            // If there are attachments, store them into the database
-            if (attachments.length > 0) {
-                const attachmentPromises = attachments.map((attachment) =>
+            // Check whether there are any new attachments
+            const newAttachments = attachments.filter(att => !att.id);
+            // If there are new attachments, store them into the database
+            if (newAttachments.length > 0) {
+                const attachmentPromises = attachments.map(attachment =>
                     createAttachment(db, {
-                        task_id: taskID,
-                        file_name: attachment.file_name,
-                        file_type: attachment.file_type,
-                        uri: attachment.uri,
-                        size: attachment.size,
-                        durationMillis: attachment.durationMillis || null,
+                    task_id: taskID,
+                    file_name: attachment.file_name,
+                    file_type: attachment.file_type,
+                    uri: attachment.uri,
+                    size: attachment.size,
+                    durationMillis: attachment.durationMillis || null,
                     })
                 );
                 // Wait for all attachments to be stored
                 await Promise.all(attachmentPromises);
             }
-            
-            // Reset all input fields after task creation is successful
-            setTaskName('');
-            setStartDate(new Date());
-            setEndDate(null);
-            setTaskNotes('');
-            setSelectedGroup('');
-            setSelectedPriority('');
-            setAttachments([]);
+
+            // If there are attachments to be deleted, delete them from the database on update
+            if (attachmentsToDelete.length > 0) {
+                // Delete the attachments to be deleted, one by one
+                const deletePromises = attachmentsToDelete.map(attachment => deleteAttachment(db, attachment.id));
+                // Wait for all attachments to be deleted
+                await Promise.all(deletePromises);
+            }
 
             // Alert success when task is created successfully
-            Alert.alert('Success', 'Task created successfully!');
+            Alert.alert('Success', 'Task updated successfully!');
             // Navigate back to the previous screen
             navigation.goBack();
         } catch (error) {
-            // Log any errors when creating task or attachments
-            console.log('Error creating task or attachments:', error);
-            // Alert error for task or attachments creation 
-            Alert.alert('Task Creation Error', 'Failed to create the task or attachments.');
+            // Log any errors when updating task or attachments
+            console.error('Error updating task:', error);
+            // Alert error for updating task or attachments 
+            Alert.alert('Update Error', 'Failed to update the task.');
         }
     };
 
-    // Function to handle deleting attachment from the list
-    const handleDeleteAttachment = (attachment) => {
-        setAttachments((prev) =>
-            prev.filter((item) => item.uri !== attachment.uri)
+    // Display loading indicator if tasks are still loading
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text>Loading task detail...</Text>
+            </View>
         );
-    };
+    }
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header with back arrow and title */}
-            <Subheader title='Add Task' hasKebab={false}/>
-            
+            {/* Render the Subheader component */}
+            <Subheader title='Edit Task' hasKebab={false} />
             {/* TouchableWithoutFeedback to allow pressing outside of the dropdowns to close the dropdowns */}
             <TouchableWithoutFeedback onPress={() => { setGroupOpen(false); setPriorityOpen(false); }}>
                 <View style={styles.contentContainer}>
@@ -321,12 +386,12 @@ const AddTaskScreen = () => {
                             <Text style={styles.text}>{formatTime(startDate)}</Text>
                         </TouchableOpacity>
                     </View>
-
+                    
                     {/* Conditional rendering of the start date and time pickers */}
                     {showStartDatePicker && (
                         <DateTimePicker
                             testID='startDatePicker'
-                            value={startDate}
+                            value={new Date(startDate)}
                             mode='date'
                             display='default'
                             onChange={handleStartDateChange}
@@ -335,44 +400,44 @@ const AddTaskScreen = () => {
                     {showStartTimePicker && (
                         <DateTimePicker
                             testID='startTimePicker'
-                            value={startDate}
+                            value={new Date(startDate)}
                             mode='time'
                             display='spinner'
                             onChange={handleStartTimeChange}
-                        />
+                    />
                     )}
 
                     {/* Row for end date and time */}
                     <View style={styles.dateTimeRow}>
                         {/* End date button */}
                         <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
-                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Date' : formatDate(endDate) }</Text>
+                            <Text style={styles.text}>{formatDate(endDate)}</Text>
                         </TouchableOpacity>
                         {/* End time button */}
                         <TouchableOpacity onPress={() => setShowEndTimePicker(true)}>
-                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Time' : formatTime(endDate) }</Text>
+                            <Text style={styles.text}>{formatTime(endDate)}</Text>
                         </TouchableOpacity>
                     </View>
-
-                        {/* Conditional rendering of the end date and time pickers */}
-                        {showEndDatePicker && (
-                            <DateTimePicker
-                                testID='endDatePicker'
-                                value={endDate || startDate}
-                                mode='date'
-                                display='default'
-                                onChange={handleEndDateChange}
-                            />
-                        )}
-                        {showEndTimePicker && (
-                            <DateTimePicker
-                                testID='endTimePicker'
-                                value={endDate || startDate}
-                                mode='time'
-                                display='spinner'
-                                onChange={handleEndTimeChange}
-                            />
-                        )}
+                    
+                    {/* Conditional rendering of the end date and time pickers */}
+                    {showEndDatePicker && (
+                        <DateTimePicker
+                            testID='endDatePicker'
+                            value={endDate ? new Date(endDate) : new Date(startDate)}
+                            mode='date'
+                            display='default'
+                            onChange={handleEndDateChange}
+                        />
+                    )}
+                    {showEndTimePicker && (
+                        <DateTimePicker
+                            testID='endTimePicker'
+                            value={endDate ? new Date(endDate) : new Date(startDate)}
+                            mode='time'
+                            display='spinner'
+                            onChange={handleEndTimeChange}
+                        />
+                    )}
 
                     {/* Task Notes */}
                     <TextInput
@@ -403,7 +468,7 @@ const AddTaskScreen = () => {
                             textStyle={styles.text}
                             dropDownContainerStyle={styles.dropdownContainer}
                             listMode='SCROLLVIEW'
-                            maxHeight={200} 
+                            maxHeight={200}
                         />
                     </View>
 
@@ -437,20 +502,20 @@ const AddTaskScreen = () => {
                         {/* View Attachments Component */}
                         <ViewAttachments attachments={attachments} onDeleteAttachment={handleDeleteAttachment}/>
                     </View>
+                    
                 </View>
             </TouchableWithoutFeedback>
-            
-            {/* Add Button */}
-            <View style={styles.addButtonContainer}>
-                <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
-                    <Text style={styles.addButtonText}>Add</Text>
+
+            {/* Update Button */}
+            <View style={styles.updateButtonContainer}>
+                <TouchableOpacity style={styles.updateButton} onPress={handleUpdateTask}>
+                    <Text style={styles.updateButtonText}>Update</Text>
                 </TouchableOpacity>
             </View>
-            
         </SafeAreaView>
     );
-}
-
+};
+        
 const styles = StyleSheet.create({
     // Style for the container
     container: {
@@ -459,7 +524,7 @@ const styles = StyleSheet.create({
     },
     // Style for the contentContainer
     contentContainer: {
-        flex: 1,
+        flexGrow: 1,
     },
     // Style for the textInput
     textInput: {
@@ -499,7 +564,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
     },
-    // Style for the placeholderText
+    // Style for the container
     placeholderText: {
         color: '#A5734D',
         fontSize: 20,
@@ -510,7 +575,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginTop: 12,
     },
-    // Style for the dropdownContainer
+    // Style for the container
     dropdownContainer: {
         borderWidth: 2,
         borderColor: '#8B4513',
@@ -532,15 +597,15 @@ const styles = StyleSheet.create({
         marginTop: 12,
         maxHeight: 200,
     },
-    // Style for the addButtonContainer
-    addButtonContainer: {
+    // Style for the updateButtonContainer
+    updateButtonContainer: {
         alignItems: 'center',
         marginBottom: 10,
         padding: 10,
         backgroundColor: '#F5F5DC',
     },
-    // Style for the addButton
-    addButton: {
+    // Style for the updateButton
+    updateButton: {
         backgroundColor: '#8B4513',
         paddingVertical: 12,
         paddingHorizontal: 20,
@@ -548,12 +613,12 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
-    // Style for the addButtonText
-    addButtonText: {
+    // Style for the updateButtonText
+    updateButtonText: {
         fontWeight: '800',
         color: '#FFFFFF',
         fontSize: 24,
     },
 });
 
-export default AddTaskScreen;
+export default EditTaskScreen;

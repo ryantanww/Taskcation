@@ -52,7 +52,7 @@ describe('BottomTab', () => {
             </NavigationContainer>
         );
 
-        // Simulate Home tab press
+        // Press Home
         fireEvent.press(getByText('Home'));
 
         // Verify that the Home screen is rendered
@@ -68,7 +68,7 @@ describe('BottomTab', () => {
             </NavigationContainer>
         );
 
-        // Simulate Groups tab press
+        // Press Groups
         fireEvent.press(getByText('Groups'));
 
         // Verify that the Groups screen is rendered
@@ -84,7 +84,7 @@ describe('BottomTab', () => {
             </NavigationContainer>
         );
 
-        // Simulate Add Task tab press
+        // Press Add Task
         fireEvent.press(getByText('Add Task'));
 
         // Verify that the Add Task screen is rendered
@@ -100,7 +100,7 @@ describe('BottomTab', () => {
             </NavigationContainer>
         );
 
-        // Simulate Calendar tab press
+        // Press Calendar
         fireEvent.press(getByText('Calendar'));
 
         // Verify that the Calendar screen is rendered
@@ -116,7 +116,7 @@ describe('BottomTab', () => {
             </NavigationContainer>
         );
 
-        // Simulate Timer tab press
+        // Press Timer
         fireEvent.press(getByText('Timer'));
 
         // Verify that the Timer screen is rendered

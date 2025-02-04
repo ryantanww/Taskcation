@@ -3,7 +3,6 @@ import {
     doc,
     addDoc,
     getDoc,
-    updateDoc,
     deleteDoc,
     query,
     where,
@@ -31,7 +30,7 @@ export async function createAttachment(db, attachmentData) {
     
     const attachmentPayload = {
         task_id:      attachmentData.task_id      ?? '',
-        sub_task_id:  attachmentData.sub_task_id  ?? '',
+        subtask_id:  attachmentData.subtask_id  ?? '',
         file_name:    attachmentData.file_name    ?? '',
         file_type:    attachmentData.file_type    ?? '',
         uri:          attachmentData.uri          ?? '',
@@ -68,8 +67,8 @@ export async function getAttachmentsByTaskID(db, taskID) {
     }));
 }
 
-export async function getAttachmentsBySubtaskID(db, subTaskID) {
-    const q = query(collection(db, 'Attachments'), where('subtask_id', '==', subTaskID));
+export async function getAttachmentsBySubtaskID(db, subtaskID) {
+    const q = query(collection(db, 'Attachments'), where('subtask_id', '==', subtaskID));
     const snap = await getDocs(q);
     return snap.docs.map(docSnap => ({
         id: docSnap.id,

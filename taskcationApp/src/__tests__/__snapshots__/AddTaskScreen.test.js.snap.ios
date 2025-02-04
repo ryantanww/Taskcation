@@ -23,6 +23,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
         "alignItems": "center",
         "backgroundColor": "#8B4513",
         "flexDirection": "row",
+        "justifyContent": "space-between",
         "padding": 16,
       }
     }
@@ -60,6 +61,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           "opacity": 1,
         }
       }
+      testID="back-button"
     >
       <Text
         allowFontScaling={false}
@@ -67,8 +69,8 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
         style={
           [
             {
-              "color": "#FFFFFF",
-              "fontSize": 24,
+              "color": "#F5F5DC",
+              "fontSize": 32,
             },
             undefined,
             {
@@ -84,9 +86,11 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
       </Text>
     </View>
     <Text
+      ellipsizeMode="tail"
+      numberOfLines={1}
       style={
         {
-          "color": "#FFFFFF",
+          "color": "#F5F5DC",
           "flex": 1,
           "fontSize": 32,
           "fontWeight": "800",
@@ -96,6 +100,13 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
     >
       Add Task
     </Text>
+    <View
+      style={
+        {
+          "width": 50,
+        }
+      }
+    />
   </View>
   <View
     accessibilityState={
@@ -505,6 +516,7 @@ exports[`AddTaskScreen Snapshot Tests should match the snapshot 1`] = `
           "flex": 1,
           "marginHorizontal": 16,
           "marginTop": 12,
+          "maxHeight": 200,
         }
       }
     >

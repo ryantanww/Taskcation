@@ -54,7 +54,7 @@ export async function createTask(db, taskData) {
         duration: taskData.duration,
         task_notes: taskData.task_notes || '',
         group_id: taskData.group_id,
-        priority_id: taskData.priority_id || 'N/A',
+        priority_id: taskData.priority_id || 'NA',
         status: taskData.status,
         time: Array.isArray(taskData.time) ? taskData.time : [],
         attachments: Array.isArray(taskData.attachments) ? taskData.attachments : [],
@@ -136,7 +136,35 @@ export async function updateTask(db, taskID, updatedData) {
 }
 
 export async function deleteTask(db, taskID) {
-    await deleteDoc(doc(db, 'Tasks', taskID));
+    try {
+        // 1️⃣ Delete subtasks related to the task
+        const subtaskQuery = query(collection(db, 'Subtasks'), where('task_id', '==', taskID));
+        const subtaskSnapshots = await getDocs(subtaskQuery);
+
+        const subtaskDeletions = subtaskSnapshots.docs.map(subtaskDoc => 
+            deleteDoc(doc(db, 'Subtasks', subtaskDoc.id))
+        );
+        await Promise.all(subtaskDeletions);
+        console.log(`Deleted ${subtaskSnapshots.size} subtasks`);
+
+        // 2️⃣ Delete attachments related to the task
+        const attachmentQuery = query(collection(db, 'Attachments'), where('task_id', '==', taskID));
+        const attachmentSnapshots = await getDocs(attachmentQuery);
+
+        const attachmentDeletions = attachmentSnapshots.docs.map(attachmentDoc => 
+            deleteDoc(doc(db, 'Attachments', attachmentDoc.id))
+        );
+        await Promise.all(attachmentDeletions);
+        console.log(`Deleted ${attachmentSnapshots.size} attachments`);
+
+        // 3️⃣ Delete the task itself
+        await deleteDoc(doc(db, 'Tasks', taskID));
+        console.log(`Task ${taskID} deleted successfully`);
+
+    } catch (error) {
+        console.error('Error deleting task and its dependencies:', error);
+        throw new Error('Failed to delete task and its related data.');
+    }
 }
 
 export async function getTasksByCreator(db, userID) {

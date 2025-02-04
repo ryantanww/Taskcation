@@ -17,29 +17,77 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
     }
   }
 >
-  <View
-    style={
+  <RNCSafeAreaView
+    edges={
       {
-        "backgroundColor": "#8B4513",
-        "borderBottomWidth": 1,
-        "borderColor": "#8B4513",
-        "padding": 16,
+        "bottom": "additive",
+        "left": "additive",
+        "right": "additive",
+        "top": "additive",
       }
     }
   >
-    <Text
+    <View
       style={
         {
-          "color": "#FFFFFF",
-          "fontSize": 32,
-          "fontWeight": "800",
-          "textAlign": "center",
+          "alignItems": "center",
+          "backgroundColor": "#8B4513",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingHorizontal": 10,
+          "paddingVertical": 10,
         }
       }
     >
-      Taskcation
-    </Text>
-  </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#FFFFFF",
+              "fontSize": 32,
+              "fontWeight": "800",
+              "textAlign": "center",
+            }
+          }
+        >
+          Taskcation
+        </Text>
+      </View>
+    </View>
+  </RNCSafeAreaView>
   <View
     style={
       {
@@ -204,29 +252,77 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
     }
   }
 >
-  <View
-    style={
+  <RNCSafeAreaView
+    edges={
       {
-        "backgroundColor": "#8B4513",
-        "borderBottomWidth": 1,
-        "borderColor": "#8B4513",
-        "padding": 16,
+        "bottom": "additive",
+        "left": "additive",
+        "right": "additive",
+        "top": "additive",
       }
     }
   >
-    <Text
+    <View
       style={
         {
-          "color": "#FFFFFF",
-          "fontSize": 32,
-          "fontWeight": "800",
-          "textAlign": "center",
+          "alignItems": "center",
+          "backgroundColor": "#8B4513",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingHorizontal": 10,
+          "paddingVertical": 10,
         }
       }
     >
-      Taskcation
-    </Text>
-  </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#FFFFFF",
+              "fontSize": 32,
+              "fontWeight": "800",
+              "textAlign": "center",
+            }
+          }
+        >
+          Taskcation
+        </Text>
+      </View>
+    </View>
+  </RNCSafeAreaView>
   <View
     style={
       {
@@ -276,98 +372,133 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
       }
     />
     <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        [
-          {
-            "alignItems": "center",
-            "backgroundColor": "#FFF8DC",
-            "borderColor": "#8B4513",
-            "borderRadius": 8,
-            "borderWidth": 2,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginTop": 6,
-            "paddingHorizontal": 10,
-            "paddingVertical": 12,
-          },
-          false,
-        ]
+        {
+          "opacity": 1,
+        }
       }
     >
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
+      <View
         style={
           [
             {
-              "color": "#8B4513",
-              "flex": 1,
-              "fontSize": 20,
-              "fontWeight": "500",
-              "overflow": "hidden",
+              "alignItems": "center",
+              "backgroundColor": "#FFF8DC",
+              "borderColor": "#8B4513",
+              "borderRadius": 8,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "marginTop": 6,
+              "paddingHorizontal": 10,
+              "paddingVertical": 12,
             },
             false,
           ]
         }
       >
-        Task 1
-      </Text>
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "opacity": 1,
-          }
-        }
-        testID="checkbox-1"
-      >
         <Text
-          allowFontScaling={false}
-          selectable={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
           style={
             [
               {
                 "color": "#8B4513",
-                "fontSize": 28,
+                "flex": 1,
+                "fontSize": 20,
+                "fontWeight": "500",
+                "overflow": "hidden",
               },
-              undefined,
-              {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
-              },
-              {},
+              false,
             ]
           }
         >
-          
+          Task 1
         </Text>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="checkbox-1"
+        >
+          <Text
+            allowFontScaling={false}
+            selectable={false}
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 28,
+                },
+                undefined,
+                {
+                  "fontFamily": "ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -400,120 +531,155 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
       }
     />
     <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        [
-          {
-            "alignItems": "center",
-            "backgroundColor": "#FFF8DC",
-            "borderColor": "#8B4513",
-            "borderRadius": 8,
-            "borderWidth": 2,
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginTop": 6,
-            "paddingHorizontal": 10,
-            "paddingVertical": 12,
-          },
-          {
-            "backgroundColor": "#8B4513",
-          },
-        ]
+        {
+          "opacity": 1,
+        }
       }
     >
       <View
         style={
-          {
-            "backgroundColor": "#FFFFFF",
-            "height": 2,
-            "left": 5,
-            "position": "absolute",
-            "top": "90%",
-            "width": "90%",
-            "zIndex": 0,
-          }
-        }
-        testID="strikeThrough-2"
-      />
-      <Text
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
           [
             {
-              "color": "#8B4513",
-              "flex": 1,
-              "fontSize": 20,
-              "fontWeight": "500",
-              "overflow": "hidden",
+              "alignItems": "center",
+              "backgroundColor": "#FFF8DC",
+              "borderColor": "#8B4513",
+              "borderRadius": 8,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "marginTop": 6,
+              "paddingHorizontal": 10,
+              "paddingVertical": 12,
             },
             {
-              "color": "#FFFFFF",
-              "flex": 1,
-              "fontSize": 20,
-              "fontWeight": "500",
-              "overflow": "hidden",
+              "backgroundColor": "#8B4513",
             },
           ]
         }
       >
-        Task 2
-      </Text>
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
+        <View
+          style={
+            {
+              "backgroundColor": "#FFFFFF",
+              "height": 2,
+              "left": 5,
+              "position": "absolute",
+              "top": "90%",
+              "width": "90%",
+              "zIndex": 0,
+            }
           }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "opacity": 1,
-          }
-        }
-        testID="checkbox-2"
-      >
+          testID="strikeThrough-2"
+        />
         <Text
-          allowFontScaling={false}
-          selectable={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
           style={
             [
               {
-                "color": "#FFFFFF",
-                "fontSize": 28,
+                "color": "#8B4513",
+                "flex": 1,
+                "fontSize": 20,
+                "fontWeight": "500",
+                "overflow": "hidden",
               },
-              undefined,
               {
-                "fontFamily": "ionicons",
-                "fontStyle": "normal",
-                "fontWeight": "normal",
+                "color": "#FFFFFF",
+                "flex": 1,
+                "fontSize": 20,
+                "fontWeight": "500",
+                "overflow": "hidden",
               },
-              {},
             ]
           }
         >
-          
+          Task 2
         </Text>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="checkbox-2"
+        >
+          <Text
+            allowFontScaling={false}
+            selectable={false}
+            style={
+              [
+                {
+                  "color": "#FFFFFF",
+                  "fontSize": 28,
+                },
+                undefined,
+                {
+                  "fontFamily": "ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
       </View>
     </View>
   </View>

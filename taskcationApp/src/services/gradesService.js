@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
 export async function getAllGrades(db) {
     const snap = await getDocs(collection(db, 'Grades'));
@@ -6,4 +6,9 @@ export async function getAllGrades(db) {
         id: docSnap.id,
         ...docSnap.data()
     }));
+}
+
+export async function getGradeByID(db, gradeID) {
+    const docSnap = await getDoc(doc(db, 'Grades', gradeID));
+    return docSnap.exists() ? docSnap.data() : null;
 }

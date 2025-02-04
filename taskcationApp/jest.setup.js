@@ -5,7 +5,6 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 
 jest.mock('@react-navigation/native', () => {
     const actualNav = jest.requireActual('@react-navigation/native');
-    
     return {
         ...actualNav,
         useIsFocused: jest.fn(() => true),
@@ -35,11 +34,18 @@ jest.mock('./src/services/userService', () => ({
 jest.mock('./src/services/groupsService', () => ({
     createGroup: jest.fn(),
     getGroupsByCreator: jest.fn().mockResolvedValue([]), 
-    
+    deleteGroup: jest.fn(),
+    updateGroup: jest.fn(),
+    getGroupByID: jest.fn(),
 }));
 
 jest.mock('./src/services/priorityLevelsService', () => ({
     getAllPriorities: jest.fn().mockResolvedValue([]),
+    getPriorityByID: jest.fn(),
+}));
+
+jest.mock('./src/services/gradesService', () => ({
+    getGradeByID: jest.fn(),
 }));
 
 // Mock Firestore Timestamp
@@ -53,16 +59,39 @@ const Timestamp = {
 };
 
 jest.mock('./src/services/taskService', () => ({
+    getTaskByID: jest.fn(),
     getTasksByCreator: jest.fn().mockResolvedValue([
         { id: '1', task_name: 'Task 1', status: false, end_date: Timestamp.fromDate(new Date('2025-01-20T03:05:00Z')), },
         { id: '2', task_name: 'Task 2', status: true, end_date: Timestamp.fromDate(new Date('2025-01-21T01:20:30Z')), },
     ]), 
-    updateTask: jest.fn().mockResolvedValue(undefined),
+    updateTask: jest.fn(),
     createTask: jest.fn(),
+    deleteTask: jest.fn(),
+}));
+
+jest.mock('./src/services/subtaskService', () => ({
+    getSubtasksByTaskID: jest.fn().mockResolvedValue([
+        { id: '1', subtask_name: 'Task 1', status: false, end_date: Timestamp.fromDate(new Date('2025-01-20T03:05:00Z')), },
+        { id: '2', subtask_name: 'Task 2', status: true, end_date: Timestamp.fromDate(new Date('2025-01-21T01:20:30Z')), },
+    ]), 
+    updateSubtask: jest.fn(),
+    createSubtask: jest.fn(),
+    deleteSubtask: jest.fn(),
 }));
 
 jest.mock('./src/services/attachmentService', () => ({
-    createAttachment: jest.fn().mockResolvedValue(undefined),
+    createAttachment: jest.fn(),
+    getAttachmentsByTaskID: jest.fn().mockResolvedValue([
+        { id: '1', uri: 'https://test.com/image1.jpg', file_name: 'Image 1', file_type: 'image/png' },
+        { id: '2', uri: 'https://test.com/audio1.mp3', file_name: 'Audio 1', file_type: 'audio/mp3' },
+        { id: '3', uri: 'https://test.com/document1.pdf', file_name: 'Document 1', file_type: 'application/pdf' },
+    ]),
+    getAttachmentsBySubtaskID: jest.fn().mockResolvedValue([
+        { id: '1', uri: 'https://test.com/image1.jpg', file_name: 'Image 1', file_type: 'image/png' },
+        { id: '2', uri: 'https://test.com/audio1.mp3', file_name: 'Audio 1', file_type: 'audio/mp3' },
+        { id: '3', uri: 'https://test.com/document1.pdf', file_name: 'Document 1', file_type: 'application/pdf' },
+    ]),
+    deleteAttachment: jest.fn(),
 }));
 
 

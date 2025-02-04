@@ -263,8 +263,10 @@ exports[`<App /> should match snapshot of App 1`] = `
                                   <View
                                     style={
                                       {
+                                        "alignItems": "center",
                                         "backgroundColor": "#F5F5DC",
                                         "flex": 1,
+                                        "justifyContent": "center",
                                       }
                                     }
                                   >
