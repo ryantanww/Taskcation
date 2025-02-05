@@ -1,20 +1,14 @@
-// Import dependencies and libraries used for testing Add Task Screen
+// Import dependencies and libraries used for testing Add Subtask Screen
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AddTaskScreen from '../screens/AddTaskScreen';
-import { createTask, deleteTask } from '../services/taskService';
-import { createAttachment } from '../services/attachmentService';
-import { getGroupsByCreator } from '../services/groupsService';
+import AddSubtaskScreen from '../screens/AddSubtaskScreen';
+import { createSubtask, deleteSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
+import { createAttachment } from '../services/attachmentService';
 import { Alert } from 'react-native'; 
 
-// Array of mocked groups to do dropdown testing
-const mockGroups = [
-    { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123' },
-    { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123' },
-];
 
 // Array of mocked priorities to do dropdown testing
 const mockPriorities = [
@@ -85,18 +79,18 @@ jest.mock('@react-navigation/native', () => {
     return {
         ...actualNav,
         useNavigation: () => mockNavigation,
+        useRoute: () => ({ params: {taskID: 'task1', task_name:'Test Subtask'}}),
+        useFocusEffect: () => {},
     };
 });
 
-describe('AddTaskScreen', () => {
+describe('AddSubtaskScreen', () => {
     // Clear all mocks and reset them before each test
     beforeEach(() => {
-        createTask.mockClear();
-        createTask.mockReset();
+        createSubtask.mockClear();
+        createSubtask.mockReset();
         createAttachment.mockClear();
         createAttachment.mockReset();
-        getGroupsByCreator.mockClear();
-        getGroupsByCreator.mockReset();
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
         jest.clearAllMocks();
@@ -107,14 +101,15 @@ describe('AddTaskScreen', () => {
             }
             return null;
         });
+        
     });
 
-    // Test to render the Add Task screen with all components
-    it('should render the Add Task screen with all components', async () => {
-        // Renders the AddTaskScreen component
+    // Test to render the Add Subtask screen with all components
+    it('should render the Add Subtask screen with all components', async () => {
+        // Renders the AddSubtaskScreen component
         const { getByPlaceholderText, getByText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
 
@@ -124,13 +119,12 @@ describe('AddTaskScreen', () => {
         const startTimeString = now.toLocaleTimeString('en-GB',{hour:'2-digit', minute:'2-digit'});
 
         // Verify that all components are rendered with the correct text
-        expect(getByPlaceholderText('Task Name')).toBeTruthy();
+        expect(getByPlaceholderText('Subtask Name')).toBeTruthy();
         expect(getByText(startDateString)).toBeTruthy();
         expect(getByText(startTimeString)).toBeTruthy();
         expect(getByText('End Date')).toBeTruthy();
         expect(getByText('End Time')).toBeTruthy();
-        expect(getByPlaceholderText('Task Notes.....')).toBeTruthy();
-        expect(getByText('Groups')).toBeTruthy();
+        expect(getByPlaceholderText('Subtask Notes.....')).toBeTruthy();
         expect(getByText('Priority Level')).toBeTruthy();
         expect(getByText('Insert Attachment')).toBeTruthy();
         expect(getByText('Add')).toBeTruthy();
@@ -138,19 +132,15 @@ describe('AddTaskScreen', () => {
 
     // Test to select start date and time, end date and time and display the updated values
     it('should select start date and time, end date and time and display the updated values', async () => {
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
-        getAllPriorities.mockResolvedValueOnce(mockPriorities);
-
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText, getByTestId } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
 
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'Date Test Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'Date Test Subtask');
 
         // Get the current date and time
         const now = new Date();
@@ -204,26 +194,24 @@ describe('AddTaskScreen', () => {
         });
     });
 
-    // Test to successfully create a task and clear the form
-    it('should successfully create a task and clear the form', async () => {
-        // Mock the successful creation of a task with task ID task1
-        createTask.mockResolvedValueOnce('task1');
+    // Test to successfully create a subtask and clear the form
+    it('should successfully create a subtask and clear the form', async () => {
+        // Mock the successful creation of a subtask with subtask ID subtask1
+        createSubtask.mockResolvedValueOnce('subtask1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
-
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+        // Mock priority services
         getAllPriorities.mockResolvedValueOnce(mockPriorities);
-    
-        // Renders the AddTaskScreen component
+
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'My Subtask');
 
         // Press on end date 
         fireEvent.press(getByText('End Date'));
@@ -243,18 +231,8 @@ describe('AddTaskScreen', () => {
             expect(getByText(endDateString)).toBeTruthy();
         });
 
-        // Change the task notes
-        fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
-    
-        // Press on Groups dropdown
-        fireEvent.press(getByText('Groups'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on Math
-        fireEvent.press(getByText('Math'));
+        // Change the subtask notes
+        fireEvent.changeText(getByPlaceholderText('Subtask Notes.....'), 'Testing Subtask Notes.');
     
         // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
@@ -280,17 +258,18 @@ describe('AddTaskScreen', () => {
         fireEvent.press(getByText('Add'));
     
         await waitFor(() => {
-            // Verify createTask was called once
-            expect(createTask).toHaveBeenCalledTimes(1);
-            // Verify the task creation information
-            expect(createTask).toHaveBeenCalledWith(expect.any(Object), {
-                task_name: 'My Task',
+            // Verify createSubtask was called once
+            expect(createSubtask).toHaveBeenCalledTimes(1);
+            // Verify the subtask creation information
+            expect(createSubtask).toHaveBeenCalledWith(expect.any(Object), {
+                subtask_name: 'My Subtask',
+                task_id: 'task1',
+                task_name: 'Test Subtask',
                 created_by: 'temp_user_123',
                 start_date: expect.any(Date),
                 end_date: expect.any(Date),
                 duration: expect.any(Number),
-                task_notes: 'Testing Task Notes.',
-                group_id: '1',
+                subtask_notes: 'Testing Subtask Notes.',
                 priority_id: '1',
                 status: false,
                 attachments: [],
@@ -301,48 +280,45 @@ describe('AddTaskScreen', () => {
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                subtask_id: 'subtask1',
                 file_name: 'test_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/test_attachment.pdf',
                 size: 1024,
                 durationMillis: null,
             });
-            // Verify the success alert for task creation
-            expect(Alert.alert).toHaveBeenCalledWith('Success', 'Task created successfully!');
+            // Verify the success alert for subtask creation
+            expect(Alert.alert).toHaveBeenCalledWith('Success', 'Subtask created successfully!');
         });
         
         await waitFor(() => {
-            // Verify that the form resets after task creation
-            expect(getByPlaceholderText('Task Name').props.value).toBe('');
+            // Verify that the form resets after subtask creation
+            expect(getByPlaceholderText('Subtask Name').props.value).toBe('');
             expect(getByText('End Date')).toBeTruthy();
             expect(getByText('End Time')).toBeTruthy();
-            expect(getByPlaceholderText('Task Notes.....').props.value).toBe('');
+            expect(getByPlaceholderText('Subtask Notes.....').props.value).toBe('');
             expect(queryByText('test_attachment.pdf')).toBeNull();
             // Verify that goBack was called once
             expect(mockNavigation.goBack).toHaveBeenCalledTimes(1);
         });
     });
-    
+
     // Test to delete an attachment
     it('should delete an attachment', async () => {
-        // Mock the successful creation of a task with task ID task1
-        createTask.mockResolvedValueOnce('task1');
+        // Mock the successful creation of a subtask with subtask ID subtask1
+        createSubtask.mockResolvedValueOnce('subtask1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
-
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
-        getAllPriorities.mockResolvedValueOnce(mockPriorities);
     
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'Delete attachment');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'Date Test Subtask');
 
         // Press on end date 
         fireEvent.press(getByText('End Date'));
@@ -362,18 +338,8 @@ describe('AddTaskScreen', () => {
             expect(getByText(endDateString)).toBeTruthy();
         });
 
-        // Change the task notes
-        fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
-    
-        // Press on Groups dropdown
-        fireEvent.press(getByText('Groups'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on General
-        fireEvent.press(getByText('General'));
+        // Change the subtask notes
+        fireEvent.changeText(getByPlaceholderText('Subtask Notes.....'), 'Testing Subtask Notes.');
 
         // Press on Insert Attachment
         fireEvent.press(getByText('Insert Attachment'));
@@ -390,32 +356,20 @@ describe('AddTaskScreen', () => {
         });
     });
 
-    // Test to load groups and priorities on mount
-    it('should load groups and priorities on mount', async () => {
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    // Test to load priorities on mount
+    it('should load priorities on mount', async () => {
+        // Mock priority services
         getAllPriorities.mockResolvedValueOnce(mockPriorities);
-
-        // Renders the AddTaskScreen component
+        
+        // Renders the AddSubtaskScreen component
         const { getByText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
 
-        // Verify Groups and Priority Level is displayed
-        expect(getByText('Groups')).toBeTruthy();
+        // Verify Priority Level is displayed
         expect(getByText('Priority Level')).toBeTruthy();
-
-        // Press on Groups dropdown
-        fireEvent.press(getByText('Groups'));
-    
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        fireEvent.press(getByText('General'));
 
         // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
@@ -430,24 +384,20 @@ describe('AddTaskScreen', () => {
         });
     });
 
-    // Test to show an alert if failed to add task
-    it('should show an alert if failed to add task', async () => {
-        // Mock task creation error
-        createTask.mockRejectedValueOnce(new Error('Failed to create task'));
-        
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
-        getAllPriorities.mockResolvedValueOnce(mockPriorities);
+    // Test to show an alert if failed to add subtask
+    it('should show an alert if failed to add subtask', async () => {
+        // Mock subtask creation error
+        createSubtask.mockRejectedValueOnce(new Error('Failed to create subtask'));
     
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText, getByTestId } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'My Subtask');
 
         // Press on end date 
         fireEvent.press(getByText('End Date'));
@@ -467,53 +417,41 @@ describe('AddTaskScreen', () => {
             expect(getByText(endDateString)).toBeTruthy();
         });
 
-        // Change the task notes
-        fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
-    
-        // Press on Groups dropdown
-        fireEvent.press(getByText('Groups'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on Math
-        fireEvent.press(getByText('Math'));
-    
+        // Change the subtask notes
+        fireEvent.changeText(getByPlaceholderText('Subtask Notes.....'), 'Testing Subtask Notes.');
+
         // Press on Add button
         fireEvent.press(getByText('Add'));
     
         await waitFor(() => {
-            // Verify createTask was called once
-            expect(createTask).toHaveBeenCalledTimes(1);
-            // Verify that an error alert is shown to the user when task creation or attachment creation failed
-            expect(Alert.alert).toHaveBeenCalledWith('Task Creation Error', 'Failed to create the task or attachments.');
+            // Verify createSubtask was called once
+            expect(createSubtask).toHaveBeenCalledTimes(1);
+            // Verify that an error alert is shown to the user when subtask creation or attachment creation failed
+            expect(Alert.alert).toHaveBeenCalledWith('Subtask Creation Error', 'Failed to create the subtask or attachments.');
         });
         
     });
 
-    // Test to show an alert if failed to add attachments and delete the task
-    it('should show an alert if failed to add attachments and delete the task', async () => {
-        // Mock the successful creation of a task with task ID task1
-        createTask.mockResolvedValueOnce('task1');
-        // Mock deleteTask
-        deleteTask.mockResolvedValueOnce(undefined);
+    // Test to show an alert if failed to add attachments and delete the subtask
+    it('should show an alert if failed to add attachments and delete the subtask', async () => {
+        // Mock the successful creation of a subtask with subtask ID subtask1
+        createSubtask.mockResolvedValueOnce('subtask1');
+        // Mock deleteSubtask
+        deleteSubtask.mockResolvedValueOnce(undefined);
         // Mock attachment creation error
         createAttachment.mockRejectedValueOnce(new Error('Failed to create attachment'));
-
-        // Mock group and priority services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+        // Mock priority services
         getAllPriorities.mockResolvedValueOnce(mockPriorities);
-    
-        // Renders the AddTaskScreen component
+
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText, getByTestId } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'My Subtask');
 
         // Press on end date 
         fireEvent.press(getByText('End Date'));
@@ -533,18 +471,8 @@ describe('AddTaskScreen', () => {
             expect(getByText(endDateString)).toBeTruthy();
         });
 
-        // Change the task notes
-        fireEvent.changeText(getByPlaceholderText('Task Notes.....'), 'Testing Task Notes.');
-    
-        // Press on Groups dropdown
-        fireEvent.press(getByText('Groups'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on Math
-        fireEvent.press(getByText('Math'));
+        // Change the subtask notes
+        fireEvent.changeText(getByPlaceholderText('Subtask Notes.....'), 'Testing Subtask Notes.');
     
         // Press on Priority Level dropdown
         fireEvent.press(getByText('Priority Level'));
@@ -570,23 +498,23 @@ describe('AddTaskScreen', () => {
         fireEvent.press(getByText('Add'));
     
         await waitFor(() => {
-            // Verify createTask was called once
-            expect(createTask).toHaveBeenCalledTimes(1);
+            // Verify createSubtask was called once
+            expect(createSubtask).toHaveBeenCalledTimes(1);
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
-            // Verify that deleteTask has been called
-            expect(deleteTask).toHaveBeenCalledTimes(1);
-            // Verify that an error alert is shown to the user when task creation or attachment creation failed
-            expect(Alert.alert).toHaveBeenCalledWith('Task Creation Error', 'Failed to create the task or attachments.');
+            // Verify that deleteSubtask has been called
+            expect(deleteSubtask).toHaveBeenCalledTimes(1);
+            // Verify that an error alert is shown to the user when subtask creation or attachment creation failed
+            expect(Alert.alert).toHaveBeenCalledWith('Subtask Creation Error', 'Failed to create the subtask or attachments.');
         });
     });
 
-    // Test to show an alert if Task Name is missing
-    it('should show an alert if Task Name is missing', async () => {
-        // Renders the AddTaskScreen component
+    // Test to show an alert if Subtask Name is missing
+    it('should show an alert if Subtask Name is missing', async () => {
+        // Renders the AddSubtaskScreen component
         const { getByText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
@@ -594,47 +522,46 @@ describe('AddTaskScreen', () => {
         fireEvent.press(getByText('Add'));
     
         await waitFor(() => {
-            // Verify that an error alert is shown to the user when there is no task name added
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please enter the Task Name.');
+            // Verify that an error alert is shown to the user when there is no subtask name added
+            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Subtask', 'Please enter the Subtask Name.');
         });
     });
     
     // Test to show an alert if End Date is invalid
     it('should show an alert if End Date is invalid', async () => {
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         const { getByText, getByPlaceholderText } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'My Subtask');
 
         // Press on Add button
         fireEvent.press(getByText('Add'));
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when there is no end date and time added
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please select an End Date and Time.');
+            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Subtask', 'Please select an End Date and Time.');
         });
     });
 
     // Test to show an alert if End Date is on or before Start Date
     it('should show an alert if End Date is on or before Start Date', async () => {
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         const { getByPlaceholderText, getByText, getByTestId } = render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
         
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
+        // Change the subtask name
+        fireEvent.changeText(getByPlaceholderText('Subtask Name'), 'My Subtask');
         
         // Press on end date 
         fireEvent.press(getByText('End Date'));
-        
         
         // Set an invalid end date
         const invalidEndDate = new Date('2025-01-19T10:00:00');
@@ -651,80 +578,16 @@ describe('AddTaskScreen', () => {
             expect(Alert.alert).toHaveBeenCalledWith('Invalid Date', 'End Date must be on or after the Start Date.');
         });
     });
-    
-
-    
-    // Test to show an alert if Group is not selected
-    it('should show an alert if Group is not selected', async () => {
-        // Renders the AddTaskScreen component
-        const { getByText, getByPlaceholderText, getByTestId } = render(
-            <NavigationContainer>
-                <AddTaskScreen />
-            </NavigationContainer>
-        );
-    
-        // Change the task name
-        fireEvent.changeText(getByPlaceholderText('Task Name'), 'My Task');
-
-        // Press on end date 
-        fireEvent.press(getByText('End Date'));
-
-        // Retrieve the end date picker component
-        const endDatePicker = getByTestId('endDatePicker');
-
-        // End date set to one day later
-        const laterDate = new Date(new Date().getTime() + 86400000); 
-        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
-
-        // Simulate changing the end date to an later date
-        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
-    
-        await waitFor(() => {
-            // Verify that end date is displayed correctly
-            expect(getByText(endDateString)).toBeTruthy();
-        });
-
-        // Press on Add button
-        fireEvent.press(getByText('Add'));
-    
-        await waitFor(() => {
-            // Verify that an error alert is shown to the user when no group was selected
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please select a Group.');
-        });
-    });
-
-    
-    // Test to show an alert if loading groups fails
-    it('should show an alert if loading groups fails', async () => {
-        // Mock loading group error
-        getGroupsByCreator.mockRejectedValueOnce(new Error('Groups Initialisation Error'));
-        // Mock priority services
-        getAllPriorities.mockResolvedValueOnce(mockPriorities);
-    
-        // Renders the AddTaskScreen component
-        render(
-            <NavigationContainer>
-                <AddTaskScreen />
-            </NavigationContainer>
-        );
-    
-        await waitFor(() => {
-            // Verify that an error alert is shown to the user when group loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
-        });
-    });
 
     // Test to show an alert if loading priority levels fails
     it('should show an alert if loading priority levels fails', async () => {
-        // Mock groups services
-        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
         // Mock loading priorities error
         getAllPriorities.mockRejectedValueOnce(new Error('Priority Levels Initialisation Error'));
     
-        // Renders the AddTaskScreen component
+        // Renders the AddSubtaskScreen component
         render(
             <NavigationContainer>
-                <AddTaskScreen />
+                <AddSubtaskScreen />
             </NavigationContainer>
         );
     
@@ -750,12 +613,12 @@ describe('AddTaskScreen', () => {
             jest.useRealTimers();
         });
     
-        // Snapshot test for AddTaskScreen
+        // Snapshot test for AddSubtaskScreen
         it('should match the snapshot', () => {
-            // Renders the AddTaskScreen component
+            // Renders the AddSubtaskScreen component
             const { toJSON } = render(
                 <NavigationContainer>
-                    <AddTaskScreen />
+                    <AddSubtaskScreen />
                 </NavigationContainer>
             );
     
@@ -763,4 +626,5 @@ describe('AddTaskScreen', () => {
             expect(toJSON()).toMatchSnapshot();
         });
     });
+
 });

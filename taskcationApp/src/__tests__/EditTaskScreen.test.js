@@ -12,7 +12,7 @@ import { Alert } from 'react-native';
 
 // Mock task for the test
 const mockTask = {
-    task_id: '12345',
+    task_id: 'task1',
     task_name: 'Test Edit Task',
     start_date: new Date('2025-01-20T10:00:00'),
     end_date: new Date('2025-01-21T12:00:00'),
@@ -98,7 +98,7 @@ jest.mock('@react-navigation/native', () => {
     return {
         ...actualNav,
         useNavigation: () => mockNavigation,
-        useRoute: () => ({ params: { taskID: '12345' } }),
+        useRoute: () => ({ params: { taskID: 'task1' } }),
     };
 });
 
@@ -175,7 +175,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -206,7 +206,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, queryByText, getByTestId, getByDisplayValue, getAllByText  } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -314,7 +314,7 @@ describe('EditTaskScreen', () => {
             // Verify updateTask was called once
             expect(updateTask).toHaveBeenCalledTimes(1);
             // Verify updateTask was called with updated values
-            expect(updateTask).toHaveBeenCalledWith(expect.any(Object), '12345', 
+            expect(updateTask).toHaveBeenCalledWith(expect.any(Object), 'task1', 
                 expect.objectContaining({
                 task_name: 'Updated Task Name',
                 start_date: earlierDate,
@@ -328,7 +328,7 @@ describe('EditTaskScreen', () => {
             expect(createAttachment).toHaveBeenCalledTimes(1);
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
-                task_id: '12345',
+                task_id: 'task1',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/new_attachment.pdf',
@@ -349,7 +349,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByTestId, getAllByText  } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -390,7 +390,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -406,7 +406,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -424,7 +424,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -468,7 +468,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -515,7 +515,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -545,7 +545,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -568,7 +568,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByTestId, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 
@@ -605,7 +605,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -631,7 +631,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -649,7 +649,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
     
@@ -665,7 +665,7 @@ describe('EditTaskScreen', () => {
         // Renders the EditTaskScreen component
         const { toJSON, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: '12345' } }} />
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
             </NavigationContainer>
         );
 

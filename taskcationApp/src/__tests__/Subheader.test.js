@@ -71,7 +71,7 @@ describe('Subheader Component', () => {
     it('should navigate to EditTaskScreen when Edit is pressed for a Task', () => {
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
     
         // Verify the kebab button is there
@@ -87,14 +87,14 @@ describe('Subheader Component', () => {
         fireEvent.press(getByTestId('edit-button'));
 
         // Verify that navigation to EditTaskScreen screen has been called with taskID as its parameter 
-        expect(mockNavigate).toHaveBeenCalledWith('EditTaskScreen', { taskID: 'task-123' });
+        expect(mockNavigate).toHaveBeenCalledWith('EditTaskScreen', { taskID: 'task1' });
     });
     
     // Test to navigate to EditSubtaskScreen when Edit is pressed for a Subtask
     it('should navigate to EditSubtaskScreen when Edit is pressed for a Subtask', () => {
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Subtask Title' hasKebab={true} itemID='subtask-456' itemType='Subtask' />
+            <Subheader title='Subtask Title' hasKebab={true} itemID='subtask1' itemType='Subtask' />
         );
     
         // Verify the kebab button is there
@@ -110,14 +110,14 @@ describe('Subheader Component', () => {
         fireEvent.press(getByTestId('edit-button'));
     
         // Verify that navigation to EditSubtaskScreen screen has been called with subtaskID as its parameter 
-        expect(mockNavigate).toHaveBeenCalledWith('EditSubtaskScreen', { subtaskID: 'subtask-456' });
+        expect(mockNavigate).toHaveBeenCalledWith('EditSubtaskScreen', { subtaskID: 'subtask1' });
     });
     
     // Test to navigate to EditGroupScreen when Edit is pressed for a Groups
     it('should navigate to EditGroupScreen when Edit is pressed for Groups', () => {
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Group Title' hasKebab={true} itemID='group-789' itemType='Groups' />
+            <Subheader title='Group Title' hasKebab={true} itemID='group1' itemType='Groups' />
         );
     
         // Verify the kebab button is there
@@ -133,7 +133,7 @@ describe('Subheader Component', () => {
         fireEvent.press(getByTestId('edit-button'));
     
         // Verify that navigation to EditGroupScreen screen has been called with groupID as its parameter 
-        expect(mockNavigate).toHaveBeenCalledWith('EditGroupScreen', { groupID: 'group-789' });
+        expect(mockNavigate).toHaveBeenCalledWith('EditGroupScreen', { groupID: 'group1' });
     });
     
     // Test to call deleteTask and navigates back when deletion is confirmed for Task
@@ -143,11 +143,12 @@ describe('Subheader Component', () => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
         });
+        // Mock deleteTask
         deleteTask.mockResolvedValueOnce();
         
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
         
         // Verify the kebab button is there
@@ -167,7 +168,7 @@ describe('Subheader Component', () => {
             // Verify that deleteTask has been called
             expect(deleteTask).toHaveBeenCalledTimes(1);
             // Verify that deleteTask has been called with db and the taskID
-            expect(deleteTask).toHaveBeenCalledWith(expect.any(Object), 'task-123');
+            expect(deleteTask).toHaveBeenCalledWith(expect.any(Object), 'task1');
             // Verify that goBack was called once
             expect(mockGoBack).toHaveBeenCalledTimes(1);
         });
@@ -180,10 +181,12 @@ describe('Subheader Component', () => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
         });
+        // Mock deleteSubtask
         deleteSubtask.mockResolvedValueOnce();
+
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Subtask Title' hasKebab={true} itemID='subtask-456' itemType='Subtask' />
+            <Subheader title='Subtask Title' hasKebab={true} itemID='subtask1' itemType='Subtask' />
         );
         
         // Verify the kebab button is there
@@ -203,7 +206,7 @@ describe('Subheader Component', () => {
             // Verify that deleteSubtask has been called
             expect(deleteSubtask).toHaveBeenCalledTimes(1);
             // Verify that deleteSubtask has been called with db and the subtaskID
-            expect(deleteSubtask).toHaveBeenCalledWith(expect.any(Object), 'subtask-456');
+            expect(deleteSubtask).toHaveBeenCalledWith(expect.any(Object), 'subtask1');
             // Verify that goBack was called once
             expect(mockGoBack).toHaveBeenCalledTimes(1);;
         });
@@ -216,11 +219,12 @@ describe('Subheader Component', () => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
         });
+        // Mock deleteGroup
         deleteGroup.mockResolvedValueOnce();
         
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Group Title' hasKebab={true} itemID='group-789' itemType='Group' />
+            <Subheader title='Group Title' hasKebab={true} itemID='group1' itemType='Group' />
         );
         
         // Verify the kebab button is there
@@ -240,7 +244,7 @@ describe('Subheader Component', () => {
             // Verify that deleteGroup has been called
             expect(deleteGroup).toHaveBeenCalledTimes(1);
             // Verify that deleteGroup has been called with db and the groupID
-            expect(deleteGroup).toHaveBeenCalledWith(expect.any(Object), 'group-789');
+            expect(deleteGroup).toHaveBeenCalledWith(expect.any(Object), 'group1');
             // Verify that goBack was called once
             expect(mockGoBack).toHaveBeenCalledTimes(1);;
         });
@@ -256,7 +260,7 @@ describe('Subheader Component', () => {
 
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
         
         // Verify the kebab button is there
@@ -281,7 +285,7 @@ describe('Subheader Component', () => {
     it('should close the kebab modal when the overlay is pressed', async () => {
         // Renders the Subheader component
         const { getByText, getByTestId, queryByText, queryByTestId } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
     
         // Verify the kebab button is there
@@ -312,11 +316,12 @@ describe('Subheader Component', () => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
         });
+        // Mock deleteTask error
         deleteTask.mockRejectedValueOnce(new Error('Deletion failed'));
         
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
         
         // Verify the kebab button is there
@@ -342,7 +347,7 @@ describe('Subheader Component', () => {
     it('should match the snapshot when there is no kebab menu', () => {
         // Renders the Subheader component
         const { toJSON } = render(
-            <Subheader title='Test Title' hasKebab={false} itemID='task-123' itemType='Task' />
+            <Subheader title='Test Title' hasKebab={false} itemID='task1' itemType='Task' />
         );
 
         // Verify snapshot matches
@@ -353,7 +358,7 @@ describe('Subheader Component', () => {
     it('should match the snapshot when there is a kebab menu', () => {
         // Renders the Subheader component
         const { toJSON } = render(
-            <Subheader title='Task Title' hasKebab={true} itemID='task-123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
 
         // Verify snapshot matches

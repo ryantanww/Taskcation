@@ -53,11 +53,12 @@ export async function createSubtask(db, subtaskData) {
     const docData = {
         subtask_name: subtaskData.subtask_name.trim(),
         task_id: subtaskData.task_id,
+        task_name: subtaskData.task_name,
         created_by: subtaskData.created_by,
         start_date: subtaskData.start_date,
         end_date: subtaskData.end_date,
         duration: subtaskData.duration,
-        task_notes: subtaskData.task_notes,
+        subtask_notes: subtaskData.subtask_notes,
         priority_id: subtaskData.priority_id,
         status: subtaskData.status,
         time_ids: Array.isArray(subtaskData.time_ids) ? subtaskData.time_ids : [],
