@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTab from './src/components/BottomTab';
 import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import EditTaskScreen from './src/screens/EditTaskScreen';
+import AddSubtaskScreen from './src/screens/AddSubtaskScreen';
 
 
 // Create a stack navigator instance
@@ -24,6 +25,9 @@ export default function App() {
 
             {/* Edit Task Screen */}
             <Stack.Screen name='EditTaskScreen' component={EditTaskScreen}  options={{ headerShown: false }}/>
+
+            {/* Add Subtask Screen */}
+            <Stack.Screen name='AddSubtaskScreen' component={AddSubtaskScreen}  options={{ headerShown: false }}/>
         </Stack.Navigator>
     </NavigationContainer>
   );

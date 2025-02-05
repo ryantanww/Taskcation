@@ -1,4 +1,4 @@
-// Import dependencies and libraries used in Add Task Screen
+// Import dependencies and libraries used in Add Subtask Screen
 import React, { useEffect, useState } from 'react';
 import {
     Text,
@@ -12,19 +12,22 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AddAttachments from '../components/AddAttachments';
 import ViewAttachments from '../components/ViewAttachments';
-import { createTask, deleteTask } from '../services/taskService';
-import { getGroupsByCreator } from '../services/groupsService';
+import { createSubtask, deleteSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
 import { createAttachment } from '../services/attachmentService';
 import { db } from '../../firebaseConfig';
 
+const AddSubtaskScreen = () => {
 
-const AddTaskScreen = () => {
+    // Access the route  object to get the taskID passed from navigation
+    const route = useRoute();
+    const { taskID, task_name } = route.params;
+
     // Access the navigation object
     const navigation = useNavigation();
 
@@ -32,7 +35,7 @@ const AddTaskScreen = () => {
     const [userID, setUserID] = useState(null);
 
     // State for storing the task name 
-    const [taskName, setTaskName] = useState('');
+    const [subtaskName, setSubtaskName] = useState('');
     
     // State for storing the task start date 
     const [startDate, setStartDate] = useState(new Date());
@@ -41,10 +44,7 @@ const AddTaskScreen = () => {
     const [endDate, setEndDate] = useState(null);
 
     // State for storing the task notes 
-    const [taskNotes, setTaskNotes] = useState('');
-
-    // State for storing the task group 
-    const [selectedGroup, setSelectedGroup] = useState('');
+    const [subtaskNotes, setSubtaskNotes] = useState('');
 
     // State for storing the task priority
     const [selectedPriority, setSelectedPriority] = useState('');
@@ -58,13 +58,10 @@ const AddTaskScreen = () => {
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
     const [showEndTimePicker, setShowEndTimePicker] = useState(false);
 
-    // State for storing groups from database
-    const [groups, setGroups] = useState([]);
     // State for storing priorities from database
     const [priorities, setPriorities] = useState([]);
 
     // State for dropdown visibilities
-    const [groupOpen, setGroupOpen] = useState(false);
     const [priorityOpen, setPriorityOpen] = useState(false);
 
     // useEffect to initialise user and fetch groups and priorities on component mount
@@ -76,11 +73,6 @@ const AddTaskScreen = () => {
                 // Set user ID in state
                 setUserID(storedUserID);
 
-                // Fetch user's groups from the database
-                const userGroups = await getGroupsByCreator(db, storedUserID);
-                // Map groups to dropdown format
-                setGroups(userGroups.map(group => ({ label: group.group_name, value: group.id })));
-
                 // Fetch all priorities from the database
                 const allPriorities = await getAllPriorities(db);
                 // Sort the priority in their order
@@ -91,7 +83,7 @@ const AddTaskScreen = () => {
                 // Map priorities to dropdown format
                 setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
             } catch (error) {
-                // Log any errors when initialising user, groups and priorities
+                // Log any errors when initialising user and priorities
                 console.error('Initialisation error:', error);
                 // Set error if initialising fails
                 Alert.alert('Initialising Error', 'Failed to initialise the screen.');
@@ -103,11 +95,10 @@ const AddTaskScreen = () => {
 
         // Reset all input fields when navigating away from the screen
         const resetStates = navigation.addListener('blur', () => {
-            setTaskName('');
+            setSubtaskName('');
             setStartDate(new Date());
             setEndDate(null);
-            setTaskNotes('');
-            setSelectedGroup('');
+            setSubtaskNotes('');
             setSelectedPriority('');
             setAttachments([]);
         });
@@ -115,7 +106,6 @@ const AddTaskScreen = () => {
         // Reset all states on component unmount
         return resetStates;
     }, [navigation]);
-    
 
     // Function to handle start date change when picking start date
     const handleStartDateChange = (event, date) => {
@@ -209,18 +199,18 @@ const AddTaskScreen = () => {
     };
 
     // Function to handle adding task and attachment into database
-    const handleAddTask = async () => {
+    const handleAddSubtask = async () => {
         // Validate if task name is entered
-        if (!taskName) {
+        if (!subtaskName) {
             // Alert error when task name is not entered
-            Alert.alert('Incomplete Task', 'Please enter the Task Name.');
+            Alert.alert('Incomplete Subtask', 'Please enter the Subtask Name.');
             return;
         }
 
         // Validate if task end date is selected
         if (!endDate) {
             // Alert error when task end date is not selected
-            Alert.alert('Incomplete Task', 'Please select an End Date and Time.');
+            Alert.alert('Incomplete Subtask', 'Please select an End Date and Time.');
             return;
         }
 
@@ -231,26 +221,20 @@ const AddTaskScreen = () => {
             return;
         }
 
-        // Validate if task group is selected
-        if (!selectedGroup) {
-            // Alert error when task group is not selected
-            Alert.alert('Incomplete Task', 'Please select a Group.');
-            return;
-        }
-
         // Calculate the task duration
         const duration = calculateDuration(startDate, endDate);
-        let taskID = null;
+        let subtaskID = null;
         try {
             // Create a new tasks with the provided details and store it in the database
-            taskID = await createTask(db, {
-                task_name: taskName,
+            subtaskID = await createSubtask(db, {
+                subtask_name: subtaskName,
+                task_id: taskID,
+                task_name: task_name,
                 created_by: userID,
                 start_date: startDate,
                 end_date: endDate,
                 duration: duration,
-                task_notes: taskNotes,
-                group_id: selectedGroup,
+                subtask_notes: subtaskNotes,
                 priority_id: selectedPriority,
                 status: false,
                 attachments: [],
@@ -261,6 +245,7 @@ const AddTaskScreen = () => {
                 const attachmentPromises = attachments.map((attachment) =>
                     createAttachment(db, {
                         task_id: taskID,
+                        subtask_id: subtaskID,
                         file_name: attachment.file_name,
                         file_type: attachment.file_type,
                         uri: attachment.uri,
@@ -273,49 +258,46 @@ const AddTaskScreen = () => {
             }
             
             // Reset all input fields after task creation is successful
-            setTaskName('');
+            setSubtaskName('');
             setStartDate(new Date());
             setEndDate(null);
-            setTaskNotes('');
-            setSelectedGroup('');
+            setSubtaskNotes('');
             setSelectedPriority('');
             setAttachments([]);
 
             // Alert success when task is created successfully
-            Alert.alert('Success', 'Task created successfully!');
+            Alert.alert('Success', 'Subtask created successfully!');
             // Navigate back to the previous screen
             navigation.goBack();
         } catch (error) {
             // Log any errors when creating task or attachments
-            console.log('Error creating task or attachments:', error);
+            console.log('Error creating subtask or attachments:', error);
 
-            // If there is taskID, due to attachment creation failure, delete the task 
-            if (taskID) {
-                await deleteTask(db, taskID);
+            // If there is subtaskID, due to attachment creation failure, delete the subtask 
+            if (subtaskID) {
+                await deleteSubtask(db, subtaskID);
             }
 
             // Alert error for task or attachments creation 
-            Alert.alert('Task Creation Error', 'Failed to create the task or attachments.');
+            Alert.alert('Subtask Creation Error', 'Failed to create the subtask or attachments.');
         }
     };
-
-    
 
     return (
         <SafeAreaView style={styles.container}>
             {/* Header with back arrow and title */}
-            <Subheader title='Add Task' hasKebab={false}/>
+            <Subheader title='Add Subtask' hasKebab={false}/>
             
             {/* TouchableWithoutFeedback to allow pressing outside of the dropdowns to close the dropdowns */}
-            <TouchableWithoutFeedback onPress={() => { setGroupOpen(false); setPriorityOpen(false); }}>
+            <TouchableWithoutFeedback onPress={() =>  setPriorityOpen(false)}>
                 <View style={styles.contentContainer}>
-                    {/* Task Name */}
+                    {/* Subtask Name */}
                     <TextInput
                         style={styles.textInput}
-                        placeholder='Task Name'
+                        placeholder='Subtask Name'
                         placeholderTextColor='#A5734D'
-                        value={taskName}
-                        onChangeText={setTaskName}
+                        value={subtaskName}
+                        onChangeText={setSubtaskName}
                     />
 
                     {/* Row for start date and time*/}
@@ -382,38 +364,15 @@ const AddTaskScreen = () => {
                             />
                         )}
 
-                    {/* Task Notes */}
+                    {/* Subtask Notes */}
                     <TextInput
                         style={[styles.textInput, styles.notesInput]}
-                        placeholder='Task Notes.....'
+                        placeholder='Subtask Notes.....'
                         placeholderTextColor='#A5734D'
                         multiline
-                        value={taskNotes}
-                        onChangeText={setTaskNotes}
+                        value={subtaskNotes}
+                        onChangeText={setSubtaskNotes}
                     />
-
-                    {/* Dropdown for Groups */}
-                    <View style={[styles.pickerContainer, { zIndex: groupOpen ? 2000 : 0 }]}>
-                        <DropDownPicker
-                            open={groupOpen}
-                            value={selectedGroup}
-                            items={groups}
-                            setOpen={setGroupOpen}
-                            setValue={setSelectedGroup}
-                            setItems={setGroups}
-                            placeholder='Groups'
-                            onOpen={() => setPriorityOpen(false)}
-                            closeAfterSelecting={true}
-                            closeOnBackPressed={true}
-                            closeOnBlur={true}
-                            style={styles.dropdown}
-                            placeholderStyle={styles.text}
-                            textStyle={styles.text}
-                            dropDownContainerStyle={styles.dropdownContainer}
-                            listMode='SCROLLVIEW'
-                            maxHeight={200} 
-                        />
-                    </View>
 
                     {/* Dropdown for Priority Levels */}
                     <View style={[styles.pickerContainer, { zIndex: priorityOpen ? 1000 : 0 }]}>
@@ -425,7 +384,6 @@ const AddTaskScreen = () => {
                             setValue={setSelectedPriority}
                             setItems={setPriorities}
                             placeholder='Priority Level'
-                            onOpen={() => setGroupOpen(false)}
                             closeAfterSelecting={true}
                             closeOnBackPressed={true}
                             closeOnBlur={true}
@@ -450,14 +408,14 @@ const AddTaskScreen = () => {
             
             {/* Add Button */}
             <View style={styles.addButtonContainer}>
-                <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
+                <TouchableOpacity style={styles.addButton} onPress={handleAddSubtask}>
                     <Text style={styles.addButtonText}>Add</Text>
                 </TouchableOpacity>
             </View>
             
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     // Style for the container
@@ -564,4 +522,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddTaskScreen;
+export default AddSubtaskScreen;
