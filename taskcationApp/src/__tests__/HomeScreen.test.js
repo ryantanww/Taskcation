@@ -5,8 +5,9 @@ import HomeScreen from '../screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createUser } from '../services/userService';
-import { getTasksByCreator } from '../services/taskService';
+import { getTasksByCreator, updateTask } from '../services/taskService';
 import { createGroup, getGroupsByCreator } from '../services/groupsService';
+import { markAllSubtasksComplete } from '../services/subtaskService';
 
 // Mock Firestore Timestamp
 const Timestamp = {
@@ -175,6 +176,9 @@ describe('HomeScreen', () => {
 
     // Test to verify tasks are grouped and displayed by their date
     it('renders tasks grouped by their dates', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+
         // Renders the HomeScreen component
         const { getByText } = render(
             <NavigationContainer>
@@ -194,7 +198,12 @@ describe('HomeScreen', () => {
     });
 
     // Test to verify UI updates when toggling completion for the task
-    it('should toggle task completion and update UI', async () => {
+    it('should toggle task completion', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+        updateTask.mockResolvedValue(true);
+        markAllSubtasksComplete.mockResolvedValue(true);
+        
         // Renders the HomeScreen component
         const { getByText, getByTestId } = render(
             <NavigationContainer>
@@ -218,11 +227,34 @@ describe('HomeScreen', () => {
         await waitFor(() => {
             // Verify that status is updated to true
             expect(mockTasks[0].status).toBe(true);
+            // Verify that updateTask has been called with the updated status
+            expect(updateTask).toHaveBeenCalledWith(expect.anything(), '1', { status: true });
+            // Verify that markAllSubtasksComplete has been called with the updated statuses
+            expect(markAllSubtasksComplete).toHaveBeenCalledWith(expect.anything(), '1', true);
+        });
+
+        // Simulate checkbox press
+        fireEvent.press(taskCheckbox);
+
+        // Update task status in mock data
+        mockTasks[0].status = false;
+        markAllSubtasksComplete.mockClear();
+        
+        await waitFor(() => {
+            // Verify that status is updated to false
+            expect(mockTasks[0].status).toBe(false);
+            // Verify that updateTask has been called with the updated status
+            expect(updateTask).toHaveBeenCalledWith(expect.anything(), '1', { status: false });
+            // Verify that markAllSubtasksComplete was not called
+            expect(markAllSubtasksComplete).not.toHaveBeenCalled();
         });
     });
 
     // Test to verify strike through line is rendered for completed tasks
     it('should render a strike-through line for completed tasks', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+
         // Renders the HomeScreen component
         const { getByText, getByTestId } = render(
             <NavigationContainer>
@@ -243,6 +275,9 @@ describe('HomeScreen', () => {
 
     // Test to navigate to Task Detail Screen when a task is pressed
     it('should navigate to TaskDetailScreen when a task is pressed', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+        
         // Mock groups
         getGroupsByCreator.mockResolvedValueOnce(mockGroups);
 
@@ -270,129 +305,132 @@ describe('HomeScreen', () => {
         expect(mockNavigate).toHaveBeenCalledWith('TaskDetail', { taskID: '1' });
     });
 
-        // Tests whether the loading state is rendered correctly
-        it('should render loading state', () => {
-            // Renders the HomeScreen component
-            const { getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-    
-            // Verify the Loading tasks... is displayed
-            expect(getByText('Loading tasks...')).toBeTruthy();
+    // Tests whether the loading state is rendered correctly
+    it('should render loading state', () => {
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        // Verify the Loading tasks... is displayed
+        expect(getByText('Loading tasks...')).toBeTruthy();
+    });
+
+    // Test to handle error when user initialisation fails
+    it('should display an error message when initialising the user fails', async () => {
+        // Simulate the AsyncStorage error
+        AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage Error'));
+
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the error message is shown
+            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
         });
-    
-        // Test to handle error when user initialisation fails
-        it('should display an error message when initialising the user fails', async () => {
-            // Simulate the AsyncStorage error
-            AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage Error'));
-    
-            // Renders the HomeScreen component
-            const { getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-    
-            await waitFor(() => {
-                // Verify that the error message is shown
-                expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
+    });
+
+    // Test to handle when creating a user fails
+    it('should display an error message when creating a user fails', async () => {
+        // Simulate no stored user ID
+        AsyncStorage.getItem
+            .mockImplementationOnce(async (key) => {
+                if (key === 'user_id') return null;
+                return null;
+            })
+            .mockImplementationOnce(async (key) => {
+                if (key === 'joined_date') return '2025-01-20T00:00:00Z'; 
+                return null;
             });
+
+        // Simulate user creation error
+        createUser.mockRejectedValueOnce(new Error('Create User Error'));
+
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the error message is shown
+            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
         });
-    
-        // Test to handle when creating a user fails
-        it('should display an error message when creating a user fails', async () => {
-            // Simulate no stored user ID
-            AsyncStorage.getItem
-                .mockImplementationOnce(async (key) => {
-                    if (key === 'user_id') return null;
-                    return null;
-                })
-                .mockImplementationOnce(async (key) => {
-                    if (key === 'joined_date') return '2025-01-20T00:00:00Z'; 
-                    return null;
-                });
-    
-            // Simulate user creation error
-            createUser.mockRejectedValueOnce(new Error('Create User Error'));
-    
-            // Renders the HomeScreen component
-            const { getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-    
-            await waitFor(() => {
-                // Verify that the error message is shown
-                expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
-            });
+    });
+
+    // Test to handle error when fetching tasks fails
+    it('should display an error message when fetching tasks fails', async () => {
+        // Simulate task fetching error
+        getTasksByCreator.mockRejectedValueOnce(new Error('Fetch Tasks Error'));
+
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the error message is shown
+            expect(getByText('Failed to fetch tasks!')).toBeTruthy();
         });
-    
-        // Test to handle error when fetching tasks fails
-        it('should display an error message when fetching tasks fails', async () => {
-            // Simulate task fetching error
-            getTasksByCreator.mockRejectedValueOnce(new Error('Fetch Tasks Error'));
-    
-            // Renders the HomeScreen component
-            const { getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-    
-            await waitFor(() => {
-                // Verify that the error message is shown
-                expect(getByText('Failed to fetch tasks!')).toBeTruthy();
-            });
+    });
+
+    // Test to handle error when updating task status fails
+    it('should display an error message when updating task status fails', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+        
+        // Renders the HomeScreen component
+        const { getByTestId, getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that Task 1 is displayed
+            expect(getByText('Task 1')).toBeTruthy();
         });
-    
-        // Test to handle error when updating task status fails
-        it('should display an error message when updating task status fails', async () => {
-            // Renders the HomeScreen component
-            const { getByTestId, getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-    
-            await waitFor(() => {
-                // Verify that Task 1 is displayed
-                expect(getByText('Task 1')).toBeTruthy();
-            });
-    
-            // Mock update failure
-            jest.spyOn(require('../services/taskService'), 'updateTask').mockRejectedValueOnce(new Error('Update Task Error'));
-    
-            // Select Task 1 checkbox
-            const checkbox = getByTestId('checkbox-1');
-            // Simulate checkbox press
-            fireEvent.press(checkbox);
-    
-            await waitFor(() => {
-                // Verify that the error message is shown
-                expect(getByText('Failed to update task status!')).toBeTruthy();
-            });
+
+        // Mock update failure
+        jest.spyOn(require('../services/taskService'), 'updateTask').mockRejectedValueOnce(new Error('Update Task Error'));
+
+        // Select Task 1 checkbox
+        const checkbox = getByTestId('checkbox-1');
+        // Simulate checkbox press
+        fireEvent.press(checkbox);
+
+        await waitFor(() => {
+            // Verify that the error message is shown
+            expect(getByText('Failed to update task status!')).toBeTruthy();
         });
-    
-        // Test to handle error when initialising groups fails
-        it('should display an error message when initialising groups fails', async () => {
-            // Simulate group creation error
-            getGroupsByCreator.mockRejectedValueOnce(new Error('Group Initialisation Error'));
-    
-            // Renders the HomeScreen component
-            const { getByText } = render(
-                <NavigationContainer>
-                    <HomeScreen />
-                </NavigationContainer>
-            );
-            
-            await waitFor(() => {
-                // Verify that the error message is shown
-                expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
-            });
+    });
+
+    // Test to handle error when initialising groups fails
+    it('should display an error message when initialising groups fails', async () => {
+        // Simulate group creation error
+        getGroupsByCreator.mockRejectedValueOnce(new Error('Group Initialisation Error'));
+
+        // Renders the HomeScreen component
+        const { getByText } = render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+        
+        await waitFor(() => {
+            // Verify that the error message is shown
+            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
         });
+    });
 
     // Snapshot test for empty state
     it('should match snapshot for no tasks', async () => {
@@ -419,6 +457,9 @@ describe('HomeScreen', () => {
 
     // Snapshot test for tasks rendered
     it('should match snapshot for tasks rendered', async () => {
+        // Mock tasks
+        getTasksByCreator.mockResolvedValue(mockTasks);
+
         // Renders the HomeScreen component
         const { toJSON, getByText } = render(
             <NavigationContainer>

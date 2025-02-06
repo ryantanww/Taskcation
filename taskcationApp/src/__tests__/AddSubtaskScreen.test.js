@@ -196,7 +196,7 @@ describe('AddSubtaskScreen', () => {
 
     // Test to successfully create a subtask and clear the form
     it('should successfully create a subtask and clear the form', async () => {
-        // Mock the successful creation of a subtask with subtask ID subtask1
+        // Mock the successful creation of a subtask with subtaskID subtask1
         createSubtask.mockResolvedValueOnce('subtask1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
@@ -305,7 +305,7 @@ describe('AddSubtaskScreen', () => {
 
     // Test to delete an attachment
     it('should delete an attachment', async () => {
-        // Mock the successful creation of a subtask with subtask ID subtask1
+        // Mock the successful creation of a subtask with subtaskID subtask1
         createSubtask.mockResolvedValueOnce('subtask1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
@@ -434,7 +434,7 @@ describe('AddSubtaskScreen', () => {
 
     // Test to show an alert if failed to add attachments and delete the subtask
     it('should show an alert if failed to add attachments and delete the subtask', async () => {
-        // Mock the successful creation of a subtask with subtask ID subtask1
+        // Mock the successful creation of a subtask with subtaskID subtask1
         createSubtask.mockResolvedValueOnce('subtask1');
         // Mock deleteSubtask
         deleteSubtask.mockResolvedValueOnce(undefined);

@@ -206,7 +206,7 @@ describe('AddTaskScreen', () => {
 
     // Test to successfully create a task and clear the form
     it('should successfully create a task and clear the form', async () => {
-        // Mock the successful creation of a task with task ID task1
+        // Mock the successful creation of a task with taskID task1
         createTask.mockResolvedValueOnce('task1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
@@ -325,7 +325,7 @@ describe('AddTaskScreen', () => {
     
     // Test to delete an attachment
     it('should delete an attachment', async () => {
-        // Mock the successful creation of a task with task ID task1
+        // Mock the successful creation of a task with taskID task1
         createTask.mockResolvedValueOnce('task1');
         // Mock successful attachment creation
         createAttachment.mockResolvedValueOnce(undefined);
@@ -494,7 +494,7 @@ describe('AddTaskScreen', () => {
 
     // Test to show an alert if failed to add attachments and delete the task
     it('should show an alert if failed to add attachments and delete the task', async () => {
-        // Mock the successful creation of a task with task ID task1
+        // Mock the successful creation of a task with taskID task1
         createTask.mockResolvedValueOnce('task1');
         // Mock deleteTask
         deleteTask.mockResolvedValueOnce(undefined);

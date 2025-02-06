@@ -125,6 +125,15 @@ export async function updateSubtask(db, subtaskID, updatedData) {
     });
 }
 
+export const markAllSubtasksComplete = async (db, taskID, status = true) => {
+    const q = query(collection(db, 'Subtasks'), where('task_id', '==', taskID));
+    const snap = await getDocs(q);
+    const batchUpdates = snap.docs.map(async (docSnap) => {
+        await updateDoc(docSnap.ref, { status });
+    });
+    await Promise.all(batchUpdates);
+};
+
 export async function getSubtasksByTaskID(db, taskID) {
     const q = query(collection(db, 'Subtasks'), where('task_id', '==', taskID));
     const snap = await getDocs(q);
@@ -137,22 +146,20 @@ export async function getSubtasksByTaskID(db, taskID) {
 export async function deleteSubtask(db, subtaskID) {
     try {
         // 2️⃣ Delete attachments related to the task
-        const attachmentQuery = query(collection(db, 'Attachments'), where('subtask_id', '==', taskID));
+        const attachmentQuery = query(collection(db, 'Attachments'), where('subtask_id', '==', subtaskID));
         const attachmentSnapshots = await getDocs(attachmentQuery);
 
         const attachmentDeletions = attachmentSnapshots.docs.map(attachmentDoc => 
             deleteDoc(doc(db, 'Attachments', attachmentDoc.id))
         );
         await Promise.all(attachmentDeletions);
-        console.log(`Deleted ${attachmentSnapshots.size} attachments`);
 
         // 3️⃣ Delete the task itself
         await deleteDoc(doc(db, 'Subtasks', subtaskID));
-        console.log(`Task ${taskID} deleted successfully`);
 
     } catch (error) {
-        console.error('Error deleting task and its dependencies:', error);
-        throw new Error('Failed to delete task and its related data.');
+        console.error('Error deleting subtask and its dependencies:', error);
+        throw new Error('Failed to delete subtask and its related data.');
     }
     
 }
