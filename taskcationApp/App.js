@@ -7,6 +7,7 @@ import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import EditTaskScreen from './src/screens/EditTaskScreen';
 import AddSubtaskScreen from './src/screens/AddSubtaskScreen';
 import SubtaskDetailScreen from './src/screens/SubtaskDetailScreen';
+import EditSubtaskScreen from './src/screens/EditSubtaskScreen';
 
 
 // Create a stack navigator instance
@@ -32,6 +33,9 @@ export default function App() {
 
             {/* Subtask Detail Screen */}
             <Stack.Screen name="SubtaskDetailScreen" component={SubtaskDetailScreen} options={{ headerShown: false }}/>
+
+            {/* Edit Subtask Screen */}
+            <Stack.Screen name="EditSubtaskScreen" component={EditSubtaskScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
     </NavigationContainer>
   );

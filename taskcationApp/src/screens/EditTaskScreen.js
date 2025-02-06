@@ -109,7 +109,7 @@ const EditTaskScreen = () => {
         initialise();
     }, []);
 
-    // useEffect to fetch tasks on component mount
+    // useEffect to fetch task on component mount
     useEffect(() => {
         // Function to fetch task details from database
         const fetchTask = async () => {
