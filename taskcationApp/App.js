@@ -6,6 +6,7 @@ import BottomTab from './src/components/BottomTab';
 import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import EditTaskScreen from './src/screens/EditTaskScreen';
 import AddSubtaskScreen from './src/screens/AddSubtaskScreen';
+import SubtaskDetailScreen from './src/screens/SubtaskDetailScreen';
 
 
 // Create a stack navigator instance
@@ -28,6 +29,9 @@ export default function App() {
 
             {/* Add Subtask Screen */}
             <Stack.Screen name='AddSubtaskScreen' component={AddSubtaskScreen}  options={{ headerShown: false }}/>
+
+            {/* Subtask Detail Screen */}
+            <Stack.Screen name="SubtaskDetailScreen" component={SubtaskDetailScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
     </NavigationContainer>
   );

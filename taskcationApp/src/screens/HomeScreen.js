@@ -4,7 +4,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -14,7 +15,9 @@ import Header from '../components/Header';
 import { db } from '../../firebaseConfig';
 import { createUser } from '../services/userService';
 import { getTasksByCreator, updateTask } from '../services/taskService';
-import { createGroup, getGroupsByCreator } from '../services/groupsService'; 
+import { createGroup, getGroupsByCreator } from '../services/groupsService';
+import { markAllSubtasksComplete } from '../services/subtaskService';
+
 
 const HomeScreen = () => {
     // State to store user ID
@@ -138,6 +141,16 @@ const HomeScreen = () => {
                     // Set the tasks state to an empty array
                     setTasks([]);
                 } else {
+                    // Convert the end date to a JS date
+                    fetchedTasks.forEach(task => {
+                        task.end_date = convertToDate(task.end_date);
+                    });
+
+                    // Then sort them by ascending order
+                    fetchedTasks.sort((a, b) => {
+                        return new Date(a.end_date) - new Date(b.end_date);
+                    });
+
                     // Store the users tasks into the tasks state
                     setTasks(fetchedTasks);
                 }
@@ -171,6 +184,16 @@ const HomeScreen = () => {
                 // Set the tasks state to an empty array
                 setTasks([]);
             } else {
+                // Convert the end date to a JS date
+                fetchedTasks.forEach(task => {
+                    task.end_date = convertToDate(task.end_date);
+                });
+
+                // Then sort them by ascending order
+                fetchedTasks.sort((a, b) => {
+                    return new Date(a.end_date) - new Date(b.end_date);
+                });
+
                 // Store the users tasks into the tasks state
                 setTasks(fetchedTasks);
             }
@@ -188,28 +211,17 @@ const HomeScreen = () => {
     const renderTask = ({ task }) => {
         
         return (
-            // Allows uers to navigate to TaskDetail screen when clicked
+            // Allows users to navigate to TaskDetail screen when clicked
             <TouchableOpacity
                 onPress={() => navigation.navigate('TaskDetail', { taskID: task.id })}
             >
                 {/* Task container for each task, changes when completed */}
-                <View
-                    style={[
-                        styles.tasksContainer,
-                        task.status && styles.tasksCompletedContainer,
-                    ]}
-                >
+                <View style={[ styles.tasksContainer, task.status && styles.tasksCompletedContainer]}>
                     {/* Strike through line only when task is completed */}
                     {task.status && <View style={styles.strikeThrough} testID={`strikeThrough-${task.id}`}/>}
 
                     {/* Task name */}
-                    <Text style={[
-                            styles.tasksText,
-                            task.status && styles.tasksCompletedText,
-                        ]}
-                        numberOfLines={1}
-                        ellipsizeMode='tail'
-                    >
+                    <Text style={[ styles.tasksText, task.status && styles.tasksCompletedText]} numberOfLines={1} ellipsizeMode='tail'>
                         {task.task_name}
                     </Text>
                     
@@ -249,15 +261,20 @@ const HomeScreen = () => {
     // Function to toggle the checkbox for a specific task
     const toggleTaskCompletion = async (taskID) => {
         try {
-            // Find the task to update by task ID
+            // Find the task to update by taskID
             const taskToUpdate = tasks.find((task) => task.id === taskID);
-            // Exit the array if task ID is not found
+            // Exit the array if taskID is not found
             if (!taskToUpdate) return;
     
             // Toggle the task status
             const updatedStatus = !taskToUpdate.status;
             // Update the task status in the Firebase database
             await updateTask(db, taskID, { status: updatedStatus });
+
+            // If marking the task as completed, mark all subtasks as well
+            if (updatedStatus) {
+                await markAllSubtasksComplete(db, taskID, true);
+            }
     
             // Refresh the tasks so that it is updated and reflected on the screen
             fetchTasks(userID);
@@ -296,61 +313,54 @@ const HomeScreen = () => {
             <View style={styles.upcomingContainer}>
                 <Text style={styles.upcomingTitle}>Upcoming</Text>
             </View>
+            {/* Scrollable content container to allow vertical scrolling */}
+            <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                {/* Rendering for tasks or empty state */}
+                {tasks.length === 0 ? (
+                    <>
+                        {/* Render the date container with relevant information like date and a line */}
+                        <View style={styles.dateContainer}>
+                            <Text style={styles.dateText}>{joinedDate}</Text>
+                            <View style={styles.line} />
+                        
+                            {/* Render the task container, changed when completed */}
+                            <View style={[ styles.tasksContainer, isChecked && styles.tasksCompletedContainer]}>
+                                {/* Strike through line only when task is completed */}
+                                {isChecked && <View style={styles.strikeThrough} testID='strikeThrough-no-tasks' />}
 
-            {/* Rendering for tasks or empty state */}
-            {tasks.length === 0 ? (
-                <>
-                    {/* Render the date container with relevant information like date and a line */}
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.dateText}>{joinedDate}</Text>
-                        <View style={styles.line} />
-                    
-                        {/* Render the task container, changed when completed */}
-                        <View style={[
-                                styles.tasksContainer,
-                                isChecked && styles.tasksCompletedContainer,
-                        ]}>
-                            {/* Strike through line only when task is completed */}
-                            {isChecked && <View style={styles.strikeThrough} testID='strikeThrough-no-tasks' />}
+                                {/* Task name */}
+                                <Text style={[ styles.tasksText, isChecked && styles.tasksCompletedText]} numberOfLines={1} ellipsizeMode='tail'>
+                                    Add task to start using Taskcation!
+                                </Text>
 
-                            {/* Task name */}
-                            <Text style={[
-                                    styles.tasksText,
-                                    isChecked && styles.tasksCompletedText,
-                                ]}
-                                numberOfLines={1}
-                                ellipsizeMode='tail'
-                            >
-                                Add task to start using Taskcation!
-                            </Text>
-
-                            {/* Clickable Checkbox for toggling task completion */}
-                            <TouchableOpacity onPress={handleCheckboxToggle} testID='checkbox-no-tasks' >
-                                <Ionicons
-                                    name={isChecked ? 'checkbox' : 'square-outline'}
-                                    size={28}
-                                    color={isChecked ? '#FFFFFF' : '#8B4513'}
-                                />
-                            </TouchableOpacity>
+                                {/* Clickable Checkbox for toggling task completion */}
+                                <TouchableOpacity onPress={handleCheckboxToggle} testID='checkbox-no-tasks' >
+                                    <Ionicons
+                                        name={isChecked ? 'checkbox' : 'square-outline'}
+                                        size={28}
+                                        color={isChecked ? '#FFFFFF' : '#8B4513'}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                </>
-            ) : (
-                // Iterates over each date in groupedTasks and renders a date header and list of tasks for that date
-                Object.keys(groupedTasks).map((date) => (
-                    // Render the date container with relevant information like date and a line
-                    <View key={date} style={styles.dateContainer}>
-                        <Text style={styles.dateText}>{date}</Text>
-                        <View style={styles.line} />
-                        {/* Render the tasks for that date and display it using the renderTask function */}
-                        {groupedTasks[date].map((gTask) => (
-                            <React.Fragment key={gTask.id}>
-                                {renderTask({ task: gTask })}
-                            </React.Fragment>
-                        ))}
-                    </View>
-                ))
-            )}
+                    </>
+                ) : (
+                    // Iterates over each date in groupedTasks and renders a date header and list of tasks for that date
+                    Object.keys(groupedTasks).map((date) => (
+                        // Render the date container with relevant information like date and a line
+                        <View key={date} style={styles.dateContainer}>
+                            <Text style={styles.dateText}>{date}</Text>
+                            <View style={styles.line} />
+                            {/* Render the tasks for that date and display it using the renderTask function */}
+                            {groupedTasks[date].map((gTask) => (
+                                <React.Fragment key={gTask.id}>
+                                    {renderTask({ task: gTask })}
+                                </React.Fragment>
+                            ))}
+                        </View>
+                    ))
+                )}
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -361,43 +371,35 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5F5DC',
     },
+    // Style for the scrollContainer
+    scrollContainer: {
+        flexGrow: 1,
+        paddingBottom: 16,
+    },
+    // Style for the loadingContainer
     loadingContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5F5DC',
     },
-    // Style for the header
-    header: {
-        padding: 16,
-        borderBottomWidth: 1,
-        borderColor: '#8B4513',
-        backgroundColor: '#8B4513',
-    },
-    // Style for the header title
-    headerTitle: {
-        fontSize: 32,
-        fontWeight: '800',
-        color: '#FFFFFF',
-        textAlign: 'center',
-    },
-    // Style for the upcoming container
+    // Style for the upcomingContainer
     upcomingContainer: {
         paddingHorizontal: 16,
         paddingTop: 16,
     },
-    // Style for the upcoming title
+    // Style for the upcomingTitle
     upcomingTitle: {
         fontSize: 28,
         fontWeight: '700',
         color: '#8B4513',
     },
-    // Style for the date container
+    // Style for the dateContainer
     dateContainer: {
         paddingHorizontal: 16,
         paddingTop: 16,
     },
-    // Style for the date text
+    // Style for the dateText
     dateText: {
         fontSize: 20,
         color: '#8B4513',
@@ -409,7 +411,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#8B4513',
         marginVertical: 8,
     },
-    // Style for the task container
+    // Style for the tasksContainer
     tasksContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -422,11 +424,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: '#FFF8DC',        
     },
-    // Style for the task completed container
+    // Style for the tasksCompletedContainer
     tasksCompletedContainer: {
         backgroundColor: '#8B4513',
     },
-    // Style for the task text
+    // Style for the tasksText
     tasksText: {
         fontSize: 20,
         color: '#8B4513',
@@ -434,7 +436,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         overflow: 'hidden',
     },
-    // Style for the task completed text
+    // Style for the tasksCompletedText
     tasksCompletedText: {
         fontSize: 20,
         color: '#FFFFFF',
@@ -442,7 +444,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         overflow: 'hidden',
     },
-    // Style for the strike through
+    // Style for the strikeThrough
     strikeThrough: {
         position: 'absolute',
         height: 2,
@@ -452,7 +454,7 @@ const styles = StyleSheet.create({
         top: '90%',
         zIndex: 0,
     },
-    // Style for the error text
+    // Style for the errorText
     errorText: {
         color: 'red',
         fontSize: 20,

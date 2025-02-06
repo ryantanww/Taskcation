@@ -60,23 +60,19 @@ const Timestamp = {
 
 jest.mock('./src/services/taskService', () => ({
     getTaskByID: jest.fn(),
-    getTasksByCreator: jest.fn().mockResolvedValue([
-        { id: '1', task_name: 'Task 1', status: false, end_date: Timestamp.fromDate(new Date('2025-01-20T03:05:00Z')), },
-        { id: '2', task_name: 'Task 2', status: true, end_date: Timestamp.fromDate(new Date('2025-01-21T01:20:30Z')), },
-    ]), 
+    getTasksByCreator: jest.fn().mockResolvedValue([]),
     updateTask: jest.fn(),
     createTask: jest.fn(),
     deleteTask: jest.fn(),
 }));
 
 jest.mock('./src/services/subtaskService', () => ({
-    getSubtasksByTaskID: jest.fn().mockResolvedValue([
-        { id: '1', subtask_name: 'Task 1', status: false, end_date: Timestamp.fromDate(new Date('2025-01-20T03:05:00Z')), },
-        { id: '2', subtask_name: 'Task 2', status: true, end_date: Timestamp.fromDate(new Date('2025-01-21T01:20:30Z')), },
-    ]), 
+    getSubtasksByTaskID: jest.fn(),
+    getSubtaskByID: jest.fn(),
     updateSubtask: jest.fn(),
     createSubtask: jest.fn(),
     deleteSubtask: jest.fn(),
+    markAllSubtasksComplete: jest.fn(),
 }));
 
 jest.mock('./src/services/attachmentService', () => ({
