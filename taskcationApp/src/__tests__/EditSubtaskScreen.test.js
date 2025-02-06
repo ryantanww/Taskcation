@@ -1,35 +1,31 @@
-// Import dependencies and libraries used for testing Edit Task Screen
+// Import dependencies and libraries used for testing Edit Subtask Screen
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import EditTaskScreen from '../screens/EditTaskScreen';
-import { updateTask, getTaskByID } from '../services/taskService';
-import { createAttachment, deleteAttachment, getAttachmentsByTaskID } from '../services/attachmentService';
-import { getGroupsByCreator } from '../services/groupsService';
+import EditSubtaskScreen from '../screens/EditSubtaskScreen';
+import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
+import { getAttachmentsBySubtaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
 import { Alert } from 'react-native';
 
-// Mock task for the test
-const mockTask = {
+// Mock subtask for the test
+const mockSubtask = {
+    id: 'subtask1',
+    subtask_name: 'Test Edit Subtask',
+    start_date: new Date('2025-01-01T10:00:00'),
+    end_date: new Date('2025-01-06T12:00:00'),
+    duration: 439200000,
+    subtask_notes: 'Test notes.',
+    task_name: 'Test Task',
     task_id: 'task1',
-    task_name: 'Test Edit Task',
-    start_date: new Date('2025-01-20T10:00:00'),
-    end_date: new Date('2025-01-21T12:00:00'),
-    task_notes: 'Test notes.',
-    group_id: '1',
-    priority_id: '2',
+    priority_id: '1',
+    status: false,
 };
 
 // Mock attachment for the test
 const mockAttachments = [
-    { id: '1', uri: 'https://test.com/test_attachment.pdf', file_name: 'test_attachment.pdf', file_type: 'application/pdf' },
-];
-
-// Array of mocked groups to do dropdown testing
-const mockGroups = [
-    { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123' },
-    { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123' },
+    { id: '1', uri: 'https://test.com/test_attachment.pdf', file_name: 'test_attachment.pdf', file_type: 'application/pdf',},
 ];
 
 // Array of mocked priorities to do dropdown testing
@@ -98,7 +94,7 @@ jest.mock('@react-navigation/native', () => {
     return {
         ...actualNav,
         useNavigation: () => mockNavigation,
-        useRoute: () => ({ params: { taskID: 'task1' } }),
+        useRoute: () => ({ params: { subtaskID: 'subtask1' } }),
     };
 });
 
@@ -136,20 +132,17 @@ jest.mock('react-native-dropdown-picker', () => {
 // Spy on Alert.alert
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
-
-describe('EditTaskScreen', () => {
+describe('EditSubtaskScreen', () => {
     // Clear all mocks and reset them before each test
     beforeEach(() => {
-        getTaskByID.mockClear();
-        getTaskByID.mockReset();
-        updateTask.mockClear();
-        updateTask.mockReset();
+        getSubtaskByID.mockClear();
+        getSubtaskByID.mockReset();
+        updateSubtask.mockClear();
+        updateSubtask.mockReset();
         createAttachment.mockClear();
         createAttachment.mockReset();
-        getAttachmentsByTaskID.mockClear();
-        getAttachmentsByTaskID.mockReset();
-        getGroupsByCreator.mockClear();
-        getGroupsByCreator.mockReset();
+        getAttachmentsBySubtaskID.mockClear();
+        getAttachmentsBySubtaskID.mockReset();
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
         jest.clearAllMocks();
@@ -161,72 +154,70 @@ describe('EditTaskScreen', () => {
             return null;
         });
         // Mock the required services
-        getTaskByID.mockResolvedValue(mockTask);
-        getAttachmentsByTaskID.mockResolvedValue(mockAttachments);
-        getGroupsByCreator.mockResolvedValue(mockGroups);
+        getSubtaskByID.mockResolvedValue(mockSubtask);
+        getAttachmentsBySubtaskID.mockResolvedValue(mockAttachments);
         getAllPriorities.mockResolvedValue(mockPriorities);
     });
-    
-    // Test to render the Edit Task screen with all components
-    it('should render the Edit Task screen with all components', async () => {
-        // Renders the EditTaskScreen component
+
+    // Test to render the Edit Subtask screen with all components
+    it('should render the Edit Subtask screen with all components', async () => {
+        // Renders the EditSubtaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
             // Verify that all component are rendered with the correct text
-            expect(getByText('Edit Task')).toBeTruthy();
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
-            expect(getByText('20/01/2025')).toBeTruthy();
+            expect(getByText('Edit Subtask')).toBeTruthy();
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+            expect(getByText('01/01/2025')).toBeTruthy();
             expect(getByText('10:00')).toBeTruthy();
-            expect(getByText('21/01/2025')).toBeTruthy();
+            expect(getByText('06/01/2025')).toBeTruthy();
             expect(getByText('12:00')).toBeTruthy();
             expect(getByDisplayValue('Test notes.')).toBeTruthy();
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('High')).toBeTruthy();
+            expect(getByText('Urgent')).toBeTruthy();
             expect(getByText('Insert Attachment')).toBeTruthy();
             expect(getByText('test_attachment.pdf')).toBeTruthy();
             expect(getByText('Update')).toBeTruthy();
         });
     });
 
-    // Test to successfully update the task, delete and insert new attachments
-    it('should update the task successfully, delete and insert new attachments', async () => {
-        // Mock successful service for updateTask, createAttachment, and deleteAttachment
-        updateTask.mockResolvedValueOnce(undefined);
+    // Test to successfully update the subtask, delete and insert new attachments
+    it('should update the subtask successfully, delete and insert new attachments', async () => {
+        // Mock successful service for updateSubtask, createAttachment, and deleteAttachment
+        updateSubtask.mockResolvedValueOnce(undefined);
         createAttachment.mockResolvedValueOnce(undefined);
         deleteAttachment.mockResolvedValueOnce(undefined);
 
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText, queryByText, getByTestId, getByDisplayValue, getAllByText  } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
         });
 
-        // Change the task name
-        fireEvent.changeText(getByDisplayValue('Test Edit Task'), 'Updated Task Name');
+        // Change the subtask name
+        fireEvent.changeText(getByDisplayValue('Test Edit Subtask'), 'Updated Subtask Name');
 
         // Start date set to one day ago
-        const earlierDate = new Date(mockTask.start_date - 86400000);
+        const earlierDate = new Date(mockSubtask.start_date - 86400000);
         const startDateString = earlierDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
         const startTimeString = earlierDate.toLocaleTimeString('en-GB',{hour:'2-digit', minute:'2-digit'});
 
         // End date set to one day later and a few minutes later
-        const laterDate = new Date(mockTask.end_date + 86400000 + 300000);
+        const laterDate = new Date(mockSubtask.end_date + 86400000 + 300000);
         const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
         const endTimeString = laterDate.toLocaleTimeString('en-GB',{hour:'2-digit', minute:'2-digit'});
 
-        // Press on start date which is 20/01/2025
-        fireEvent.press(getByText('20/01/2025'));
+        // Press on start date which is 01/01/2025
+        fireEvent.press(getByText('01/01/2025'));
         // Retrieve the start date picker component
         const startDatePicker = getByTestId('startDatePicker');
         // Simulate changing the start date to an earlier date
@@ -239,8 +230,8 @@ describe('EditTaskScreen', () => {
         // Simulate changing the start time to an earlier time
         fireEvent(startTimePicker, 'onChange', {type: 'set'}, earlierDate);
 
-        // Press on end date which is 21/01/2025
-        fireEvent.press(getByText('21/01/2025'));
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
         // Simulate changing the end date to an later date
@@ -261,33 +252,22 @@ describe('EditTaskScreen', () => {
             expect(getByText(endTimeString)).toBeTruthy();
         });
 
-        // Change the task notes
+        // Change the subtask notes
         fireEvent.changeText(getByDisplayValue('Test notes.'), 'Updating test notes.');
         
-        // Press on Groups dropdown
-        fireEvent.press(getByTestId('Groups-button'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            // There should be multiple Math as the mock task group is Math
-            expect(getAllByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on General
-        fireEvent.press(getByText('General'));
-    
         // Press on Priority Level dropdown
         fireEvent.press(getByTestId('Priority Level-button'));
         await waitFor(() => {
             // Verify the priorities shown matches the mockPriorities
-            // There should be multiple High as the mock task priority level is High
-            expect(getByText('Urgent')).toBeTruthy();
-            expect(getAllByText('High')).toBeTruthy();
+            // There should be multiple Urgent as the mock subtask priority level is Urgent
+            expect(getAllByText('Urgent')).toBeTruthy();
+            expect(getByText('High')).toBeTruthy();
             expect(getByText('Medium')).toBeTruthy();
             expect(getByText('Low')).toBeTruthy();
             expect(getByText('N/A')).toBeTruthy();
         });
-        // Press on Urgent
-        fireEvent.press(getByText('Urgent'));
+        // Press on High
+        fireEvent.press(getByText('High'));
 
         // Press the delete button for the first attachment
         fireEvent.press(getByTestId('delete-1'));
@@ -308,24 +288,24 @@ describe('EditTaskScreen', () => {
         fireEvent.press(getByText('Update'));
 
         await waitFor(() => {
-            // Verify updateTask was called once
-            expect(updateTask).toHaveBeenCalledTimes(1);
-            // Verify updateTask was called with updated values
-            expect(updateTask).toHaveBeenCalledWith(expect.any(Object), 'task1', 
+            // Verify updateSubtask was called once
+            expect(updateSubtask).toHaveBeenCalledTimes(1);
+            // Verify updateSubtask was called with updated values
+            expect(updateSubtask).toHaveBeenCalledWith(expect.any(Object), 'subtask1', 
                 expect.objectContaining({
-                task_name: 'Updated Task Name',
+                subtask_name: 'Updated Subtask Name',
                 start_date: earlierDate,
                 end_date: laterDate,
                 duration: expect.any(Number),
-                task_notes: 'Updating test notes.',
-                group_id: '2',
-                priority_id: '1',
+                subtask_notes: 'Updating test notes.',
+                priority_id: '2',
             }));
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                subtask_id: 'subtask1',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/new_attachment.pdf',
@@ -335,157 +315,145 @@ describe('EditTaskScreen', () => {
             // Verify that deleteAttachment was called once
             expect(deleteAttachment).toHaveBeenCalledTimes(1);
             // Check that success alert is shown.
-            expect(Alert.alert).toHaveBeenCalledWith('Success', 'Task updated successfully!');
+            expect(Alert.alert).toHaveBeenCalledWith('Success', 'Subtask updated successfully!');
             // Verify that goBack was called once
             expect(mockNavigation.goBack).toHaveBeenCalledTimes(1);
         });
     });
 
-    // Test to load groups and priorities on mount
-    it('should load groups and priorities on mount', async () => {
-        // Renders the EditTaskScreen component
-        const { getByText, getByTestId, getAllByText  } = render(
+
+    // Test to load priorities on mount
+    it('should load priorities on mount', async () => {
+        // Renders the EditSubtaskScreen component
+        const { getByText, getAllByText, getByTestId } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify Groups and Priority Level is displayed
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('High')).toBeTruthy();
+            // Verify Priority Level Urgent is displayed
+            expect(getByText('Urgent')).toBeTruthy();
         });
-
-        // Press on Groups dropdown
-        fireEvent.press(getByTestId('Groups-button'));
-        await waitFor(() => {
-            // Verify the groups shown matches the mockGroups
-            // There should be multiple Math as the mock task group is Math
-            expect(getAllByText('Math')).toBeTruthy();
-            expect(getByText('General')).toBeTruthy();
-        });
-        // Press on General
-        fireEvent.press(getByText('General'));
 
         // Press on Priority Level dropdown
         fireEvent.press(getByTestId('Priority Level-button'));
+
         await waitFor(() => {
             // Verify the priorities shown matches the mockPriorities
-            // There should be multiple High as the mock task priority level is High
-            expect(getByText('Urgent')).toBeTruthy();
-            expect(getAllByText('High')).toBeTruthy();
+            expect(getAllByText('Urgent')).toBeTruthy();
+            expect(getByText('High')).toBeTruthy();
             expect(getByText('Medium')).toBeTruthy();
             expect(getByText('Low')).toBeTruthy();
             expect(getByText('N/A')).toBeTruthy();
         });
-        // Press on Urgent
-        fireEvent.press(getByText('Urgent'));
+
+        // Press on High
+        fireEvent.press(getByText('High'));
     });
 
     // Test to render loading indicator initially
     it('should render loading indicator initially', async () => {
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
-        // Verify the Loading task detail... is displayed
-        expect(getByText('Loading task detail...')).toBeTruthy();
+        // Verify the Loading subtask detail... is displayed
+        expect(getByText('Loading subtask detail...')).toBeTruthy();
     });
 
-    // Test to show an alert if fetching task details fails
-    it('should show an alert if fetching task details fails', async () => {
-        // Mock fetching task error
-        getTaskByID.mockRejectedValueOnce(new Error('Fetching Task Details Error'));
+    // Test to show an alert if fetching subtask details fails
+    it('should show an alert if fetching subtask details fails', async () => {
+        // Mock fetching subtask error
+        getSubtaskByID.mockRejectedValueOnce(new Error('Fetching Subtask Details Error'));
     
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
     
         await waitFor(() => {
-            // Verify that an error alert is shown to the user when failing to fetch task details
-            expect(Alert.alert).toHaveBeenCalledWith('Fetching Task Details Error', 'Failed to fetch task details.');
+            // Verify that an error alert is shown to the user when failing to fetch subtask details
+            expect(Alert.alert).toHaveBeenCalledWith('Fetching Subtask Details Error', 'Failed to fetch subtask details.');
         });
     });
 
-    // Test to show an alert if failed to update task
-    it('should show an alert if failed to update task', async () => {
-        // Mock task update error
-        updateTask.mockRejectedValueOnce(new Error('Failed to update task'));
+    // Test to show an alert if failed to update subtask
+    it('should show an alert if failed to update subtask', async () => {
+        // Mock subtask update error
+        updateSubtask.mockRejectedValueOnce(new Error('Failed to update subtask'));
 
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
     
         await waitFor(() => {
             // Verify that all component are rendered with the correct text
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
-            expect(getByText('20/01/2025')).toBeTruthy();
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+            expect(getByText('01/01/2025')).toBeTruthy();
             expect(getByText('10:00')).toBeTruthy();
-            expect(getByText('21/01/2025')).toBeTruthy();
+            expect(getByText('06/01/2025')).toBeTruthy();
             expect(getByText('12:00')).toBeTruthy();
             expect(getByDisplayValue('Test notes.')).toBeTruthy();
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('High')).toBeTruthy();
+            expect(getByText('Urgent')).toBeTruthy();
             expect(getByText('Insert Attachment')).toBeTruthy();
             expect(getByText('test_attachment.pdf')).toBeTruthy();
             expect(getByText('Update')).toBeTruthy();
         });
 
-        // Change the task name
-        fireEvent.changeText(getByDisplayValue('Test Edit Task'), 'Test Edit Task Failed');
+        // Change the subtask name
+        fireEvent.changeText(getByDisplayValue('Test Edit Subtask'), 'Test Edit Subtask Failed');
     
         // Press on Update button
         fireEvent.press(getByText('Update'));
     
         await waitFor(() => {
-            // Verify updateTask was called once
-            expect(updateTask).toHaveBeenCalledTimes(1);
-            // Verify that an error alert is shown to the user when updating the task failed
-            expect(Alert.alert).toHaveBeenCalledWith('Update Error', 'Failed to update the task.');
+            // Verify updateSubtask was called once
+            expect(updateSubtask).toHaveBeenCalledTimes(1);
+            // Verify that an error alert is shown to the user when updating the subtask failed
+            expect(Alert.alert).toHaveBeenCalledWith('Update Error', 'Failed to update the subtask.');
         });
         
     });
 
     // Test to show an alert if failed to add attachments
     it('should show an alert if failed to add attachments', async () => {
-        // Mock the successful update of task
-        updateTask.mockResolvedValueOnce(true);
+        // Mock the successful update of subtask
+        updateSubtask.mockResolvedValueOnce(true);
         // Mock attachment creation error
         createAttachment.mockRejectedValueOnce(new Error('Failed to create attachment'));
     
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
     
         await waitFor(() => {
             // Verify that all component are rendered with the correct text
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
-            expect(getByText('20/01/2025')).toBeTruthy();
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+            expect(getByText('01/01/2025')).toBeTruthy();
             expect(getByText('10:00')).toBeTruthy();
-            expect(getByText('21/01/2025')).toBeTruthy();
+            expect(getByText('06/01/2025')).toBeTruthy();
             expect(getByText('12:00')).toBeTruthy();
             expect(getByDisplayValue('Test notes.')).toBeTruthy();
-            expect(getByText('Math')).toBeTruthy();
-            expect(getByText('High')).toBeTruthy();
+            expect(getByText('Urgent')).toBeTruthy();
             expect(getByText('Insert Attachment')).toBeTruthy();
             expect(getByText('test_attachment.pdf')).toBeTruthy();
             expect(getByText('Update')).toBeTruthy();
         });
 
-        // Change the task name
-        fireEvent.changeText(getByDisplayValue('Test Edit Task'), 'Test Edit Task Attachment Failed');
+        // Change the subtask name
+        fireEvent.changeText(getByDisplayValue('Test Edit Subtask'), 'Test Edit Subtask Attachment Failed');
     
         // Press on Insert Attachment
         fireEvent.press(getByText('Insert Attachment'));
@@ -498,57 +466,57 @@ describe('EditTaskScreen', () => {
         fireEvent.press(getByText('Update'));
     
         await waitFor(() => {
-            // Verify updateTask was called once
-            expect(updateTask).toHaveBeenCalledTimes(1);
+            // Verify updateSubtask was called once
+            expect(updateSubtask).toHaveBeenCalledTimes(1);
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
-            // Verify that an error alert is shown to the user when updating the task failed
-            expect(Alert.alert).toHaveBeenCalledWith('Update Error', 'Failed to update the task.');
+            // Verify that an error alert is shown to the user when updating the subtask failed
+            expect(Alert.alert).toHaveBeenCalledWith('Update Error', 'Failed to update the subtask.');
         });
     });
 
-    // Test to show an alert if Task Name is missing
-    it('should show an alert if Task Name is missing', async () => {
-        // Renders the EditTaskScreen component
+    // Test to show an alert if Subtask Name is missing
+    it('should show an alert if Subtask Name is missing', async () => {
+        // Renders the EditSubtaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
         });
 
-        // Clear task name
-        fireEvent.changeText(getByDisplayValue('Test Edit Task'), '');
+        // Clear subtask name
+        fireEvent.changeText(getByDisplayValue('Test Edit Subtask'), '');
 
         // Press on Update button
         fireEvent.press(getByText('Update'));
 
         await waitFor(() => {
-            // Verify that an error alert is shown to the user when there is no task name added
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please enter the Task Name.');
+            // Verify that an error alert is shown to the user when there is no subtask name added
+            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Subtask', 'Please enter the Subtask Name.');
         });
     });
 
     // Test to show an alert if End Date is invalid
     it('should show an alert if End Date is invalid', async () => {
-        // Mock the task to have no end date
-        const taskWithoutEndDate = { ...mockTask, end_date: '' };
-        getTaskByID.mockResolvedValueOnce(taskWithoutEndDate);
+        // Mock the subtask to have no end date
+        const subtaskWithoutEndDate = { ...mockSubtask, end_date: '' };
+        getSubtaskByID.mockResolvedValueOnce(subtaskWithoutEndDate);
 
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
         });
 
         // Press on Update button
@@ -556,29 +524,29 @@ describe('EditTaskScreen', () => {
 
         await waitFor(() => {
             // Verify that an error alert is shown to the user when there is no end date and time added
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please select an End Date and Time.');
+            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Subtask', 'Please select an End Date and Time.');
         });
     });
 
     // Test to show an alert if End Date is on or before Start Date
     it('should show an alert if End Date is before Start Date', async () => {
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { getByText, getByTestId, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
         });
 
         // Set an invalid end date
-        const invalidEndDate = new Date('2025-01-19T10:00:00');
+        const invalidEndDate = new Date('2024-12-19T10:00:00');
 
         // Press on end date which is 21/01/2025
-        fireEvent.press(getByText('21/01/2025'));
+        fireEvent.press(getByText('06/01/2025'));
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
         // Simulate changing the end date to an earlier date
@@ -593,60 +561,15 @@ describe('EditTaskScreen', () => {
         });
     });
 
-    // Test to show an alert if Group is not selected
-    it('should show an alert if no Group is not selected', async () => {
-        // Return a task with an empty group_id to simulate no group selected.
-        const taskWithoutGroup = { ...mockTask, group_id: '' };
-        getTaskByID.mockResolvedValueOnce(taskWithoutGroup);
-    
-        // Renders the EditTaskScreen component
-        const { getByText, getByDisplayValue } = render(
-            <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
-            </NavigationContainer>
-        );
-    
-        await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
-        });
-
-        // Press the Update button
-        fireEvent.press(getByText('Update'));
-    
-        await waitFor(() => {
-            // Verify that an error alert is shown to the user when no group was selected
-            expect(Alert.alert).toHaveBeenCalledWith('Incomplete Task', 'Please select a Group.');
-        });
-    });
-
-    // Test to show an alert if loading groups fails
-    it('should show an alert if loading groups fails', async () => {
-        // Mock loading group error
-        getGroupsByCreator.mockRejectedValueOnce(new Error('Groups Initialisation Error'));
-    
-        // Renders the EditTaskScreen component
-        render(
-            <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
-            </NavigationContainer>
-        );
-    
-        await waitFor(() => {
-            // Verify that an error alert is shown to the user when group loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
-        });
-    });
-
     // Test to show an alert if loading priority levels fails
     it('should show an alert if loading priority levels fails', async () => {
         // Mock loading priorities error
         getAllPriorities.mockRejectedValueOnce(new Error('Priority Levels Initialisation Error'));
     
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
     
@@ -657,18 +580,18 @@ describe('EditTaskScreen', () => {
     });
 
 
-    // Snapshot test for EditTaskScreen
+    // Snapshot test for EditSubtaskScreen
     it('should match the snapshot', async () => {
-        // Renders the EditTaskScreen component
+        // Renders the EditSubtaskScreen component
         const { toJSON, getByDisplayValue } = render(
             <NavigationContainer>
-                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
             </NavigationContainer>
         );
 
         await waitFor(() => {
-            // Verify that the task name is displayed correctly
-            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
         });
 
         // Verify snapshot matches

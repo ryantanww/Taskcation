@@ -1,0 +1,619 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditSubtaskScreen should match the snapshot 1`] = `
+<RNCSafeAreaView
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#8B4513",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 16,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="back-button"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#F5F5DC",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      style={
+        {
+          "color": "#F5F5DC",
+          "flex": 1,
+          "fontSize": 32,
+          "fontWeight": "800",
+          "textAlign": "center",
+        }
+      }
+    >
+      Edit Subtask
+    </Text>
+    <View
+      style={
+        {
+          "width": 50,
+        }
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flexGrow": 1,
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Subtask Name"
+      placeholderTextColor="#A5734D"
+      style={
+        {
+          "backgroundColor": "#FFF8DC",
+          "borderColor": "#8B4513",
+          "borderRadius": 8,
+          "borderWidth": 2,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
+          "height": 50,
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "paddingHorizontal": 10,
+        }
+      }
+      value="Test Edit Subtask"
+    />
+    <View
+      style={
+        {
+          "backgroundColor": "#FFF8DC",
+          "borderColor": "#8B4513",
+          "borderRadius": 8,
+          "borderWidth": 2,
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "paddingHorizontal": 10,
+          "paddingVertical": 12,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#8B4513",
+              "fontSize": 20,
+              "fontWeight": "500",
+            }
+          }
+        >
+          01/01/2025
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#8B4513",
+              "fontSize": 20,
+              "fontWeight": "500",
+            }
+          }
+        >
+          10:00
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "backgroundColor": "#FFF8DC",
+          "borderColor": "#8B4513",
+          "borderRadius": 8,
+          "borderWidth": 2,
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "paddingHorizontal": 10,
+          "paddingVertical": 12,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#8B4513",
+              "fontSize": 20,
+              "fontWeight": "500",
+            }
+          }
+        >
+          06/01/2025
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#8B4513",
+              "fontSize": 20,
+              "fontWeight": "500",
+            }
+          }
+        >
+          12:00
+        </Text>
+      </View>
+    </View>
+    <TextInput
+      multiline={true}
+      onChangeText={[Function]}
+      placeholder="Subtask Notes....."
+      placeholderTextColor="#A5734D"
+      style={
+        [
+          {
+            "backgroundColor": "#FFF8DC",
+            "borderColor": "#8B4513",
+            "borderRadius": 8,
+            "borderWidth": 2,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "500",
+            "height": 50,
+            "marginHorizontal": 16,
+            "marginTop": 12,
+            "paddingHorizontal": 10,
+          },
+          {
+            "height": 100,
+            "textAlignVertical": "top",
+          },
+        ]
+      }
+      value="Test notes."
+    />
+    <View
+      style={
+        [
+          {
+            "marginHorizontal": 16,
+            "marginTop": 12,
+          },
+          {
+            "zIndex": 0,
+          },
+        ]
+      }
+    >
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="Priority Level-button"
+        >
+          <Text>
+            Urgent
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "flex": 1,
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "maxHeight": 200,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="insert-attachment-button"
+      >
+        <Text>
+          Insert Attachment
+        </Text>
+      </View>
+      <View>
+        <View>
+          <Text>
+            test_attachment.pdf
+          </Text>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="delete-1"
+          >
+            <Text>
+              Delete
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#F5F5DC",
+        "marginBottom": 10,
+        "padding": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#8B4513",
+          "borderRadius": 8,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 12,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontSize": 24,
+            "fontWeight": "800",
+          }
+        }
+      >
+        Update
+      </Text>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

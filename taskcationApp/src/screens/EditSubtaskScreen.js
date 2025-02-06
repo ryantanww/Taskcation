@@ -1,5 +1,5 @@
-// Import dependencies and libraries used in Add Subtask Screen
-import React, { useEffect, useState } from 'react';
+// Import dependencies and libraries used in Subtask Detail Screen
+import React, { useEffect, useState, useCallback } from 'react';
 import {
     Text,
     View,
@@ -11,22 +11,21 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute  } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
-import DropDownPicker from 'react-native-dropdown-picker';
 import AddAttachments from '../components/AddAttachments';
 import ViewAttachments from '../components/ViewAttachments';
-import { createSubtask, deleteSubtask } from '../services/subtaskService';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
-import { createAttachment } from '../services/attachmentService';
+import { getAttachmentsBySubtaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
 import { db } from '../../firebaseConfig';
 
-const AddSubtaskScreen = () => {
-
-    // Access the route  object to get the taskID passed from navigation
+const EditSubtaskScreen = () => {
+    // Access the route  object to get the subtaskID passed from navigation
     const route = useRoute();
-    const { taskID, task_name } = route.params;
+    const { subtaskID } = route.params;
 
     // Access the navigation object
     const navigation = useNavigation();
@@ -36,7 +35,7 @@ const AddSubtaskScreen = () => {
 
     // State for storing the subtask name 
     const [subtaskName, setSubtaskName] = useState('');
-    
+        
     // State for storing the subtask start date 
     const [startDate, setStartDate] = useState(new Date());
 
@@ -45,12 +44,13 @@ const AddSubtaskScreen = () => {
 
     // State for storing the subtask notes 
     const [subtaskNotes, setSubtaskNotes] = useState('');
-    
+
     // State for storing the subtask priority
     const [selectedPriority, setSelectedPriority] = useState('');
 
-    // State for storing the attachments
-    const [attachments, setAttachments] = useState([]);
+
+    // State for storing the subtask name 
+    const [taskID, setTaskID] = useState('');
 
     // State for date pickers visibility
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
@@ -63,6 +63,13 @@ const AddSubtaskScreen = () => {
 
     // State for dropdown visibilities
     const [priorityOpen, setPriorityOpen] = useState(false);
+
+    // State for storing the attachments
+    const [attachments, setAttachments] = useState([]);
+    const [attachmentsToDelete, setAttachmentsToDelete] = useState([]);
+
+    // State for loading status
+    const [loading, setLoading] = useState(true);
 
     // useEffect to initialise user and fetch groups and priorities on component mount
     useEffect(() => {
@@ -92,20 +99,90 @@ const AddSubtaskScreen = () => {
 
         // Initialise the screen data
         initialise();
+    }, []);
 
-        // Reset all input fields when navigating away from the screen
-        const resetStates = navigation.addListener('blur', () => {
-            setSubtaskName('');
-            setStartDate(new Date());
-            setEndDate(null);
-            setSubtaskNotes('');
-            setSelectedPriority('');
-            setAttachments([]);
-        });
+    // useEffect to fetch subtask on component mount
+    useEffect(() => {
+        // Function to fetch subtask details from database
+        const fetchSubtask = async () => {
+            try {
+                // Fetch the subtask details from the Firebase database based on subtaskID
+                const fetchedSubtask = await getSubtaskByID(db, subtaskID);
+                // Check if there is a subtask
+                if (fetchedSubtask) {
+                    // Store subtask details into their respective states
+                    setSubtaskName(fetchedSubtask.subtask_name);
+                    setStartDate(convertToDate(fetchedSubtask.start_date));
+                    setEndDate(convertToDate(fetchedSubtask.end_date));
+                    setSubtaskNotes(fetchedSubtask.subtask_notes);
+                    setSelectedPriority(fetchedSubtask.priority_id);
+                    setTaskID(fetchedSubtask.task_id);
+                    // Fetch the attachments from the Firebase database based on subtaskID in subtask
+                    const fetchedAttachments = await getAttachmentsBySubtaskID(db, subtaskID);
+                    // Store the attachments into the attachments state
+                    setAttachments(fetchedAttachments || []);
+                }
+            } catch (error) {
+                // Log error in fetching subtask details
+                console.error('Error fetching subtask details:', error);
+                // Alert error when failed to fetch subtask details
+                Alert.alert('Fetching Subtask Details Error', 'Failed to fetch subtask details.');
+            } finally {
+                // Set loading state to false
+                setLoading(false);
+            }
+        };
     
-        // Reset all states on component unmount
-        return resetStates;
-    }, [navigation]);
+        fetchSubtask();
+    }, [subtaskID]);
+
+    // Convert a Firestore Timestamp to a JS Date
+    function convertToDate(possibleTimestamp) {
+        if (!possibleTimestamp) return null;
+
+        // Check if it's a Firestore Timestamp
+        if (typeof possibleTimestamp.toDate === 'function') {
+            return possibleTimestamp.toDate();
+        }
+
+        // If it's not a Firestore Timestamp, check if it's a valid date string or number
+        const dateObj = new Date(possibleTimestamp);
+        if (!isNaN(dateObj.getTime())) {
+            // Return as a JS Date if it's valid
+            return dateObj; 
+        }
+
+        // Return null for invalid dates
+        return null; 
+    }
+
+    // Function to format the dates into dd/mm/yyyy format
+    const formatDate = (date) => {
+        const dateObj = convertToDate(date);
+        if (!dateObj) {
+            return 'Invalid Date';
+        }
+        const formattedDate = new Date(dateObj).toLocaleDateString('en-GB', 
+        {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+        return formattedDate;
+    }
+
+    // Function to format the time into HH::MM
+    const formatTime = (time) => {
+        const timeObj = convertToDate(time);
+        if (!timeObj) {
+            return 'Invalid Date';
+        }
+        const formattedTime = new Date(timeObj).toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+        return formattedTime;
+    };
 
     // Function to handle start date change when picking start date
     const handleStartDateChange = (event, date) => {
@@ -152,31 +229,11 @@ const AddSubtaskScreen = () => {
         // Hide the end time picker
         setShowEndTimePicker(false);
         if (time) {
-            const updatedDate = endDate ? new Date(endDate) : new Date(startDate);
+            const updatedDate = new Date(endDate) ;
             updatedDate.setHours(time.getHours(), time.getMinutes());
             // Update the end time
             setEndDate(updatedDate);
         }
-    };
-
-    // Function to format the dates into dd/mm/yyyy format
-    const formatDate = (date) => {
-        const formattedDate = new Date(date).toLocaleDateString('en-GB', 
-        {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        return formattedDate;
-    }
-
-    // Function to format the time into HH::MM
-    const formatTime = (time) => {
-        const formattedTime = new Date(time).toLocaleTimeString('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-        return formattedTime;
     };
 
     // Function to calculate the duration in milliseconds between the start date and end date
@@ -192,14 +249,17 @@ const AddSubtaskScreen = () => {
     };
 
     // Function to handle deleting attachment from the list
-    const handleDeleteAttachment = (attachment) => {
-        setAttachments((prev) =>
-            prev.filter((item) => item.uri !== attachment.uri)
-        );
+    const handleDeleteAttachment = async (attachment) => {
+        // Remove it from the attachments shown on screen.
+        setAttachments(prev => prev.filter(item => item.uri !== attachment.uri));
+        // If the attachment already exists in the database, mark it for deletion
+        if (attachment.id) {
+            setAttachmentsToDelete(prev => [...prev, attachment]);
+        }
     };
 
-    // Function to handle adding subtask and attachment into database
-    const handleAddSubtask = async () => {
+    // Function to handle updating subtask and attachments into the database
+    const handleUpdateTask = async () => {
         // Validate if subtask name is entered
         if (!subtaskName) {
             // Alert error when subtask name is not entered
@@ -223,26 +283,23 @@ const AddSubtaskScreen = () => {
 
         // Calculate the subtask duration
         const duration = calculateDuration(startDate, endDate);
-        let subtaskID = null;
+        
         try {
-            // Create a new tasks with the provided details and store it in the database
-            subtaskID = await createSubtask(db, {
+            // Update subtask details with the updated details and store it in the database
+            await updateSubtask(db, subtaskID, {
                 subtask_name: subtaskName,
-                task_id: taskID,
-                task_name: task_name,
-                created_by: userID,
                 start_date: startDate,
                 end_date: endDate,
                 duration: duration,
                 subtask_notes: subtaskNotes,
                 priority_id: selectedPriority,
-                status: false,
-                attachments: [],
             });
 
-            // If there are attachments, store them into the database
-            if (attachments.length > 0) {
-                const attachmentPromises = attachments.map((attachment) =>
+            // Check whether there are any new attachments
+            const newAttachments = attachments.filter(att => !att.id);
+            // If there are new attachments, store them into the database
+            if (newAttachments.length > 0) {
+                const attachmentPromises = attachments.map(attachment =>
                     createAttachment(db, {
                         task_id: taskID,
                         subtask_id: subtaskID,
@@ -256,38 +313,39 @@ const AddSubtaskScreen = () => {
                 // Wait for all attachments to be stored
                 await Promise.all(attachmentPromises);
             }
-            
-            // Reset all input fields after subtask creation is successful
-            setSubtaskName('');
-            setStartDate(new Date());
-            setEndDate(null);
-            setSubtaskNotes('');
-            setSelectedPriority('');
-            setAttachments([]);
+
+            // If there are attachments to be deleted, delete them from the database on update
+            if (attachmentsToDelete.length > 0) {
+                // Delete the attachments to be deleted, one by one
+                const deletePromises = attachmentsToDelete.map(attachment => deleteAttachment(db, attachment.id));
+                // Wait for all attachments to be deleted
+                await Promise.all(deletePromises);
+            }
 
             // Alert success when subtask is created successfully
-            Alert.alert('Success', 'Subtask created successfully!');
+            Alert.alert('Success', 'Subtask updated successfully!');
             // Navigate back to the previous screen
             navigation.goBack();
         } catch (error) {
-            // Log any errors when creating subtask or attachments
-            console.log('Error creating subtask or attachments:', error);
-
-            // If there is subtaskID, due to attachment creation failure, delete the subtask 
-            if (subtaskID) {
-                await deleteSubtask(db, subtaskID);
-            }
-
-            // Alert error for subtask or attachments creation 
-            Alert.alert('Subtask Creation Error', 'Failed to create the subtask or attachments.');
+            // Log any errors when updating subtask or attachments
+            console.error('Error updating subtask:', error);
+            // Alert error for updating subtask or attachments 
+            Alert.alert('Update Error', 'Failed to update the subtask.');
         }
     };
 
+    // Display loading indicator if tasks are still loading
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text>Loading subtask detail...</Text>
+            </View>
+        );
+    }
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header with back arrow and title */}
-            <Subheader title='Add Subtask' hasKebab={false}/>
-            
+            {/* Render the Subheader component */}
+            <Subheader title='Edit Subtask' hasKebab={false} />
             {/* TouchableWithoutFeedback to allow pressing outside of the dropdowns to close the dropdowns */}
             <TouchableWithoutFeedback onPress={() =>  setPriorityOpen(false)}>
                 <View style={styles.contentContainer}>
@@ -311,12 +369,12 @@ const AddSubtaskScreen = () => {
                             <Text style={styles.text}>{formatTime(startDate)}</Text>
                         </TouchableOpacity>
                     </View>
-
+                    
                     {/* Conditional rendering of the start date and time pickers */}
                     {showStartDatePicker && (
                         <DateTimePicker
                             testID='startDatePicker'
-                            value={startDate}
+                            value={new Date(startDate)}
                             mode='date'
                             display='default'
                             onChange={handleStartDateChange}
@@ -325,44 +383,44 @@ const AddSubtaskScreen = () => {
                     {showStartTimePicker && (
                         <DateTimePicker
                             testID='startTimePicker'
-                            value={startDate}
+                            value={new Date(startDate)}
                             mode='time'
                             display='spinner'
                             onChange={handleStartTimeChange}
-                        />
+                    />
                     )}
 
                     {/* Row for end date and time */}
                     <View style={styles.dateTimeRow}>
                         {/* End date button */}
                         <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
-                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Date' : formatDate(endDate) }</Text>
+                            <Text style={styles.text}>{formatDate(endDate)}</Text>
                         </TouchableOpacity>
                         {/* End time button */}
                         <TouchableOpacity onPress={() => setShowEndTimePicker(true)}>
-                            <Text style={!endDate ? styles.placeholderText : styles.text}>{ !endDate ? 'End Time' : formatTime(endDate) }</Text>
+                            <Text style={styles.text}>{formatTime(endDate)}</Text>
                         </TouchableOpacity>
                     </View>
-
-                        {/* Conditional rendering of the end date and time pickers */}
-                        {showEndDatePicker && (
-                            <DateTimePicker
-                                testID='endDatePicker'
-                                value={endDate || startDate}
-                                mode='date'
-                                display='default'
-                                onChange={handleEndDateChange}
-                            />
-                        )}
-                        {showEndTimePicker && (
-                            <DateTimePicker
-                                testID='endTimePicker'
-                                value={endDate || startDate}
-                                mode='time'
-                                display='spinner'
-                                onChange={handleEndTimeChange}
-                            />
-                        )}
+                    
+                    {/* Conditional rendering of the end date and time pickers */}
+                    {showEndDatePicker && (
+                        <DateTimePicker
+                            testID='endDatePicker'
+                            value={endDate ? new Date(endDate) : new Date(startDate)}
+                            mode='date'
+                            display='default'
+                            onChange={handleEndDateChange}
+                        />
+                    )}
+                    {showEndTimePicker && (
+                        <DateTimePicker
+                            testID='endTimePicker'
+                            value={endDate ? new Date(endDate) : new Date(startDate)}
+                            mode='time'
+                            display='spinner'
+                            onChange={handleEndTimeChange}
+                        />
+                    )}
 
                     {/* Subtask Notes */}
                     <TextInput
@@ -384,6 +442,7 @@ const AddSubtaskScreen = () => {
                             setValue={setSelectedPriority}
                             setItems={setPriorities}
                             placeholder='Priority Level'
+                            onOpen={() => setGroupOpen(false)}
                             closeAfterSelecting={true}
                             closeOnBackPressed={true}
                             closeOnBlur={true}
@@ -403,20 +462,20 @@ const AddSubtaskScreen = () => {
                         {/* View Attachments Component */}
                         <ViewAttachments attachments={attachments} onDeleteAttachment={handleDeleteAttachment}/>
                     </View>
+                    
                 </View>
             </TouchableWithoutFeedback>
-            
-            {/* Add Button */}
-            <View style={styles.addButtonContainer}>
-                <TouchableOpacity style={styles.addButton} onPress={handleAddSubtask}>
-                    <Text style={styles.addButtonText}>Add</Text>
+
+            {/* Update Button */}
+            <View style={styles.updateButtonContainer}>
+                <TouchableOpacity style={styles.updateButton} onPress={handleUpdateTask}>
+                    <Text style={styles.updateButtonText}>Update</Text>
                 </TouchableOpacity>
             </View>
-            
         </SafeAreaView>
     );
 };
-
+        
 const styles = StyleSheet.create({
     // Style for the container
     container: {
@@ -425,7 +484,7 @@ const styles = StyleSheet.create({
     },
     // Style for the contentContainer
     contentContainer: {
-        flex: 1,
+        flexGrow: 1,
     },
     // Style for the textInput
     textInput: {
@@ -465,7 +524,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
     },
-    // Style for the placeholderText
+    // Style for the container
     placeholderText: {
         color: '#A5734D',
         fontSize: 20,
@@ -476,7 +535,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginTop: 12,
     },
-    // Style for the dropdownContainer
+    // Style for the container
     dropdownContainer: {
         borderWidth: 2,
         borderColor: '#8B4513',
@@ -498,15 +557,15 @@ const styles = StyleSheet.create({
         marginTop: 12,
         maxHeight: 200,
     },
-    // Style for the addButtonContainer
-    addButtonContainer: {
+    // Style for the updateButtonContainer
+    updateButtonContainer: {
         alignItems: 'center',
         marginBottom: 10,
         padding: 10,
         backgroundColor: '#F5F5DC',
     },
-    // Style for the addButton
-    addButton: {
+    // Style for the updateButton
+    updateButton: {
         backgroundColor: '#8B4513',
         paddingVertical: 12,
         paddingHorizontal: 20,
@@ -514,12 +573,12 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
-    // Style for the addButtonText
-    addButtonText: {
+    // Style for the updateButtonText
+    updateButtonText: {
         fontWeight: '800',
         color: '#FFFFFF',
         fontSize: 24,
     },
 });
 
-export default AddSubtaskScreen;
+export default EditSubtaskScreen;
