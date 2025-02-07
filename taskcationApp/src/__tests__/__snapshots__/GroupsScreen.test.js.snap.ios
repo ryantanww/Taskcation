@@ -92,6 +92,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
     style={
       {
         "flexDirection": "row",
+        "marginTop": 1,
       }
     }
   >
@@ -256,6 +257,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
             "borderColor": "#8B4513",
             "borderRadius": 8,
             "borderWidth": 2,
+            "marginBottom": 8,
             "opacity": 1,
             "padding": 12,
           }
@@ -430,6 +432,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
     style={
       {
         "flexDirection": "row",
+        "marginTop": 1,
       }
     }
   >
@@ -594,6 +597,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
             "borderColor": "#8B4513",
             "borderRadius": 8,
             "borderWidth": 2,
+            "marginBottom": 8,
             "opacity": 1,
             "padding": 12,
           }

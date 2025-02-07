@@ -9,7 +9,7 @@ import {
     Alert
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../components/Header';
 import { getGroupsByCreator } from '../services/groupsService';
@@ -18,6 +18,9 @@ import { db } from '../../firebaseConfig';
 const GroupsScreen = () => {
     // Access the navigation object
     const navigation = useNavigation();
+
+    // Hook for rerendering the screen
+    const isFocused = useIsFocused();
 
     // State for storing the groups 
     const [groups, setGroups] = useState([]);
@@ -33,31 +36,39 @@ const GroupsScreen = () => {
 
     // useEffect to initialise user and fetch groups on component mount
     useEffect(() => {
-        const initialise = async () => {
-            try {
-                // Retrieve the user ID from AsyncStorage
-                const storedUserID = await AsyncStorage.getItem('user_id');
-                // Set user ID in state
-                setUserID(storedUserID);
+        
 
-                // Fetch user's groups from the database
-                const userGroups = await getGroupsByCreator(db, storedUserID);
-                // Map groups to dropdown format
-                setGroups(userGroups);
-            } catch (error) {
-                // Log any errors when initialising groups
-                console.error('Initialising Groups error:', error);
-                // Set error if initialising fails
-                Alert.alert('Initialising Groups Error', 'Failed to initialise Groups.');
-            }  finally {
-                // Set loading state to false
-                setLoading(false);
-            }
-        }
-
-        // Initialise the groups data
         initialise();
     }, []);
+
+    useEffect(() => {
+        // Call the fetchTasks function whenever isFocused changes
+        if (isFocused) {
+            initialise();
+        }
+    }, [isFocused]);
+
+    const initialise = async () => {
+        try {
+            // Retrieve the user ID from AsyncStorage
+            const storedUserID = await AsyncStorage.getItem('user_id');
+            // Set user ID in state
+            setUserID(storedUserID);
+
+            // Fetch user's groups from the database
+            const userGroups = await getGroupsByCreator(db, storedUserID);
+            // Map groups to dropdown format
+            setGroups(userGroups);
+        } catch (error) {
+            // Log any errors when initialising groups
+            console.error('Initialising Groups error:', error);
+            // Set error if initialising fails
+            Alert.alert('Initialising Groups Error', 'Failed to initialise Groups.');
+        }  finally {
+            // Set loading state to false
+            setLoading(false);
+        }
+    }
 
     // Function to handle changing tabs
     const handleTabPress = (tabName) => {
@@ -144,6 +155,7 @@ const styles = StyleSheet.create({
     // Style for the tabContainer
     tabContainer: {
         flexDirection: 'row',
+        marginTop: 1,
     },
     // Style for the tab
     tab: {
@@ -205,6 +217,7 @@ const styles = StyleSheet.create({
     groupItem: {
         alignItems: 'center',
         padding: 12,
+        marginBottom: 8,
         borderWidth: 2,
         borderRadius: 8,
         borderColor: '#8B4513',

@@ -1,0 +1,498 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddGroupScreen should match the snapshot for categories 1`] = `
+<RNCSafeAreaView
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#8B4513",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 16,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="back-button"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#F5F5DC",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      style={
+        {
+          "color": "#F5F5DC",
+          "flex": 1,
+          "fontSize": 32,
+          "fontWeight": "800",
+          "textAlign": "center",
+        }
+      }
+    >
+      Add Group
+    </Text>
+    <View
+      style={
+        {
+          "width": 50,
+        }
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Group Name"
+      placeholderTextColor="#A5734D"
+      style={
+        {
+          "backgroundColor": "#FFF8DC",
+          "borderColor": "#8B4513",
+          "borderRadius": 8,
+          "borderWidth": 2,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
+          "height": 50,
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "paddingHorizontal": 10,
+        }
+      }
+      value=""
+    />
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#F5F5DC",
+        "marginBottom": 10,
+        "padding": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#8B4513",
+          "borderRadius": 8,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 12,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontSize": 24,
+            "fontWeight": "800",
+          }
+        }
+      >
+        Add Category
+      </Text>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;
+
+exports[`AddGroupScreen should match the snapshot for subjects 1`] = `
+<RNCSafeAreaView
+  edges={
+    {
+      "bottom": "additive",
+      "left": "additive",
+      "right": "additive",
+      "top": "additive",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#8B4513",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 16,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="back-button"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#F5F5DC",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      style={
+        {
+          "color": "#F5F5DC",
+          "flex": 1,
+          "fontSize": 32,
+          "fontWeight": "800",
+          "textAlign": "center",
+        }
+      }
+    >
+      Add Group
+    </Text>
+    <View
+      style={
+        {
+          "width": 50,
+        }
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Group Name"
+      placeholderTextColor="#A5734D"
+      style={
+        {
+          "backgroundColor": "#FFF8DC",
+          "borderColor": "#8B4513",
+          "borderRadius": 8,
+          "borderWidth": 2,
+          "color": "#8B4513",
+          "fontSize": 20,
+          "fontWeight": "500",
+          "height": 50,
+          "marginHorizontal": 16,
+          "marginTop": 12,
+          "paddingHorizontal": 10,
+        }
+      }
+      value=""
+    />
+    <View
+      style={
+        [
+          {
+            "marginHorizontal": 16,
+            "marginTop": 12,
+          },
+          {
+            "zIndex": 0,
+          },
+        ]
+      }
+    >
+      <View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="Grades-button"
+        >
+          <Text>
+            Grades
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#F5F5DC",
+        "marginBottom": 10,
+        "padding": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#8B4513",
+          "borderRadius": 8,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 12,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontSize": 24,
+            "fontWeight": "800",
+          }
+        }
+      >
+        Add Subject
+      </Text>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

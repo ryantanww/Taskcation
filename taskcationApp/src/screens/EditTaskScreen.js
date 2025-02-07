@@ -99,13 +99,12 @@ const EditTaskScreen = () => {
                 setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
             } catch (error) {
                 // Log any errors when initialising user, groups and priorities
-                console.error('Initialisation error:', error);
+                console.error('Initialisation User, Groups and Priorities Error:', error);
                 // Set error if initialising fails
-                Alert.alert('Initialising Error', 'Failed to initialise the screen.');
+                Alert.alert('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
             }
         }
-
-        // Initialise the screen data
+        
         initialise();
     }, []);
 

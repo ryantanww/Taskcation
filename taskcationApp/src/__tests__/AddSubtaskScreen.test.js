@@ -593,7 +593,7 @@ describe('AddSubtaskScreen', () => {
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when priorities loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
+            expect(Alert.alert).toHaveBeenCalledWith('Initialising User and Priorities Error', 'Failed to initialise user and priorities.');
         });
     });
 

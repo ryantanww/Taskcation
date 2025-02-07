@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import GroupsScreen from '../screens/GroupsScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getGroupsByCreator } from '../services/groupsService';
 import { Alert } from 'react-native'; 
@@ -22,6 +22,7 @@ jest.mock('@react-navigation/native', () => {
         useNavigation: () => ({
             navigate: mockNavigate,
         }),
+        useIsFocused: jest.fn(() => true),
     };
 });
 
@@ -29,6 +30,7 @@ jest.mock('@react-navigation/native', () => {
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 describe('GroupsScreen', () => {
+    // Clear all mocks before each test
     beforeEach(() => {
         getGroupsByCreator.mockClear();
         getGroupsByCreator.mockReset();
@@ -70,7 +72,42 @@ describe('GroupsScreen', () => {
             expect(queryByText('General')).toBeNull();
             expect(queryByText('Add Category')).toBeNull();
         });
+    });
 
+     // Test to call initialise if the screen is focused
+    it('should call initialise if the screen is focused', async () => {
+        // Mock useIsFocused to be true
+        useIsFocused.mockReturnValueOnce(true);
+    
+        // Renders the GroupsScreen component
+        render(
+            <NavigationContainer>
+                <GroupsScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getTasksByCreator has been called twice
+            expect(getGroupsByCreator).toHaveBeenCalledTimes(2);
+        });
+    });
+    
+    // Test to not call initialise if the screen is focused
+    it('should not call initialise again when the screen is not focused', async () => {
+        // Mock useIsFocused to be false
+        useIsFocused.mockReturnValueOnce(false);
+    
+        // Renders the GroupsScreen component
+        render(
+            <NavigationContainer>
+                <GroupsScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getTasksByCreator has not been called
+            expect(getGroupsByCreator).not.toHaveBeenCalled();
+        });
     });
 
     // Test to switch tabs and filters groups correctly

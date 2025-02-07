@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import HomeScreen from '../screens/HomeScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused  } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createUser } from '../services/userService';
 import { getTasksByCreator, updateTask } from '../services/taskService';
@@ -39,6 +39,7 @@ jest.mock('@react-navigation/native', () => {
         useNavigation: () => ({
             navigate: mockNavigate,
         }),
+        useIsFocused: jest.fn(() => true),
     };
 });
 
@@ -75,7 +76,7 @@ describe('HomeScreen', () => {
         getGroupsByCreator.mockResolvedValueOnce([]);
 
         // Renders the HomeScreen component
-        const { getByText } = render(
+        render(
             <NavigationContainer>
                 <HomeScreen />
             </NavigationContainer>
@@ -101,13 +102,55 @@ describe('HomeScreen', () => {
         });
     });
 
+    // Test to call fetchTasks if the screen is focused and userID is available
+    it('should call fetchTasks if the screen is focused and userID is available', async () => {
+        // Mock useIsFocused to be true
+        useIsFocused.mockReturnValueOnce(true);
+    
+        // Mock tasks
+        getTasksByCreator.mockResolvedValueOnce(mockTasks);
+    
+        // Renders the HomeScreen component
+        render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getTasksByCreator has been called twice
+            expect(getTasksByCreator).toHaveBeenCalledTimes(2);
+        });
+    });
+    
+    // Test to not call fetchTasks if the screen is focused and userID is available
+    it('should not call fetchTasks again when the screen is not focused', async () => {
+        // Mock useIsFocused to be false
+        useIsFocused.mockReturnValueOnce(false);
+    
+        // Mock tasks
+        getTasksByCreator.mockResolvedValueOnce(mockTasks);
+    
+        // Renders the HomeScreen component
+        render(
+            <NavigationContainer>
+                <HomeScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getTasksByCreator has not been called
+            expect(getTasksByCreator).not.toHaveBeenCalled();
+        });
+    });
+
     // Test to ensure groups are not created if they already exist
     it('should not create default groups if groups already exist', async () => {
         // Mock groups
         getGroupsByCreator.mockResolvedValueOnce(mockGroups);
 
         // Renders the HomeScreen component
-        const { getByText } = render(
+        render(
             <NavigationContainer>
                 <HomeScreen />
             </NavigationContainer>
