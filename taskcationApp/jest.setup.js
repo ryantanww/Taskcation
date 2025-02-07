@@ -46,6 +46,7 @@ jest.mock('./src/services/priorityLevelsService', () => ({
 
 jest.mock('./src/services/gradesService', () => ({
     getGradeByID: jest.fn(),
+    getAllGrades: jest.fn(),
 }));
 
 // Mock Firestore Timestamp

@@ -414,6 +414,7 @@ describe('AddTaskScreen', () => {
             // Verify the groups shown matches the mockGroups
             expect(getByText('Math')).toBeTruthy();
             expect(getByText('General')).toBeTruthy();
+            expect(getGroupsByCreator).toHaveBeenCalledTimes(1);
         });
         fireEvent.press(getByText('General'));
 
@@ -427,6 +428,7 @@ describe('AddTaskScreen', () => {
             expect(getByText('Medium')).toBeTruthy();
             expect(getByText('Low')).toBeTruthy();
             expect(getByText('N/A')).toBeTruthy();
+            expect(getAllPriorities).toHaveBeenCalledTimes(1);
         });
     });
 
@@ -710,7 +712,7 @@ describe('AddTaskScreen', () => {
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when group loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
+            expect(Alert.alert).toHaveBeenCalledWith('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
         });
     });
 
@@ -730,7 +732,7 @@ describe('AddTaskScreen', () => {
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when priorities loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
+            expect(Alert.alert).toHaveBeenCalledWith('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
         });
     });
 

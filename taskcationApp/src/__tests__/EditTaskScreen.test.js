@@ -634,7 +634,7 @@ describe('EditTaskScreen', () => {
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when group loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
+            expect(Alert.alert).toHaveBeenCalledWith('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
         });
     });
 
@@ -652,7 +652,7 @@ describe('EditTaskScreen', () => {
     
         await waitFor(() => {
             // Verify that an error alert is shown to the user when priorities loading fails
-            expect(Alert.alert).toHaveBeenCalledWith('Initialising Error', 'Failed to initialise the screen.');
+            expect(Alert.alert).toHaveBeenCalledWith('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
         });
     });
 

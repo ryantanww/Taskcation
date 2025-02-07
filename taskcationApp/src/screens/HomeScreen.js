@@ -167,7 +167,7 @@ const HomeScreen = () => {
     }, []);
     
     useEffect(() => {
-        // Call the fetchTasks function whenever 'isFocused' or 'userID' changes
+        // Call the fetchTasks function whenever isFocused or userID changes
         if (isFocused && userID) {
             fetchTasks(userID);
         }

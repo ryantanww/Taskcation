@@ -14,6 +14,7 @@ export async function createGroup(db, groupData) {
     if (!groupData.group_name || typeof groupData.group_name !== 'string' || !groupData.group_name.trim()) {
         throw new Error('group_name is required (non-empty string)');
     }
+    
     if (!groupData.created_by || typeof groupData.created_by !== 'string') {
         throw new Error('created_by user doc ID is required (string)');
     }

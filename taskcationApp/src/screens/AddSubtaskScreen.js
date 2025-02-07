@@ -84,13 +84,12 @@ const AddSubtaskScreen = () => {
                 setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
             } catch (error) {
                 // Log any errors when initialising user and priorities
-                console.error('Initialisation error:', error);
+                console.error('Initialisation User and Priorities Error:', error);
                 // Set error if initialising fails
-                Alert.alert('Initialising Error', 'Failed to initialise the screen.');
+                Alert.alert('Initialising User and Priorities Error', 'Failed to initialise user and priorities.');
             }
         }
-
-        // Initialise the screen data
+        
         initialise();
 
         // Reset all input fields when navigating away from the screen
