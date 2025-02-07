@@ -61,7 +61,7 @@ describe('HomeScreen', () => {
         getTasksByCreator.mockClear();
     });
 
-    // Test to check if user ID is stored inn AsyncStorage
+    // Test to check if user ID is stored in AsyncStorage
     it('should store user ID in AsyncStorage', async () => {
         // Retrieve the user ID
         const userId = await AsyncStorage.getItem('user_id');
