@@ -402,15 +402,10 @@ exports[`AddSubtaskScreen Snapshot Tests should match the snapshot 1`] = `
     />
     <View
       style={
-        [
-          {
-            "marginHorizontal": 16,
-            "marginTop": 12,
-          },
-          {
-            "zIndex": 0,
-          },
-        ]
+        {
+          "marginHorizontal": 16,
+          "marginTop": 12,
+        }
       }
     >
       <View>

@@ -46,6 +46,10 @@ jest.mock('@react-navigation/native', () => {
 describe('HomeScreen', () => {
     // Clear all mocks before each test
     beforeEach(() => {
+        createGroup.mockClear();
+        getGroupsByCreator.mockClear();
+        getTasksByCreator.mockClear();
+        updateTask.mockClear();
         jest.clearAllMocks();
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
@@ -57,9 +61,7 @@ describe('HomeScreen', () => {
             }
             return null;
         });
-        createGroup.mockClear();
-        getGroupsByCreator.mockClear();
-        getTasksByCreator.mockClear();
+
     });
 
     // Test to check if user ID is stored in AsyncStorage
@@ -203,7 +205,7 @@ describe('HomeScreen', () => {
 
         // Select no tasks checkbox
         const noTaskCheckbox = getByTestId(`checkbox-no-tasks`);
-        // Simulate checkbox press
+        // Press on checkbox
         fireEvent.press(noTaskCheckbox);
 
         // Select strike through element
@@ -261,7 +263,7 @@ describe('HomeScreen', () => {
 
         // Select Task 1 checkbox
         const taskCheckbox = getByTestId('checkbox-1');
-        // Simulate checkbox press
+        // Press on checkbox
         fireEvent.press(taskCheckbox);
 
         // Update task status in mock data
@@ -276,7 +278,7 @@ describe('HomeScreen', () => {
             expect(markAllSubtasksComplete).toHaveBeenCalledWith(expect.anything(), '1', true);
         });
 
-        // Simulate checkbox press
+        // Press on checkbox
         fireEvent.press(taskCheckbox);
 
         // Update task status in mock data
@@ -345,7 +347,7 @@ describe('HomeScreen', () => {
         fireEvent.press(getByText('Task 1'));
 
         // Verify that navigation to TaskDetailScreen has been called with taskID as its parameter
-        expect(mockNavigate).toHaveBeenCalledWith('TaskDetail', { taskID: '1' });
+        expect(mockNavigate).toHaveBeenCalledWith('TaskDetailScreen', { taskID: '1' });
     });
 
     // Tests whether the loading state is rendered correctly
@@ -363,7 +365,7 @@ describe('HomeScreen', () => {
 
     // Test to handle error when user initialisation fails
     it('should display an error message when initialising the user fails', async () => {
-        // Simulate the AsyncStorage error
+        // Mock the AsyncStorage error
         AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage Error'));
 
         // Renders the HomeScreen component
@@ -381,7 +383,7 @@ describe('HomeScreen', () => {
 
     // Test to handle when creating a user fails
     it('should display an error message when creating a user fails', async () => {
-        // Simulate no stored user ID
+        // Mock no stored user ID
         AsyncStorage.getItem
             .mockImplementationOnce(async (key) => {
                 if (key === 'user_id') return null;
@@ -392,7 +394,7 @@ describe('HomeScreen', () => {
                 return null;
             });
 
-        // Simulate user creation error
+        // Mock user creation error
         createUser.mockRejectedValueOnce(new Error('Create User Error'));
 
         // Renders the HomeScreen component
@@ -410,7 +412,7 @@ describe('HomeScreen', () => {
 
     // Test to handle error when fetching tasks fails
     it('should display an error message when fetching tasks fails', async () => {
-        // Simulate task fetching error
+        // Mock task fetching error
         getTasksByCreator.mockRejectedValueOnce(new Error('Fetch Tasks Error'));
 
         // Renders the HomeScreen component
@@ -448,7 +450,7 @@ describe('HomeScreen', () => {
 
         // Select Task 1 checkbox
         const checkbox = getByTestId('checkbox-1');
-        // Simulate checkbox press
+        // Press on checkbox
         fireEvent.press(checkbox);
 
         await waitFor(() => {
@@ -459,7 +461,7 @@ describe('HomeScreen', () => {
 
     // Test to handle error when initialising groups fails
     it('should display an error message when initialising groups fails', async () => {
-        // Simulate group creation error
+        // Mock group creation error
         getGroupsByCreator.mockRejectedValueOnce(new Error('Group Initialisation Error'));
 
         // Renders the HomeScreen component

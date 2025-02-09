@@ -400,7 +400,7 @@ describe('ViewAttachments', () => {
         });
 
         await waitFor(() => {
-            // Simulate an error during playback
+            // Mock an error during playback
             playbackStatusUpdateCallback({ isLoaded: false, error: 'Playback failed.' });
         });
         

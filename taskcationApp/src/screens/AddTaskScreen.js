@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AddAttachments from '../components/AddAttachments';
@@ -27,6 +27,9 @@ import { db } from '../../firebaseConfig';
 const AddTaskScreen = () => {
     // Access the navigation object
     const navigation = useNavigation();
+
+    // Hook for rerendering the screen
+    const isFocused = useIsFocused();
 
     // State to store user ID
     const [userID, setUserID] = useState(null);
@@ -69,36 +72,9 @@ const AddTaskScreen = () => {
 
     // useEffect to initialise user and fetch groups and priorities on component mount
     useEffect(() => {
-        const initialise = async () => {
-            try {
-                // Retrieve the user ID from AsyncStorage
-                const storedUserID = await AsyncStorage.getItem('user_id');
-                // Set user ID in state
-                setUserID(storedUserID);
-
-                // Fetch user's groups from the database
-                const userGroups = await getGroupsByCreator(db, storedUserID);
-                // Map groups to dropdown format
-                setGroups(userGroups.map(group => ({ label: group.group_name, value: group.id })));
-
-                // Fetch all priorities from the database
-                const allPriorities = await getAllPriorities(db);
-                // Sort the priority in their order
-                const orderedPriorities = allPriorities.sort((a, b) => {
-                    const priorityOrder = ['Urgent', 'High', 'Medium', 'Low', 'N/A'];
-                    return priorityOrder.indexOf(a.priority_name) - priorityOrder.indexOf(b.priority_name);
-                });
-                // Map priorities to dropdown format
-                setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
-            } catch (error) {
-                // Log any errors when initialising user, groups and priorities
-                console.error('Initialisation User, Groups and Priorities Error:', error);
-                // Set error if initialising fails
-                Alert.alert('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
-            }
+        if (isFocused) {
+            initialise();
         }
-
-        initialise();
 
         // Reset all input fields when navigating away from the screen
         const resetStates = navigation.addListener('blur', () => {
@@ -113,8 +89,38 @@ const AddTaskScreen = () => {
     
         // Reset all states on component unmount
         return resetStates;
-    }, [navigation]);
+    }, [navigation, isFocused]);
     
+
+    // Function to initialise user and fetch groups and priorities on component mount
+    const initialise = async () => {
+        try {
+            // Retrieve the user ID from AsyncStorage
+            const storedUserID = await AsyncStorage.getItem('user_id');
+            // Set user ID in state
+            setUserID(storedUserID);
+
+            // Fetch user's groups from the database
+            const userGroups = await getGroupsByCreator(db, storedUserID);
+            // Map groups to dropdown format
+            setGroups(userGroups.map(group => ({ label: group.group_name, value: group.id })));
+
+            // Fetch all priorities from the database
+            const allPriorities = await getAllPriorities(db);
+            // Sort the priority in their order
+            const orderedPriorities = allPriorities.sort((a, b) => {
+                const priorityOrder = ['Urgent', 'High', 'Medium', 'Low', 'N/A'];
+                return priorityOrder.indexOf(a.priority_name) - priorityOrder.indexOf(b.priority_name);
+            });
+            // Map priorities to dropdown format
+            setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
+        } catch (error) {
+            // Log any errors when initialising user, groups and priorities
+            console.error('Initialisation User, Groups and Priorities Error:', error);
+            // Set error if initialising fails
+            Alert.alert('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
+        }
+    }
 
     // Function to handle start date change when picking start date
     const handleStartDateChange = (event, date) => {
@@ -392,7 +398,7 @@ const AddTaskScreen = () => {
                     />
 
                     {/* Dropdown for Groups */}
-                    <View style={[styles.pickerContainer, { zIndex: groupOpen ? 2000 : 0 }]}>
+                    <View style={styles.pickerContainer}>
                         <DropDownPicker
                             open={groupOpen}
                             value={selectedGroup}

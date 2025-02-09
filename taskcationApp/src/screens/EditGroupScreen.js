@@ -1,4 +1,4 @@
-// Import dependencies and libraries used in Add Group Screen
+// Import dependencies and libraries used in Edit Group Screen
 import React, { useEffect, useState } from 'react';
 import {
     Text,
@@ -10,27 +10,26 @@ import {
     StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { createGroup } from '../services/groupsService';
+import { updateGroup, getGroupByID } from '../services/groupsService';
 import { getAllGrades } from '../services/gradesService';
 import { db } from '../../firebaseConfig';
 
-const AddGroupScreen = () => {
-    // Access the route  object to get the group_type passed from navigation
+const EditGroupScreen = () => {
+
+    // Access the route  object to get the groupID passed from navigation
     const route = useRoute();
-    const { group_type } = route.params;
+    const { groupID } = route.params;
 
     // Access the navigation object
     const navigation = useNavigation();
     
-    // State to store user ID
-    const [userID, setUserID] = useState(null);
-
     // State for storing the group name 
     const [groupName, setGroupName] = useState('');
+
+    const [groupType, setGroupType] = useState('');
 
     // State for storing the subject grade
     const [selectedGrade, setSelectedGrade] = useState('');
@@ -41,15 +40,28 @@ const AddGroupScreen = () => {
     // State for dropdown visibilities
     const [gradeOpen, setGradeOpen] = useState(false);
 
+    // State for loading status
+    const [loading, setLoading] = useState(true);
+
     // useEffect to initialise user and fetch grades on component mount
     useEffect(() => {
         const initialise = async () => {
             try {
-                // Retrieve the user ID from AsyncStorage
-                const storedUserID = await AsyncStorage.getItem('user_id');
-                // Set user ID in state
-                setUserID(storedUserID);
+                setLoading(true);
+                // Fetch the group details from the Firebase database based on groupID
+                if (groupID) {
+                    const fetchedGroup = await getGroupByID(db, groupID);
+                    if (fetchedGroup) {
+                        // Store task details into their respective states
+                        setGroupName(fetchedGroup.group_name);
+                        setGroupType(fetchedGroup.group_type);
 
+                        // If group has a grade, fetch it
+                        if (fetchedGroup.grade_id) {
+                            setSelectedGrade(fetchedGroup.grade_id);
+                        }
+                    }
+                }
                 // Fetch all grades from the database
                 const allGrades = await getAllGrades(db);
 
@@ -57,26 +69,20 @@ const AddGroupScreen = () => {
                 setGrades(allGrades.map((grade) => ({ label: grade.grade, value: grade.id })));
             } catch (error) {
                 // Log any errors when initialising user and grades
-                console.error('Initialisation User and Grades Error:', error);
+                console.error('Initialisation Group and Grades Error:', error);
                 // Set error if initialising fails
-                Alert.alert('Initialising User and Grades Error', 'Failed to initialise user and grades.');
+                Alert.alert('Initialising Group and Grades Error', 'Failed to initialise group and grades.');
+            } finally {
+                setLoading(false);
             }
+            
         }
         
         initialise();
-
-        // Reset all input fields when navigating away from the screen
-        const resetStates = navigation.addListener('blur', () => {
-            setGroupName('');
-            setSelectedGrade('');
-        });
-
-        // Reset all states on component unmount
-        return resetStates;
-    }, [navigation]);
+    }, [groupID]);
 
     // Function to handle adding group into the database
-    const handleAddGroup = async () => {
+    const handleUpdateGroup = async () => {
         // Validate if group name is entered
         if (!groupName) {
             // Alert error when group name is not entered
@@ -86,36 +92,39 @@ const AddGroupScreen = () => {
 
         try {
             // Create a new group with the provided details and store it in the database
-            const groupID = await createGroup(db, {
+            await updateGroup(db, groupID, {
                 group_name: groupName,
-                created_by: userID,
-                group_type: group_type,
                 grade_id:   selectedGrade  || 'NA',
             });
 
-            // Reset all input fields after group creation is successful
-            setGroupName('');
-            setSelectedGrade('');
-
-            // Alert success when group is created successfully
-            Alert.alert('Success', 'Group created successfully!');
+            // Alert success when group is updated successfully
+            Alert.alert('Success', 'Group updated successfully!');
             // Navigate back to the previous screen
             navigation.goBack();
         } catch (error) {
-            // Log any errors when creating group
-            console.log('Error creating group:', error);
-            // Alert error for group creation 
-            Alert.alert('Group Creation Error', 'Failed to create the group.');
+            // Log any errors when updating group
+            console.log('Error updating group:', error);
+            // Alert error for group update 
+            Alert.alert('Group Update Error', 'Failed to update the group.');
         }
     }
 
+     // Display loading indicator if task are still loading
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text>Loading group detail...</Text>
+            </View>
+        );
+    }
+
     // Change the Button text depending on the group_type
-    const addButtonText = group_type === 'Subjects' ? 'Add Subject' : 'Add Category';
+    const updateButtonText = groupType === 'Subjects' ? 'Update Subject' : 'Update Category';
 
     return (
         <SafeAreaView style={styles.container}>
             {/* Header with back arrow and title */}
-            <Subheader title='Add Group' hasKebab={false}/>
+            <Subheader title='Edit Group' hasKebab={false}/>
             
             {/* TouchableWithoutFeedback to allow pressing outside of the dropdowns to close the dropdowns */}
             <TouchableWithoutFeedback onPress={() =>  setGradeOpen(false)}>
@@ -129,7 +138,8 @@ const AddGroupScreen = () => {
                         onChangeText={setGroupName}
                     />
 
-                    { group_type === 'Subjects' && (
+                    {/* Render grades dropdown if group type is Subjects */}
+                    { groupType === 'Subjects' && (
                         <>
                             {/* Dropdown for Grades */}
                             <View style={styles.pickerContainer}>
@@ -158,10 +168,10 @@ const AddGroupScreen = () => {
                 </View>
             </TouchableWithoutFeedback>
             
-            {/* Add Group button depending on group type */}
-            <View style={styles.addButtonContainer}>
-                <TouchableOpacity style={styles.addButton} onPress={handleAddGroup}>
-                    <Text style={styles.addButtonText}>{addButtonText}</Text>
+            {/* Update Group button depending on group type */}
+            <View style={styles.updateButtonContainer}>
+                <TouchableOpacity style={styles.updateButton} onPress={handleUpdateGroup}>
+                    <Text style={styles.updateButtonText}>{updateButtonText}</Text>
                 </TouchableOpacity>
             </View>
             
@@ -174,6 +184,13 @@ const styles = StyleSheet.create({
     // Style for the container
     container: {
         flex: 1,
+        backgroundColor: '#F5F5DC',
+    },
+    // Style for the loadingContainer
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#F5F5DC',
     },
     // Style for the contentContainer
@@ -220,15 +237,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: '#F5F5DC',
     },
-    // Style for the addButtonContainer
-    addButtonContainer: {
+    // Style for the updateButtonContainer
+    updateButtonContainer: {
         alignItems: 'center',
         marginBottom: 10,
         padding: 10,
         backgroundColor: '#F5F5DC',
     },
-    // Style for the addButton
-    addButton: {
+    // Style for the updateButton
+    updateButton: {
         backgroundColor: '#8B4513',
         paddingVertical: 12,
         paddingHorizontal: 20,
@@ -236,12 +253,12 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
-    // Style for the addButtonText
-    addButtonText: {
+    // Style for the updateButtonText
+    updateButtonText: {
         fontWeight: '800',
         color: '#FFFFFF',
         fontSize: 24,
     },
 });
 
-export default AddGroupScreen;
+export default EditGroupScreen;

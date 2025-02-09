@@ -328,8 +328,8 @@ describe('SubtaskDetailScreen', () => {
         expect(getByText('Loading subtask detail...')).toBeTruthy();
     });
 
-    // Test to show alert for failing to fetch subtask if getSubtaskByID fails
-    it('should show alert for failing to fetch subtask if getSubtaskByID fails', async () => {
+    // Test to show an alert for failing to fetch subtask if getSubtaskByID fails
+    it('should show an alert for failing to fetch subtask if getSubtaskByID fails', async () => {
         // Mock the subtask service with an error
         getSubtaskByID.mockRejectedValueOnce(new Error('Error fetching subtask'));
 
@@ -346,8 +346,8 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
-     // Test to show alert for failing to fetch priority if getPriorityByID fails
-    it('should show alert for failing to fetch priority if getPriorityByID fails', async () => {
+     // Test to show an alert for failing to fetch priority if getPriorityByID fails
+    it('should show an alert for failing to fetch priority if getPriorityByID fails', async () => {
         // Mock priority service with an error
         getPriorityByID.mockRejectedValueOnce(new Error('Error fetching priority'));
 
@@ -364,8 +364,8 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch attachments if getAttachmentsBySubtaskID fails
-    it('should show alert for failing to fetch attachments if getAttachmentsBySubtaskID fails', async () => {
+    // Test to show an alert for failing to fetch attachments if getAttachmentsBySubtaskID fails
+    it('should show an alert for failing to fetch attachments if getAttachmentsBySubtaskID fails', async () => {
         // Mock attachments service with an error
         getAttachmentsBySubtaskID.mockRejectedValueOnce(new Error('Error fetching attachments'));
 
@@ -382,8 +382,8 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to update subtask if updateSubtask fails
-    it('should show alert for failing to update subtask if updateSubtask fails', async () => {
+    // Test to show an alert for failing to update subtask if updateSubtask fails
+    it('should show an alert for failing to update subtask if updateSubtask fails', async () => {
         // Mock update subtask service with an error
         updateSubtask.mockRejectedValueOnce(new Error('Error updating subtask'));
 
@@ -446,7 +446,7 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to refresh subtask
+    // Test to show an alert for failing to refresh subtask
     it('should show an alert for failing to refresh subtask', async () => {
         // Mock useFocusEffect
         const { useFocusEffect } = jest.requireActual('@react-navigation/native');

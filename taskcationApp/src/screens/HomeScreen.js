@@ -208,9 +208,9 @@ const HomeScreen = () => {
     const renderTask = ({ task }) => {
         
         return (
-            // Allows users to navigate to TaskDetail screen when clicked
+            // Allows users to navigate to TaskDetailScreen screen when clicked
             <TouchableOpacity
-                onPress={() => navigation.navigate('TaskDetail', { taskID: task.id })}
+                onPress={() => navigation.navigate('TaskDetailScreen', { taskID: task.id })}
             >
                 {/* Task container for each task, changes when completed */}
                 <View style={[ styles.tasksContainer, task.status && styles.tasksCompletedContainer]}>
