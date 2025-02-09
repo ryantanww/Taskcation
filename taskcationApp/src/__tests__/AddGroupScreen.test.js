@@ -65,7 +65,6 @@ describe('AddGroupScreen', () => {
 
     // Test to render and show subjects information if group_type is Subjects
     it('should render and show subjects information if group_type is Subjects', async () => {
-
         // Renders the AddGroupScreen component
         const { getByText, getByPlaceholderText } = render(
             <NavigationContainer>

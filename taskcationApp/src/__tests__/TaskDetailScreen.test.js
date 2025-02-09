@@ -425,9 +425,9 @@ describe('TaskDetailScreen', () => {
             expect(getByText('Subtask 2')).toBeTruthy();
         });
 
-        // Select Task 1 checkbox
-        const subtaskCheckbox = getByTestId('checkbox-subtask2');
-        // Simulate checkbox press
+        // Select Subtask 2 checkbox
+        let subtaskCheckbox = getByTestId('checkbox-subtask2');
+        // Press on checkbox
         fireEvent.press(subtaskCheckbox);
 
         await waitFor(() => {
@@ -435,13 +435,21 @@ describe('TaskDetailScreen', () => {
             expect(updateSubtask).toHaveBeenCalledWith( expect.anything(), 'subtask2', { status: true });
         });
 
+        // Mock the initial subtask load
+        getSubtasksByTaskID.mockResolvedValueOnce([
+            { id: 'subtask1', subtask_name: 'Subtask 1', end_date: new Date('2025-01-02T18:00:00'), status: true },
+            { id: 'subtask2', subtask_name: 'Subtask 2', end_date: new Date('2025-01-03T15:00:00'), status: true },
+        ]);
+
         // Mock the expected behaviour
         getSubtasksByTaskID.mockResolvedValueOnce([
+            { id: 'subtask1', subtask_name: 'Subtask 1', end_date: new Date('2025-01-02T18:00:00'), status: true },
             { id: 'subtask2', subtask_name: 'Subtask 2', end_date: new Date('2025-01-03T15:00:00'), status: false },
         ]);
-        
 
-        // Simulate checkbox press
+        // Select Subtask 2 checkbox
+        subtaskCheckbox = getByTestId('checkbox-subtask2');
+        // Press on checkbox
         fireEvent.press(subtaskCheckbox);
 
         await waitFor(() => {
@@ -489,8 +497,8 @@ describe('TaskDetailScreen', () => {
         expect(getByText('Loading task detail...')).toBeTruthy();
     });
 
-    // Test to show alert for failing to fetch task if getTaskByID fails
-    it('should show alert for failing to fetch task if getTaskByID fails', async () => {
+    // Test to show an alert for failing to fetch task if getTaskByID fails
+    it('should show an alert for failing to fetch task if getTaskByID fails', async () => {
         // Mock the task service with an error
         getTaskByID.mockRejectedValueOnce(new Error('Error fetching task'));
 
@@ -506,8 +514,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch group if getGroupByID fails
-    it('should show alert for failing to fetch group if getGroupByID fails', async () => {
+    // Test to show an alert for failing to fetch group if getGroupByID fails
+    it('should show an alert for failing to fetch group if getGroupByID fails', async () => {
         // Mock groups service with an error
         getGroupByID.mockRejectedValueOnce(new Error('Error fetching group'));
 
@@ -524,8 +532,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch priority if getPriorityByID fails
-    it('should show alert for failing to fetch priority if getPriorityByID fails', async () => {
+    // Test to show an alert for failing to fetch priority if getPriorityByID fails
+    it('should show an alert for failing to fetch priority if getPriorityByID fails', async () => {
         // Mock priority service with an error
         getPriorityByID.mockRejectedValueOnce(new Error('Error fetching priority'));
 
@@ -542,8 +550,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch attachments if getAttachmentsByTaskID fails
-    it('should show alert for failing to fetch attachments if getAttachmentsByTaskID fails', async () => {
+    // Test to show an alert for failing to fetch attachments if getAttachmentsByTaskID fails
+    it('should show an alert for failing to fetch attachments if getAttachmentsByTaskID fails', async () => {
         // Mock attachments service with an error
         getAttachmentsByTaskID.mockRejectedValueOnce(new Error('Error fetching attachments'));
 
@@ -560,8 +568,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch subtasks if getSubtasksByTaskID fails
-    it('should show alert for failing to fetch subtasks if getSubtasksByTaskID fails', async () => {
+    // Test to show an alert for failing to fetch subtasks if getSubtasksByTaskID fails
+    it('should show an alert for failing to fetch subtasks if getSubtasksByTaskID fails', async () => {
         // Mock subtasks service with an error
         getSubtasksByTaskID.mockRejectedValueOnce(new Error('Error fetching subtasks'));
 
@@ -578,8 +586,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to fetch grade if getGradeByID fails
-    it('should show alert for failing to fetch grade if getGradeByID fails', async () => {
+    // Test to show an alert for failing to fetch grade if getGradeByID fails
+    it('should show an alert for failing to fetch grade if getGradeByID fails', async () => {
         // Mock grade service with an error
         getGradeByID.mockRejectedValueOnce(new Error('Error fetching grade'));
         
@@ -596,8 +604,8 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    // Test to show alert for failing to update task if updateTask fails
-    it('should show alert for failing to update task if updateTask fails', async () => {
+    // Test to show an alert for failing to update task if updateTask fails
+    it('should show an alert for failing to update task if updateTask fails', async () => {
         // Mock update task service with an error
         updateTask.mockRejectedValueOnce(new Error('Error updating task'));
 
@@ -660,33 +668,35 @@ describe('TaskDetailScreen', () => {
         });
     });
 
-    it('should show alert for failing to update subtask when toggleSubtaskCompletion errors', async () => {
+    // Test to show show an alert for failing to update subtask when toggleSubtaskCompletion errors
+    it('should show an alert for failing to update subtask when toggleSubtaskCompletion errors', async () => {
         // Mock updateSubtask to throw an error
         updateSubtask.mockRejectedValueOnce(new Error('Error updating subtask'));
     
-        // Render the component
+        // Renders the TaskDetailScreen component
         const { getByText, getByTestId } = render(
             <NavigationContainer>
                 <TaskDetailScreen />
             </NavigationContainer>
         );
     
-        // Wait until the component is rendered and subtasks are loaded
         await waitFor(() => {
+            // Verify that Subtask 2 is displayed
             expect(getByText('Subtask 2')).toBeTruthy();
         });
     
-        // Simulate pressing the checkbox for subtask 2 (testID is built as 'checkbox-' + subtask.id)
+        // Select Subtask 2 checkbox
         const subtaskCheckbox = getByTestId('checkbox-subtask2');
+        // Press on checkbox
         fireEvent.press(subtaskCheckbox);
     
-        // Verify that the error alert is shown
         await waitFor(() => {
+            // Verify that an error alert is shown to the user when updating subtask fails
             expect(Alert.alert).toHaveBeenCalledWith('Update Subtask Error', 'Failed to update subtask.');
         });
     });
 
-    // Test to show alert for failing to refresh task
+    // Test to show an alert for failing to refresh task
     it('should show an alert for failing to refresh task', async () => {
         // Mock useFocusEffect
         const { useFocusEffect } = jest.requireActual('@react-navigation/native');

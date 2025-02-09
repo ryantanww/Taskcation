@@ -1,7 +1,7 @@
 // Import dependencies and libraries used for testing Add Task Screen
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddTaskScreen from '../screens/AddTaskScreen';
 import { createTask, deleteTask } from '../services/taskService';
@@ -85,6 +85,7 @@ jest.mock('@react-navigation/native', () => {
     return {
         ...actualNav,
         useNavigation: () => mockNavigation,
+        useIsFocused: jest.fn(() => true),
     };
 });
 
@@ -429,6 +430,52 @@ describe('AddTaskScreen', () => {
             expect(getByText('Low')).toBeTruthy();
             expect(getByText('N/A')).toBeTruthy();
             expect(getAllPriorities).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    // Test to initialise if the screen is focused
+    it('should initialise if the screen is focused', async () => {
+        // Mock useIsFocused to be true
+        useIsFocused.mockReturnValueOnce(true);
+    
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+        getAllPriorities.mockResolvedValueOnce(mockPriorities);
+    
+        // Renders the AddTaskScreen component
+        render(
+            <NavigationContainer>
+                <AddTaskScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getGroupsByCreator and getAllPriorities has been called once
+            expect(getGroupsByCreator).toHaveBeenCalledTimes(1);
+            expect(getAllPriorities).toHaveBeenCalledTimes(1);
+        });
+    });
+    
+    // Test to not initialise when the screen is not focused
+    it('should not initialise when the screen is not focused', async () => {
+        // Mock useIsFocused to be false
+        useIsFocused.mockReturnValueOnce(false);
+    
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+        getAllPriorities.mockResolvedValueOnce(mockPriorities);
+    
+        // Renders the AddTaskScreen component
+        render(
+            <NavigationContainer>
+                <AddTaskScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify the getGroupsByCreator and getAllPriorities has not been called
+            expect(getGroupsByCreator).not.toHaveBeenCalled();
+            expect(getAllPriorities).not.toHaveBeenCalled();
         });
     });
 

@@ -79,18 +79,25 @@ const GroupDetailScreen = () => {
         fetchData();
     }, [groupID]);
 
+    // Function to fetch group, grade and tasks data on component mount
     const fetchData = async () => {
         try{
+            // Set loading state to true
             setLoading(true);
-            // Fetch the group details from the Firebase database based on groupID
+
+            // Check if there is a groupID
             if (groupID) {
+                // Fetch the group details from the Firebase database based on groupID
                 const fetchedGroup = await getGroupByID(db, groupID);
+                // Check if there is a group
                 if (fetchedGroup) {
                     // Store the group detail into the group state
                     setGroup({ id: groupID, ...fetchedGroup });
                     // If group has a grade, fetch it
                     if (fetchedGroup.grade_id) {
+                        // Fetch the grade details from the Firebase database based on grade_id
                         const fetchedGrade = await getGradeByID(db, fetchedGroup.grade_id);
+                        // Check if there is a grade
                         if (fetchedGrade) {
                             // Store the grade detail into the grade state
                             setGrade({ id: fetchedGroup.grade_id, ...fetchedGrade });
@@ -99,23 +106,33 @@ const GroupDetailScreen = () => {
                 }
             }
             
+            // Fetch the tasks details from the Firebase database based on groupID
             const fetchedTasks = await getTasksByGroup(db, groupID);
+            // If there are no tasks found return an empty array else retrieve and store the user tasks
             if (!fetchedTasks) {
+                // Set the tasks state to an empty array
                 setTasks([]);
             } else {
+                // Convert the end date to a JS date
                 fetchedTasks.forEach((task) => {
                     task.end_date = convertToDate(task.end_date);
                 });
-                // Sort tasks by ascending end_date
+
+                // Then sort them by ascending order
                 fetchedTasks.sort(
                     (a, b) => new Date(a.end_date) - new Date(b.end_date)
                 );
+
+                // Store the group tasks into the tasks state
                 setTasks(fetchedTasks);
             }
         } catch (error){
+            // Log error in fetching group or grade or tasks details
             console.error('Error fetching group or grade or tasks:', error);
+            // Alert error when failed to fetch group or grade or tasks
             Alert.alert('Error fetching group or grade or tasks', 'Failed to fetch group or grade or tasks.');
         } finally {
+            // Set loading state to false
             setLoading(false);
         }
     }
@@ -124,9 +141,9 @@ const GroupDetailScreen = () => {
     const renderTask = ({ task }) => {
         
         return (
-            // Allows users to navigate to TaskDetail screen when clicked
+            // Allows users to navigate to TaskDetailScreen screen when clicked
             <TouchableOpacity
-                onPress={() => navigation.navigate('TaskDetail', { taskID: task.id })}
+                onPress={() => navigation.navigate('TaskDetailScreen', { taskID: task.id })}
             >
                 {/* Task container for each task, changes when completed */}
                 <View style={[ styles.tasksContainer, task.status && styles.tasksCompletedContainer]}>
@@ -189,19 +206,21 @@ const GroupDetailScreen = () => {
         } catch (error) {
             // Log any errors when updating task status
             console.error('Error updating task status:', error);
+            // Alert error when failed to update task status
             Alert.alert('Error updating task status', 'Failed to update tasks status.');
         }
     };
     
-    // useFocusEffect to refresh task detail whenever the screen is focused
-        useFocusEffect(
-            // useCallback ensures that the function does not get recreated unnecessarily
-            useCallback(() => {
-                fetchData();
-            }, [groupID])
-        );
-    
-    // Display loading indicator if tasks are still loading
+    // useFocusEffect to refresh group, grade and tasks data whenever the screen is focused
+    useFocusEffect(
+        // useCallback ensures that the function does not get recreated unnecessarily
+        useCallback(() => {
+            // Fetch required data again when focused
+            fetchData();
+        }, [groupID])
+    );
+
+    // Display loading indicator if group and tasks are still loading
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
@@ -210,16 +229,18 @@ const GroupDetailScreen = () => {
         );
     }
 
+    // If group is null, return nothing
     if (!group) return null;
     
     return (
         <SafeAreaView style={styles.container}>
-            {/* Render the header component */}
+            {/* Render the subheader component */}
             <Subheader title={group.group_name} hasKebab={true} itemID={group.id} itemType={'Group'} />
 
+            {/* Render grades if group type is Subjects */}
             { group.group_type === 'Subjects' && grade && (
                 <>
-                    {/* Render the upcoming container */}
+                    {/* Render the grades information */}
                     <View style={styles.gradesContainer}>
                         <Text style={styles.gradesTitle}>Grades</Text>
                         <Text style={styles.gradesTitle}>{grade.grade}</Text>
@@ -345,13 +366,14 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         overflow: 'hidden',
     },
+    // Style for the noTasksContainer
     noTasksContainer: {
         marginTop: 32,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 16,
     },
-
+    // Style for the noTasksText
     noTasksText: {
         fontSize: 20,
         color: '#8B4513',

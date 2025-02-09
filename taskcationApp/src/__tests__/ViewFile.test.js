@@ -18,7 +18,7 @@ describe('ViewFile', () => {
 
     // Test to check if the file is copied to a local path when the URI starts with 'content://'
     it('should copy the file to a local path if the URI starts with "content://" on Android', async () => {
-        // Simulate Android platform
+        // Mock Android platform
         Platform.OS = 'android';
         // Mock the file URI with 'content://'
         const mockUri = 'content://mock/file/uri';
@@ -42,7 +42,7 @@ describe('ViewFile', () => {
 
     // Test to check if the file opens using IntentLauncher on Android
     it('should open the file using IntentLauncher on Android', async () => {
-        // Simulate Android platform
+        // Mock Android platform
         Platform.OS = 'android';
         // Mock the file path
         const mockUri = 'mock/document/directory/test.pdf';
@@ -67,7 +67,7 @@ describe('ViewFile', () => {
 
     // Test to check if the file opens using Linking on iOS if it can be opened
     it('should open the file using Linking on iOS if it can be opened', async () => {
-        // Simulate iOS platform
+        // Mock iOS platform
         Platform.OS = 'ios';
         // Mock the file path
         const mockUri = 'mock/document/directory/test.pdf';
@@ -84,7 +84,7 @@ describe('ViewFile', () => {
 
     // Test to check if the file shares if it cannot be opened via Linking
     it('should share the file on iOS if it cannot be opened via Linking', async () => {
-        // Simulate iOS platform
+        // Mock iOS platform
         Platform.OS = 'ios';
         // Mock the file path
         const mockUri = 'mock/document/directory/test.pdf';
@@ -103,7 +103,7 @@ describe('ViewFile', () => {
 
     // Test to handle error when copying the files fails on Android
     it('should show an alert if copying the file fails on Android', async () => {
-        // Simulate Android platform
+        // Mock Android platform
         Platform.OS = 'android';
         // Mock the file URI with 'content://'
         const mockUri = 'content://mock/file/uri';
@@ -122,7 +122,7 @@ describe('ViewFile', () => {
 
     // Test to handle error when file URI is invalid on Android
     it('should show an alert if the file URI is invalid', async () => {
-        // Simulate Android platform
+        // Mock Android platform
         Platform.OS = 'android';
         // Invalid / empty URI
         const mockUri = '';
@@ -138,7 +138,7 @@ describe('ViewFile', () => {
 
     // Test to handle error 
     it('should show an alert if opening the file fails', async () => {
-        // Simulate iOS platform
+        // Mock iOS platform
         Platform.OS = 'ios';
         // Mock the file path
         const mockUri = 'mock/document/directory/test.pdf';

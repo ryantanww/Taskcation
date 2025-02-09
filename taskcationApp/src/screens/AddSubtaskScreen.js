@@ -374,7 +374,7 @@ const AddSubtaskScreen = () => {
                     />
 
                     {/* Dropdown for Priority Levels */}
-                    <View style={[styles.pickerContainer, { zIndex: priorityOpen ? 1000 : 0 }]}>
+                    <View style={styles.pickerContainer}>
                         <DropDownPicker
                             open={priorityOpen}
                             value={selectedPriority}

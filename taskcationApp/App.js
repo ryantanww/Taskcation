@@ -10,6 +10,7 @@ import SubtaskDetailScreen from './src/screens/SubtaskDetailScreen';
 import EditSubtaskScreen from './src/screens/EditSubtaskScreen';
 import AddGroupScreen from './src/screens/AddGroupScreen';
 import GroupDetailScreen from './src/screens/GroupDetailScreen';
+import EditGroupScreen from './src/screens/EditGroupScreen';
 
 
 // Create a stack navigator instance
@@ -25,7 +26,7 @@ export default function App() {
             <Stack.Screen name='BottomTab' component={BottomTab} options={{ headerShown: false }} />
 
             {/* Task Detail Screen */}
-            <Stack.Screen name='TaskDetail' component={TaskDetailScreen}  options={{ headerShown: false }}/>
+            <Stack.Screen name='TaskDetailScreen' component={TaskDetailScreen}  options={{ headerShown: false }}/>
 
             {/* Edit Task Screen */}
             <Stack.Screen name='EditTaskScreen' component={EditTaskScreen}  options={{ headerShown: false }}/>
@@ -44,6 +45,9 @@ export default function App() {
 
             {/* Group Detail Screen */}
             <Stack.Screen name="GroupDetailScreen" component={GroupDetailScreen} options={{ headerShown: false }}/>
+
+            {/* Edit Group Screen */}
+            <Stack.Screen name="EditGroupScreen" component={EditGroupScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
     </NavigationContainer>
   );
