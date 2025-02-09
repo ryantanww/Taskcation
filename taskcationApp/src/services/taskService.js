@@ -185,3 +185,22 @@ export async function getTasksByCreator(db, userID) {
         throw error; // Optionally re-throw the error for higher-level handling
     }
 }
+
+export async function getTasksByGroup(db, groupID) {
+    try {
+        // Create a query to get tasks created by the user
+        const q = query(collection(db, 'Tasks'), where('group_id', '==', groupID));
+        const snap = await getDocs(q);
+
+        // If no documents exist, return null
+        if (snap.empty) {
+            return null;
+        }
+
+        // Map documents to task objects
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (error) {
+        console.error('Error fetching tasks by group:', error);
+        throw error; // Optionally re-throw the error for higher-level handling
+    }
+}

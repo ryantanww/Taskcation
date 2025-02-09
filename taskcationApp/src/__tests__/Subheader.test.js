@@ -117,7 +117,7 @@ describe('Subheader Component', () => {
     it('should navigate to EditGroupScreen when Edit is pressed for Groups', () => {
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Group Title' hasKebab={true} itemID='group1' itemType='Groups' />
+            <Subheader title='Group Title' hasKebab={true} itemID='group1' itemType='Group' />
         );
     
         // Verify the kebab button is there

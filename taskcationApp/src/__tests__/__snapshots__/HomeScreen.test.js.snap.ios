@@ -151,7 +151,7 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
             [
               {
                 "alignItems": "center",
-                "backgroundColor": "#FFF8DC",
+                "backgroundColor": "#F5F5DC",
                 "borderColor": "#8B4513",
                 "borderRadius": 8,
                 "borderWidth": 2,
@@ -432,7 +432,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
               [
                 {
                   "alignItems": "center",
-                  "backgroundColor": "#FFF8DC",
+                  "backgroundColor": "#F5F5DC",
                   "borderColor": "#8B4513",
                   "borderRadius": 8,
                   "borderWidth": 2,
@@ -591,7 +591,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
               [
                 {
                   "alignItems": "center",
-                  "backgroundColor": "#FFF8DC",
+                  "backgroundColor": "#F5F5DC",
                   "borderColor": "#8B4513",
                   "borderRadius": 8,
                   "borderWidth": 2,

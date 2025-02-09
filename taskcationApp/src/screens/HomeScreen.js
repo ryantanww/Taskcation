@@ -81,8 +81,7 @@ const HomeScreen = () => {
     }
 
     // useEffect to initialise user and fetch tasks on component mount
-    useEffect(() => {
-        (async () => {
+    useEffect(() => {( async () => {
             try {
                 // Set loading state to true
                 setLoading(true);
@@ -158,7 +157,7 @@ const HomeScreen = () => {
                 // Log any errors when initialising tasks
                 console.error('Initialisation error:', err);
                 // Set error if initialising fails
-                setError('Failed to initialise user, groups or tasks!');
+                setError('Failed to initialise user, groups or tasks.');
             } finally {
                 // Set loading state to false
                 setLoading(false);
@@ -201,11 +200,9 @@ const HomeScreen = () => {
             // Log any errors when fetching tasks
             console.error('Error fetching tasks:', error);
             // Set error if fetching tasks fails
-            setError('Failed to fetch tasks!');
+            setError('Failed to fetch tasks.');
         }
     }
-
-    
     
     // Render each task of the users
     const renderTask = ({ task }) => {
@@ -363,7 +360,7 @@ const HomeScreen = () => {
             </ScrollView>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     // Style for the container
@@ -422,7 +419,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingVertical: 12,
         paddingHorizontal: 10,
-        backgroundColor: '#FFF8DC',        
+        backgroundColor: '#F5F5DC',        
     },
     // Style for the tasksCompletedContainer
     tasksCompletedContainer: {

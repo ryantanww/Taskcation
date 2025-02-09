@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
     textInput: {
         borderWidth: 2,
         borderColor: '#8B4513',
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
         color: '#8B4513',
         borderRadius: 8,
         paddingHorizontal: 10,
@@ -456,7 +456,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingVertical: 12,
         paddingHorizontal: 10,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the text
     text: {
@@ -479,7 +479,7 @@ const styles = StyleSheet.create({
     dropdownContainer: {
         borderWidth: 2,
         borderColor: '#8B4513',
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the dropdown
     dropdown: {
@@ -488,7 +488,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingVertical: 12,
         paddingHorizontal: 10,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the attachmentContainer
     attachmentContainer: {

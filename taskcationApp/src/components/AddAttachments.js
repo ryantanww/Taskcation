@@ -474,7 +474,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
 const styles = StyleSheet.create({
     // Style for the container
     container: {
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the insertButton
     insertButton: {
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
         paddingVertical: 12,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
         justifyContent: 'space-between',
     },
     // Style for the insertButtonText
@@ -571,7 +571,7 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
         borderWidth: 3,
         borderColor: '#8B4513',
     },
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 10,
         borderRadius: 25,
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
         borderWidth: 3,
         borderColor: '#8B4513',
     },

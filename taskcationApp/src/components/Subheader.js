@@ -33,7 +33,7 @@ const Subheader = ({ title, hasKebab = false, itemID, itemType }) => {
             navigation.navigate('EditTaskScreen', { taskID: itemID });
         } else if (itemType === 'Subtask') {
             navigation.navigate('EditSubtaskScreen', { subtaskID: itemID });
-        } else if (itemType === 'Groups') {
+        } else if (itemType === 'Group') {
             navigation.navigate('EditGroupScreen', { groupID: itemID });
         }
     };

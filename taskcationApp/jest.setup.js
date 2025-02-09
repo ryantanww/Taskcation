@@ -62,6 +62,7 @@ const Timestamp = {
 jest.mock('./src/services/taskService', () => ({
     getTaskByID: jest.fn(),
     getTasksByCreator: jest.fn().mockResolvedValue([]),
+    getTasksByGroup: jest.fn(),
     updateTask: jest.fn(),
     createTask: jest.fn(),
     deleteTask: jest.fn(),
