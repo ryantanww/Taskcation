@@ -82,9 +82,6 @@ const GroupDetailScreen = () => {
     // Function to fetch group, grade and tasks data on component mount
     const fetchData = async () => {
         try{
-            // Set loading state to true
-            setLoading(true);
-
             // Check if there is a groupID
             if (groupID) {
                 // Fetch the group details from the Firebase database based on groupID
