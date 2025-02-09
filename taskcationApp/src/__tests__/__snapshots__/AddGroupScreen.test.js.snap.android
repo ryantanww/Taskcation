@@ -139,7 +139,7 @@ exports[`AddGroupScreen should match the snapshot for categories 1`] = `
       placeholderTextColor="#A5734D"
       style={
         {
-          "backgroundColor": "#FFF8DC",
+          "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
           "borderRadius": 8,
           "borderWidth": 2,
@@ -360,7 +360,7 @@ exports[`AddGroupScreen should match the snapshot for subjects 1`] = `
       placeholderTextColor="#A5734D"
       style={
         {
-          "backgroundColor": "#FFF8DC",
+          "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
           "borderRadius": 8,
           "borderWidth": 2,

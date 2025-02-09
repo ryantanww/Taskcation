@@ -9,6 +9,7 @@ import AddSubtaskScreen from './src/screens/AddSubtaskScreen';
 import SubtaskDetailScreen from './src/screens/SubtaskDetailScreen';
 import EditSubtaskScreen from './src/screens/EditSubtaskScreen';
 import AddGroupScreen from './src/screens/AddGroupScreen';
+import GroupDetailScreen from './src/screens/GroupDetailScreen';
 
 
 // Create a stack navigator instance
@@ -40,6 +41,9 @@ export default function App() {
 
             {/* Add Group Screen */}
             <Stack.Screen name="AddGroupScreen" component={AddGroupScreen} options={{ headerShown: false }}/>
+
+            {/* Group Detail Screen */}
+            <Stack.Screen name="GroupDetailScreen" component={GroupDetailScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
     </NavigationContainer>
   );

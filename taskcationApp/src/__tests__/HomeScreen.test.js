@@ -375,7 +375,7 @@ describe('HomeScreen', () => {
 
         await waitFor(() => {
             // Verify that the error message is shown
-            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
+            expect(getByText('Failed to initialise user, groups or tasks.')).toBeTruthy();
         });
     });
 
@@ -404,7 +404,7 @@ describe('HomeScreen', () => {
 
         await waitFor(() => {
             // Verify that the error message is shown
-            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
+            expect(getByText('Failed to initialise user, groups or tasks.')).toBeTruthy();
         });
     });
 
@@ -422,7 +422,7 @@ describe('HomeScreen', () => {
 
         await waitFor(() => {
             // Verify that the error message is shown
-            expect(getByText('Failed to fetch tasks!')).toBeTruthy();
+            expect(getByText('Failed to fetch tasks.')).toBeTruthy();
         });
     });
 
@@ -471,7 +471,7 @@ describe('HomeScreen', () => {
         
         await waitFor(() => {
             // Verify that the error message is shown
-            expect(getByText('Failed to initialise user, groups or tasks!')).toBeTruthy();
+            expect(getByText('Failed to initialise user, groups or tasks.')).toBeTruthy();
         });
     });
 

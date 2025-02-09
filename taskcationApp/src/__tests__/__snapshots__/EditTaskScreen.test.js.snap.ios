@@ -139,7 +139,7 @@ exports[`EditTaskScreen should match the snapshot 1`] = `
       placeholderTextColor="#A5734D"
       style={
         {
-          "backgroundColor": "#FFF8DC",
+          "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
           "borderRadius": 8,
           "borderWidth": 2,
@@ -157,7 +157,7 @@ exports[`EditTaskScreen should match the snapshot 1`] = `
     <View
       style={
         {
-          "backgroundColor": "#FFF8DC",
+          "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
           "borderRadius": 8,
           "borderWidth": 2,
@@ -266,7 +266,7 @@ exports[`EditTaskScreen should match the snapshot 1`] = `
     <View
       style={
         {
-          "backgroundColor": "#FFF8DC",
+          "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
           "borderRadius": 8,
           "borderWidth": 2,
@@ -380,7 +380,7 @@ exports[`EditTaskScreen should match the snapshot 1`] = `
       style={
         [
           {
-            "backgroundColor": "#FFF8DC",
+            "backgroundColor": "#F5F5DC",
             "borderColor": "#8B4513",
             "borderRadius": 8,
             "borderWidth": 2,

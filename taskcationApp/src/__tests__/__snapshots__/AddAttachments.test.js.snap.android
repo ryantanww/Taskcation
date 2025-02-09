@@ -4,7 +4,7 @@ exports[`AddAttachments should match the snapshot 1`] = `
 <View
   style={
     {
-      "backgroundColor": "#FFF8DC",
+      "backgroundColor": "#F5F5DC",
     }
   }
 >
@@ -39,7 +39,7 @@ exports[`AddAttachments should match the snapshot 1`] = `
     style={
       {
         "alignItems": "center",
-        "backgroundColor": "#FFF8DC",
+        "backgroundColor": "#F5F5DC",
         "borderColor": "#8B4513",
         "borderRadius": 8,
         "borderWidth": 2,

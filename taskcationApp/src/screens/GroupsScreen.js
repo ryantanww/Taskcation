@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFF8DC', 
+        backgroundColor: '#F5F5DC', 
         borderWidth: 2,
         borderColor: '#8B4513',
     },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     },
     // Style for the activeTabText
     activeTabText: {
-        color: '#FFF8DC',
+        color: '#F5F5DC',
         fontSize: 24,
         fontWeight: 'bold',
     },
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 8,
         borderColor: '#8B4513',
-        backgroundColor: '#FFF8DC',
+        backgroundColor: '#F5F5DC',
     },
     // Style for the groupItemText
     groupItemText: {
