@@ -410,11 +410,11 @@ describe('ViewAttachments', () => {
         });
     });
 
-    // Test to show an alert if initializing audio playback fails
-    it('should show an alert if initializing audio playback fails', async () => {
+    // Test to show an alert if initialising audio playback fails
+    it('should show an alert if initialising audio playback fails', async () => {
         // Mock sound instance with an error
         const mockSoundInstance = {
-            loadAsync: jest.fn().mockRejectedValueOnce(new Error('Initialization failed')),
+            loadAsync: jest.fn().mockRejectedValueOnce(new Error('initialisation failed')),
             playAsync: jest.fn(),
             pauseAsync: jest.fn(),
             stopAsync: jest.fn(),
