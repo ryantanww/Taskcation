@@ -26,7 +26,7 @@ jest.mock('@react-navigation/native', () => {
     };
 });
 
-// Spy on Alert.alert
+// Spy on Alert.alert to verify alerts
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 describe('GroupsScreen', () => {
@@ -92,7 +92,7 @@ describe('GroupsScreen', () => {
         });
     });
     
-    // Test to not call initialise if the screen is focused
+    // Test to not call initialise if the screen is not focused
     it('should not call initialise again when the screen is not focused', async () => {
         // Mock useIsFocused to be false
         useIsFocused.mockReturnValueOnce(false);

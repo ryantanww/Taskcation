@@ -26,7 +26,7 @@ import { db } from '../../firebaseConfig';
 const TaskDetailScreen = () => {
     // Access the route  object to get the taskID passed from navigation
     const route = useRoute();
-    const { taskID } = route.params;
+    const { taskID, showTimerModal } = route.params;
 
     // Access the navigation object
     const navigation = useNavigation();
@@ -77,6 +77,12 @@ const TaskDetailScreen = () => {
 
         fetchGrade();
     }, [group]);
+
+    useEffect(() => {
+        if (showTimerModal) {
+            setTimerModalVisible(true);
+        }
+    }, [showTimerModal]);
 
     // Function to fetch task details from database
     const fetchTask = async () => {

@@ -12,12 +12,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Header from '../components/Header';
-import { db } from '../../firebaseConfig';
 import { createUser } from '../services/userService';
 import { getTasksByCreator, updateTask } from '../services/taskService';
 import { createGroup, getGroupsByCreator } from '../services/groupsService';
 import { markAllSubtasksComplete } from '../services/subtaskService';
-
+import { db } from '../../firebaseConfig';
 
 const HomeScreen = () => {
     // State to store user ID

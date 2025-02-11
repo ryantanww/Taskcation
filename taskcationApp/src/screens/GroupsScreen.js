@@ -36,18 +36,17 @@ const GroupsScreen = () => {
 
     // useEffect to initialise user and fetch groups on component mount
     useEffect(() => {
-        
-
         initialise();
     }, []);
 
     useEffect(() => {
-        // Call the fetchTasks function whenever isFocused changes
+        // Call the initialise function whenever isFocused changes
         if (isFocused) {
             initialise();
         }
     }, [isFocused]);
 
+    // Function to initialise user and groups
     const initialise = async () => {
         try {
             // Retrieve the user ID from AsyncStorage
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     activeTabText: {
         color: '#F5F5DC',
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: '800',
     },
     // Style for the tabText
     tabText: {

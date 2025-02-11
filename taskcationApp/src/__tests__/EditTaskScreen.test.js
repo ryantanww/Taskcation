@@ -133,7 +133,7 @@ jest.mock('react-native-dropdown-picker', () => {
         };
 });
 
-// Spy on Alert.alert
+// Spy on Alert.alert to verify alerts
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 

@@ -69,7 +69,7 @@ describe('GroupDetailScreen', () => {
         updateTask.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Mock required services
         getGroupByID.mockResolvedValue(mockSubject);
         getGradeByID.mockResolvedValue(mockGrade);
