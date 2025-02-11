@@ -49,7 +49,7 @@ const mockAttachments = [
     { id: 'attach1', uri: 'https://test.com/test_attachment.pdf', file_name: 'test_attachment.pdf', file_type: 'application/pdf',},
 ];
 
-// Mock subtask for the test
+// Mock subtasks for the test
 const mockSubtasks = [
     { id: 'subtask1', subtask_name: 'Subtask 1', end_date: new Date('2025-01-02T18:00:00'), status: true },
     { id: 'subtask2', subtask_name: 'Subtask 2', end_date: new Date('2025-01-03T15:00:00'), status: false },
@@ -105,7 +105,7 @@ describe('TaskDetailScreen', () => {
         getAttachmentsByTaskID.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Mock the required services
         getTaskByID.mockResolvedValue(mockTask);
         getGroupByID.mockResolvedValue(mockGroup);

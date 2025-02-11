@@ -77,7 +77,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
           style={
             {
               "color": "#FFFFFF",
-              "fontSize": 32,
+              "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
             }
@@ -417,7 +417,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
           style={
             {
               "color": "#FFFFFF",
-              "fontSize": 32,
+              "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
             }

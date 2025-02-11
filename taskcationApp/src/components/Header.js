@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     // Style for the header title
     headerTitle: {
-        fontSize: 32,
+        fontSize: 48,
         fontWeight: '800',
         color: '#FFFFFF',
         textAlign: 'center',

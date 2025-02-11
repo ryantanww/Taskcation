@@ -77,7 +77,7 @@ describe('SubtaskDetailScreen', () => {
         getAttachmentsBySubtaskID.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Mock the required services
         getSubtaskByID.mockResolvedValue(mockSubtask);
         getPriorityByID.mockResolvedValue(mockPriority);

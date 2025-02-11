@@ -61,7 +61,7 @@ const Timestamp = {
 
 jest.mock('./src/services/taskService', () => ({
     getTaskByID: jest.fn(),
-    getTasksByCreator: jest.fn().mockResolvedValue([]),
+    getTasksByCreator: jest.fn(),
     getTasksByGroup: jest.fn(),
     updateTask: jest.fn(),
     createTask: jest.fn(),
@@ -71,6 +71,7 @@ jest.mock('./src/services/taskService', () => ({
 jest.mock('./src/services/subtaskService', () => ({
     getSubtasksByTaskID: jest.fn(),
     getSubtaskByID: jest.fn(),
+    getSubtasksByCreator: jest.fn(),
     updateSubtask: jest.fn(),
     createSubtask: jest.fn(),
     deleteSubtask: jest.fn(),
@@ -79,19 +80,19 @@ jest.mock('./src/services/subtaskService', () => ({
 
 jest.mock('./src/services/attachmentService', () => ({
     createAttachment: jest.fn(),
-    getAttachmentsByTaskID: jest.fn().mockResolvedValue([
-        { id: '1', uri: 'https://test.com/image1.jpg', file_name: 'Image 1', file_type: 'image/png' },
-        { id: '2', uri: 'https://test.com/audio1.mp3', file_name: 'Audio 1', file_type: 'audio/mp3' },
-        { id: '3', uri: 'https://test.com/document1.pdf', file_name: 'Document 1', file_type: 'application/pdf' },
-    ]),
-    getAttachmentsBySubtaskID: jest.fn().mockResolvedValue([
-        { id: '1', uri: 'https://test.com/image1.jpg', file_name: 'Image 1', file_type: 'image/png' },
-        { id: '2', uri: 'https://test.com/audio1.mp3', file_name: 'Audio 1', file_type: 'audio/mp3' },
-        { id: '3', uri: 'https://test.com/document1.pdf', file_name: 'Document 1', file_type: 'application/pdf' },
-    ]),
+    getAttachmentsByTaskID: jest.fn(),
+    getAttachmentsBySubtaskID: jest.fn(),
     deleteAttachment: jest.fn(),
 }));
 
+jest.mock('./src/services/timeTrackingService', () => ({
+    getTimeRecordsBySubtask: jest.fn(),
+    getTimeRecordsByTask: jest.fn(),
+    getTimeRecordByID: jest.fn(),
+    updateTask: jest.fn(),
+    createTimeRecord: jest.fn(),
+    deleteTimeRecord: jest.fn(),
+}));
 
 
 jest.mock('@react-native-community/datetimepicker', () => {

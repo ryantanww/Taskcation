@@ -143,6 +143,26 @@ export async function getSubtasksByTaskID(db, taskID) {
     }));
 }
 
+
+export async function getSubtasksByCreator(db, userID) {
+    try {
+        // Create a query to get tasks created by the user
+        const q = query(collection(db, 'Subtasks'), where('created_by', '==', userID));
+        const snap = await getDocs(q);
+
+        // If no documents exist, return null
+        if (snap.empty) {
+            return null;
+        }
+
+        // Map documents to task objects
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (error) {
+        console.error('Error fetching subtasks by creator:', error);
+        throw error; // Optionally re-throw the error for higher-level handling
+    }
+}
+
 export async function deleteSubtask(db, subtaskID) {
     try {
         // 2️⃣ Delete attachments related to the task

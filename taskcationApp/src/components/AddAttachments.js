@@ -33,7 +33,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
     // State for recording duration timer
     const [timer, setTimer] = useState(0);
 
-    // Ref for managing the timer interval
+    // Reference for managing the timer interval
     const intervalRef = useRef(null);
 
     // Function to format the dates into dd/mm/yyyy HH:MM:SS format

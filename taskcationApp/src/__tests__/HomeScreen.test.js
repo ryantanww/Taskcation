@@ -125,7 +125,7 @@ describe('HomeScreen', () => {
         });
     });
     
-    // Test to not call fetchTasks if the screen is focused and userID is available
+    // Test to not call fetchTasks again when the screen is not focused
     it('should not call fetchTasks again when the screen is not focused', async () => {
         // Mock useIsFocused to be false
         useIsFocused.mockReturnValueOnce(false);

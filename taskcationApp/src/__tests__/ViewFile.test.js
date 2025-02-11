@@ -9,7 +9,7 @@ describe('ViewFile', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Mock Linking and Share to simulate returning success
         jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true);
         jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);

@@ -27,7 +27,7 @@ describe('Subheader Component', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     });
     
     // Test to render the Subheader correctly when there is no kebab menu 

@@ -16,7 +16,7 @@ describe('AddAttachments', () => {
         // Mock onAttachmentsChangeMock prop
         onAttachmentsChangeMock = jest.fn();
         // Spy on Alert.alert to verify alerts
-        jest.spyOn(Alert, 'alert');
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     });
 
     // Test to check if the attachment modal opens when Insert Attachment is pressed
