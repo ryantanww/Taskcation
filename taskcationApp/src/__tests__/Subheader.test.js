@@ -34,11 +34,11 @@ describe('Subheader Component', () => {
     it('should render the title and back arrow when there is no kebab menu', () => {
         // Renders the Subheader component
         const { getByText, getByTestId, queryByTestId } = render(
-            <Subheader title='Test Title' hasKebab={false} itemID='123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={false} itemID='task1' itemType='Task' />
         );
         
         // Verify the title is displayed correctly
-        expect(getByText('Test Title')).toBeTruthy();
+        expect(getByText('Task Title')).toBeTruthy();
         // Verify the kebab button is not there
         expect(queryByTestId('kebab-button')).toBeNull();
 
@@ -54,7 +54,7 @@ describe('Subheader Component', () => {
     it('should open the modal when the kebab icon is pressed', () => {
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
-            <Subheader title='Test Title' hasKebab={true} itemID='123' itemType='Task' />
+            <Subheader title='Task Title' hasKebab={true} itemID='task1' itemType='Task' />
         );
     
         // Verify the kebab button is there
@@ -310,14 +310,14 @@ describe('Subheader Component', () => {
 
     });
     
-    // Test to show an alert if deletion fails
-    it('should show an alert if deletion fails', async () => {
+    // Test to show an alert if deletion fails for task
+    it('should show an alert if deletion fails for task', async () => {
         Alert.alert.mockImplementationOnce((title, message, buttons) => {
             const destructiveButton = buttons.find(b => b.style === 'destructive');
             destructiveButton?.onPress?.();
         });
         // Mock deleteTask error
-        deleteTask.mockRejectedValueOnce(new Error('Deletion failed'));
+        deleteTask.mockRejectedValueOnce(new Error('Error Deleting Task'));
         
         // Renders the Subheader component
         const { getByText, getByTestId } = render(
@@ -337,10 +337,73 @@ describe('Subheader Component', () => {
         fireEvent.press(getByTestId('delete-button'));
         
         await waitFor(() => {
-            // Verify that an error alert is shown to the user when there is an error deleting the item
-            expect(Alert.alert).toHaveBeenCalledWith('Error', 'Failed to delete the item.');
+            // Verify that an error alert is shown to the user when there is an error deleting the task
+            expect(Alert.alert).toHaveBeenCalledWith('Deleting Task Error', 'Failed to delete the Task Title.');
         });
+    });
+
+    // Test to show an alert if deletion fails for subtask
+    it('should show an alert if deletion fails for subtask', async () => {
+        Alert.alert.mockImplementationOnce((title, message, buttons) => {
+            const destructiveButton = buttons.find(b => b.style === 'destructive');
+            destructiveButton?.onPress?.();
+        });
+        // Mock deleteTask error
+        deleteSubtask.mockRejectedValueOnce(new Error('Error Deleting Subtask'));
         
+        // Renders the Subheader component
+        const { getByText, getByTestId } = render(
+            <Subheader title='Subtask Title' hasKebab={true} itemID='subtask1' itemType='Subtask' />
+        );
+        
+        // Verify the kebab button is there
+        expect(getByTestId('kebab-button')).toBeTruthy();
+        // Press the kebab button
+        fireEvent.press(getByTestId('kebab-button'));
+
+        // Verify the edit and delete is displayed correctly
+        expect(getByText('Edit')).toBeTruthy();
+        expect(getByText('Delete')).toBeTruthy();
+
+        // Press the delete button
+        fireEvent.press(getByTestId('delete-button'));
+        
+        await waitFor(() => {
+            // Verify that an error alert is shown to the user when there is an error deleting the subtask
+            expect(Alert.alert).toHaveBeenCalledWith('Deleting Subtask Error', 'Failed to delete the Subtask Title.');
+        });
+    });
+
+    // Test to show an alert if deletion fails for group
+    it('should show an alert if deletion fails for group', async () => {
+        Alert.alert.mockImplementationOnce((title, message, buttons) => {
+            const destructiveButton = buttons.find(b => b.style === 'destructive');
+            destructiveButton?.onPress?.();
+        });
+        // Mock deleteTask error
+        deleteGroup.mockRejectedValueOnce(new Error('Error Deleting Group'));
+        
+        // Renders the Subheader component
+        const { getByText, getByTestId } = render(
+            <Subheader title='Group Title' hasKebab={true} itemID='group1' itemType='Group' />
+        );
+        
+        // Verify the kebab button is there
+        expect(getByTestId('kebab-button')).toBeTruthy();
+        // Press the kebab button
+        fireEvent.press(getByTestId('kebab-button'));
+
+        // Verify the edit and delete is displayed correctly
+        expect(getByText('Edit')).toBeTruthy();
+        expect(getByText('Delete')).toBeTruthy();
+
+        // Press the delete button
+        fireEvent.press(getByTestId('delete-button'));
+        
+        await waitFor(() => {
+            // Verify that an error alert is shown to the user when there is an error deleting the group
+            expect(Alert.alert).toHaveBeenCalledWith('Deleting Group Error', 'Failed to delete the Group Title.');
+        });
     });
 
     // Snapshot test for Subheader when there is no kebab menu

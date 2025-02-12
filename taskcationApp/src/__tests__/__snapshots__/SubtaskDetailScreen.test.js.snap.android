@@ -910,7 +910,7 @@ exports[`SubtaskDetailScreen should match the snapshot when subtask is completed
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",
@@ -1690,7 +1690,7 @@ exports[`SubtaskDetailScreen should match the snapshot when subtask is not compl
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",
@@ -2468,7 +2468,7 @@ exports[`SubtaskDetailScreen should match the snapshot when updating UI on succe
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",

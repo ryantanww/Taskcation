@@ -386,7 +386,7 @@ const TimerScreen = () => {
                                     style={{ maxHeight: 300, marginVertical: 8 }}
                                     ListEmptyComponent={
                                         <Text style={styles.emptyText}>
-                                            No {activeTab.toLowerCase()}!
+                                            No {activeTab}!
                                         </Text>
                                     }
                                 />
@@ -400,7 +400,7 @@ const TimerScreen = () => {
                             style={styles.closeButton}
                             testID='save-timer-close'
                         >
-                            <Ionicons name="close" size={32} color="#FFFFFF" />
+                            <Ionicons name="close" size={32} color="#F5F5DC" />
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
     },
     // Style for the activeTabText
     activeTabText: {
-        color: '#FFFFFF',
+        color: '#F5F5DC',
     },
     // Style for the searchInput
     searchInput: {

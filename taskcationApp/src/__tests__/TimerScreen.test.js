@@ -353,6 +353,107 @@ describe('TimerScreen', () => {
             expect(getByText('Subtask 4')).toBeTruthy();
         });
     });
+
+    // Test to open the save timer modal and display no tasks when Save Time is pressed with timer more than 0
+    it('should open the save timer modal and display no tasks when Save Time is pressed with timer more than 0', async () => {
+        // Mock empty tasks
+        getTasksByCreator.mockResolvedValue([]);
+        // Renders the TimerScreen component
+        const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(<TimerScreen />);
+
+        await waitFor(() => {
+            // Verify that all components are rendered with the correct details
+            expect(getByText('00:00:00.00')).toBeTruthy();
+            expect(getByText('Start')).toBeTruthy();
+            expect(getByText('Save Time')).toBeTruthy();
+        });
+
+        // Press Start
+        fireEvent.press(getByText('Start'));
+    
+        await waitFor(() => {
+            // Increase timer by 10 milliseconds
+            jest.advanceTimersByTime(100);
+        });
+        
+        // Verify that 00:00:00.10 is displayed correctly
+        expect(getByText('00:00:00.10')).toBeTruthy();
+        // Verify that all components are rendered with the correct details
+        expect(getByText('Pause')).toBeTruthy();
+        expect(getByText('Reset')).toBeTruthy();
+        expect(getByText('Save Time')).toBeTruthy();
+
+        // Press Save Time
+        fireEvent.press(getByText('Save Time'));
+
+        await waitFor(() => {
+            // Verify that save timer modal, search, tabs and tasks is displayed correctly
+            expect(getByTestId('save-timer-modal')).toBeTruthy();
+            expect(getByPlaceholderText('Search...')).toBeTruthy();
+            expect(getByText('Tasks')).toBeTruthy();
+            expect(getByText('Subtasks')).toBeTruthy();
+            // Verify that No Tasks! is displayed correctly
+            expect(getByText('No Tasks!')).toBeTruthy();
+        });
+    });
+
+    // Test to open the save timer modal and display no subtasks when Save Time is pressed with timer more than 0
+    it('should open the save timer modal and display no subtasks when Save Time is pressed with timer more than 0', async () => {
+        // Mock empty Subtasks
+        getSubtasksByCreator.mockResolvedValue([]);
+        // Renders the TimerScreen component
+        const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(<TimerScreen />);
+
+        await waitFor(() => {
+            // Verify that all components are rendered with the correct details
+            expect(getByText('00:00:00.00')).toBeTruthy();
+            expect(getByText('Start')).toBeTruthy();
+            expect(getByText('Save Time')).toBeTruthy();
+        });
+
+        // Press Start
+        fireEvent.press(getByText('Start'));
+    
+        await waitFor(() => {
+            // Increase timer by 10 milliseconds
+            jest.advanceTimersByTime(100);
+        });
+        
+        // Verify that 00:00:00.10 is displayed correctly
+        expect(getByText('00:00:00.10')).toBeTruthy();
+        // Verify that all components are rendered with the correct details
+        expect(getByText('Pause')).toBeTruthy();
+        expect(getByText('Reset')).toBeTruthy();
+        expect(getByText('Save Time')).toBeTruthy();
+
+        // Press Save Time
+        fireEvent.press(getByText('Save Time'));
+
+        await waitFor(() => {
+            // Verify that save timer modal, search, tabs and tasks is displayed correctly
+            expect(getByTestId('save-timer-modal')).toBeTruthy();
+            expect(getByPlaceholderText('Search...')).toBeTruthy();
+            expect(getByText('Tasks')).toBeTruthy();
+            expect(getByText('Subtasks')).toBeTruthy();
+            expect(getByText('Task 1')).toBeTruthy();
+            expect(queryByText('Task 2')).toBeNull();
+            expect(getByText('Task 3')).toBeTruthy();
+            expect(getByText('Task 4')).toBeTruthy();
+        });
+
+        // Press Subtasks
+        fireEvent.press(getByText('Subtasks'));
+
+        await waitFor(() => {
+            // Verify that save timer modal, search, tabs and subtasks is displayed correctly
+            expect(getByTestId('save-timer-modal')).toBeTruthy();
+            expect(getByPlaceholderText('Search...')).toBeTruthy();
+            expect(getByText('Tasks')).toBeTruthy();
+            expect(getByText('Subtasks')).toBeTruthy();
+            // Verify that No Subtasks! is displayed correctly
+            expect(getByText('No Subtasks!')).toBeTruthy();
+        });
+    });
     
 
     // Test to filter tasks based on search input

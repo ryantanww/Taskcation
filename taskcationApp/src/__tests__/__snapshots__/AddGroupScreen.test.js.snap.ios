@@ -208,7 +208,7 @@ exports[`AddGroupScreen should match the snapshot for categories 1`] = `
       <Text
         style={
           {
-            "color": "#FFFFFF",
+            "color": "#F5F5DC",
             "fontSize": 24,
             "fontWeight": "800",
           }
@@ -479,7 +479,7 @@ exports[`AddGroupScreen should match the snapshot for subjects 1`] = `
       <Text
         style={
           {
-            "color": "#FFFFFF",
+            "color": "#F5F5DC",
             "fontSize": 24,
             "fontWeight": "800",
           }

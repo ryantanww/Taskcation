@@ -7,8 +7,8 @@ import {
     Alert,
     TouchableWithoutFeedback,
     StyleSheet,
-    ScrollView,
     Modal,
+    FlatList,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useFocusEffect  } from '@react-navigation/native';
@@ -18,6 +18,7 @@ import ViewAttachments from '../components/ViewAttachments';
 import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getPriorityByID } from '../services/priorityLevelsService';
 import { getAttachmentsBySubtaskID } from '../services/attachmentService';
+import { getTimeRecordsBySubtask, deleteTimeRecord } from '../services/timeTrackingService';
 import { db } from '../../firebaseConfig';
 
 const SubtaskDetailScreen = () => {
@@ -36,6 +37,9 @@ const SubtaskDetailScreen = () => {
     
     // State for storing attachments
     const [attachments, setAttachments] = useState([]);
+
+    // State to store time records
+    const [timeRecords, setTimeRecords] = useState([]);
     
     // State for loading status
     const [loading, setLoading] = useState(true);
@@ -52,6 +56,7 @@ const SubtaskDetailScreen = () => {
     
             fetchPriority();
             fetchAttachments();
+            fetchTimeRecords();
         }, [subtask]); 
 
     // Function to fetch subtask details from database
@@ -107,6 +112,84 @@ const SubtaskDetailScreen = () => {
             // Alert error when failed to fetch attachments
             Alert.alert('Fetching Attachments Error', 'Failed to fetch attachments.');
         }
+    };
+
+    // Function to fetch time records from database
+    const fetchTimeRecords = async () => {
+        try {
+            // Fetch the time record from the Firebase database based on subtaskID
+            const fetchedTimeRecord = await getTimeRecordsBySubtask(db, subtaskID);
+
+            // Convert the end date to a JS date
+            fetchedTimeRecord.forEach(time => {
+                time.created_at = convertToDate(time.created_at);
+            });
+
+            // Then sort them by ascending order
+            fetchedTimeRecord.sort((a, b) => {
+                return new Date(a.created_at) - new Date(b.created_at);
+            });
+
+            // Store the time record into the time record state
+            setTimeRecords(fetchedTimeRecord || []);
+        } catch (error) {
+            // Log error in fetching time record
+            console.error('Error fetching time record:', error);
+            // Alert error when failed to fetch time record
+            Alert.alert('Fetching Time Record Error', 'Failed to fetch time record.');
+        }
+    };
+
+    // Function to render time records 
+    const renderTimeRecord = ({ item }) => {
+        return (
+            // Time records container for each time
+            <View style={styles.timeRecordsContainer}>
+                {/* Time records row to align the name, date and delete button correctly */}
+                <View style={styles.timeRecordsRow}>
+                    {/* Time record duration */}
+                    <Text style={styles.timeRecordDurationText}>
+                        {formatTimer(item.duration)}
+                    </Text>
+                    {/* Time record date */}
+                    <Text style={styles.timeRecordDateText}>
+                        {formatDate(item.created_at)}
+                    </Text>
+                    {/* Delete button */}
+                    <TouchableOpacity onPress={() => handleDelete(item)} style={styles.deleteButton} testID={`delete-${item.id}`}>
+                        <Ionicons name="trash" size={24} color="#F5F5DC" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    };
+
+    // Function to handle deleting time record with a confirmation alert
+    const handleDelete = async (time) => {
+        Alert.alert(
+            'Confirm Delete',
+            'Are you sure you want to delete time?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { 
+                    text: 'Delete', 
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            // Remove it from the time shown on screen.
+                            setTimeRecords(prev => prev.filter(item => item.id !== time.id));
+                            // Delete the selected time record
+                            await deleteTimeRecord(db, time.id);
+                        } catch (error) {
+                            // Log error in deleting time record
+                            console.error('Error deleting time record:', error);
+                            // Alert error when failed to delete time record
+                            Alert.alert('Deleting Time Record Error', 'Failed to delete the time record.');
+                        }
+                    }
+                }
+            ]
+        );
     };
 
     // Convert a Firestore Timestamp to a JS Date
@@ -194,6 +277,22 @@ const SubtaskDetailScreen = () => {
         return result.length > 0 ? result.join(' ') : 'Less than a minute';
     };
 
+    // Function to format timer as HH:MM:SS:MS
+    const formatTimer = (msValue) => {
+        // Calculate the total seconds
+        const totalSeconds = Math.floor(msValue / 1000);
+        // Calculate and format the hours
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        // Calculate and format the minutes
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        // Calculate and format the seconds
+        const seconds = String((totalSeconds % 60)).padStart(2, '0');
+        // Calculate and format the milliseconds
+        const milliseconds = String(Math.floor((msValue % 1000)/10)).padStart(2, '0');
+
+        return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+    };
+
     // Function to mark subtask as completed/uncompleted
     const toggleSubtaskCompletion = async () => {
         try {
@@ -238,16 +337,15 @@ const SubtaskDetailScreen = () => {
                             }
                         }
 
-                        // Fetch the attachments from the Firebase database based on subtaskID
-                        const fetchedAttachments = await getAttachmentsBySubtaskID(db, subtaskID);
-                        // Store the attachments into the attachments state
-                        setAttachments(fetchedAttachments || []);
+                        // Call necessary function to refresh screen
+                        fetchAttachments();
+                        fetchTimeRecords();
                 }
                 } catch (error) {
-                    // Log error in refreshing subtask detail
-                    console.error('Error refreshing subtask:', error);
-                    // Alert error when failed to refreshing subtask
-                    Alert.alert('Refreshing Subtask Error', 'Failed to refresh subtask.');
+                    // Log error in refreshing subtask details
+                    console.error('Error refreshing subtask details:', error);
+                    // Alert error when failed to refreshing subtask details
+                    Alert.alert('Refreshing Subtask Details Error', 'Failed to refresh subtask details.');
                 }
             };
             refreshTask();
@@ -375,17 +473,22 @@ const SubtaskDetailScreen = () => {
                             <TouchableWithoutFeedback>
                                 {/* Title for the Times */}
                                 <View style={styles.timerContainer}>
-                                    <Text style={styles.sectionTitle}>Time</Text>
-                                    <View style={styles.line} />
+                                    <TouchableOpacity style={styles.addTimeButton} onPress={() => navigation.navigate('BottomTab', { screen: 'Timer' })}>
+                                        <Text style={styles.sectionTitle}>Time</Text>
+                                        <Ionicons name='add-circle-outline' size={32} color='#8B4513' />
+                                    </TouchableOpacity>
                                     {/* Display each time */}
-                                    <View style={styles.row}>
-                                        <Text style={styles.text}>Timer</Text>
-                                        <Text style={styles.text}>Date</Text>
-                                        <TouchableOpacity style={styles.deleteButton}>
-                                            <Ionicons name='trash' size={24} color='#FFFFFF' />
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.line} />
+                                    <FlatList
+                                        data={timeRecords}
+                                        renderItem={renderTimeRecord}
+                                        keyExtractor={(item) => item.id.toString()}
+                                        contentContainerStyle={styles.timeRecordsList}
+                                        ListEmptyComponent={
+                                            <Text style={styles.emptyText}>
+                                                No Time Added!
+                                            </Text>
+                                        }
+                                    />
                                 </View>
                             </TouchableWithoutFeedback>
                             {/* Button to close the add attachment modal */}
@@ -394,7 +497,7 @@ const SubtaskDetailScreen = () => {
                                 style={styles.closeButton}
                                 testID='timer-close'
                             >
-                                <Ionicons name='close' size={32} color='#FFFFFF' />
+                                <Ionicons name='close' size={32} color='#F5F5DC' />
                             </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>
@@ -526,7 +629,7 @@ const styles = StyleSheet.create({
     completeButtonText: {
         textAlign: 'center',
         fontWeight: '800',
-        color: '#FFFFFF',
+        color: '#F5F5DC',
         fontSize: 24,
     },
     // Style for the completedButtonText
@@ -603,6 +706,49 @@ const styles = StyleSheet.create({
         backgroundColor: '#8B4513',
         opacity: 0.8,
         zIndex: 1,
+    },
+    // Style for the timeRecordsContainer
+    timeRecordsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 12,
+        borderBottomWidth: 2,
+        borderColor: '#8B4513',
+        backgroundColor: '#F5F5DC',
+    },
+    // Style for the timeRecordsRow
+    timeRecordsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flex: 1,
+    },
+    // Style for the timeRecordDurationText
+    timeRecordDurationText: {
+        fontSize: 20,
+        color: '#8B4513',
+        flex: 1,
+        fontWeight: '500',
+    },
+    // Style for the timeRecordDateText
+    timeRecordDateText: {
+        marginRight: 10,
+        fontSize: 20,
+        color: '#8B4513',
+        fontWeight: '500',
+    },
+    // Style for the timeRecordsList
+    timeRecordsList: {
+        paddingBottom: 20,
+    },
+    // Style for the emptyText
+    emptyText: {
+        textAlign: 'center',
+        marginTop: 20,
+        color: '#8B4513',
+        fontSize: 18,
+        fontWeight: '600',
     },
 });
 export default SubtaskDetailScreen;

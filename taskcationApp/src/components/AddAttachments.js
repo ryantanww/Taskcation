@@ -396,7 +396,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
                             style={styles.closeButton}
                             testID='add-attachment-close'
                         >
-                            <Ionicons name='close' size={32} color='#FFFFFF' />
+                            <Ionicons name='close' size={32} color='#F5F5DC' />
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>
@@ -462,7 +462,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
                         </TouchableWithoutFeedback>
                         {/* Button to close the recording modal and cancel all recording if pressed */}
                         <TouchableOpacity onPress={cancelRecording} style={styles.closeButton} testID='recording-modal-close'>
-                            <Ionicons name='close' size={32} color='#FFFFFF' />
+                            <Ionicons name='close' size={32} color='#F5F5DC' />
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>

@@ -233,7 +233,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                 {/* Display delete attachment button */}
                 {onDeleteAttachment && (
                     <TouchableOpacity onPress={() => handleDelete(item)} style={styles.deleteButton} testID={`delete-${item.id}`}>
-                        <Ionicons name='trash' size={24} color='#FFFFFF' />
+                        <Ionicons name='trash' size={24} color='#F5F5DC' />
                     </TouchableOpacity>
                 )}
             </View>
@@ -270,7 +270,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                                 <Image source={{ uri: currentImageUri }} style={styles.imagePreview} testID='image-preview'/>
                                 {/* Button to close the image modal */}
                                 <TouchableOpacity onPress={() => setImageModalVisible(false)} style={styles.closeButton} testID='image-close'>
-                                    <Ionicons name='close' size={32} color='#FFFFFF' />
+                                    <Ionicons name='close' size={32} color='#F5F5DC' />
                                 </TouchableOpacity>
                             </View>
                         </TouchableWithoutFeedback>
@@ -349,7 +349,7 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
                         </TouchableWithoutFeedback>
                         {/* Button to close the audio modal and stop all audio playing when pressed*/}
                         <TouchableOpacity onPress={stopAudio} style={styles.closeButton} testID='audio-close'>
-                            <Ionicons name='close' size={32} color='#FFFFFF' />
+                            <Ionicons name='close' size={32} color='#F5F5DC' />
                         </TouchableOpacity>
                     </View>
                 </TouchableWithoutFeedback>

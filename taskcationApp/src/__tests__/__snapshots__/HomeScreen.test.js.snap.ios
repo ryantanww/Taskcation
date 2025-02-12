@@ -76,7 +76,7 @@ exports[`HomeScreen should match snapshot for no tasks 1`] = `
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -323,7 +323,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -610,7 +610,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
             <View
               style={
                 {
-                  "backgroundColor": "#FFFFFF",
+                  "backgroundColor": "#F5F5DC",
                   "height": 2,
                   "left": 5,
                   "position": "absolute",
@@ -634,7 +634,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
                     "overflow": "hidden",
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "flex": 1,
                     "fontSize": 20,
                     "fontWeight": "500",
@@ -686,7 +686,7 @@ exports[`HomeScreen should match snapshot for tasks rendered 1`] = `
                 style={
                   [
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 28,
                     },
                     undefined,

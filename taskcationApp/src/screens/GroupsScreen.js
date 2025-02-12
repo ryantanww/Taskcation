@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     // Style for the activeTabText
     activeTabText: {
-        color: '#FFFFFF',
+        color: '#F5F5DC',
     },
     // Style for the addContainer
     addContainer: {
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     },
     // Style for the addButtonText
     addButtonText: {
-        color: '#FFFFFF',
+        color: '#F5F5DC',
         fontSize: 24,
         fontWeight: '800',
     },

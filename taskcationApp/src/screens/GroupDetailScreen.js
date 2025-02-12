@@ -157,7 +157,7 @@ const GroupDetailScreen = () => {
                         <Ionicons
                             name={task.status ? 'checkbox' : 'square-outline'}
                             size={28}
-                            color={task.status ? '#FFFFFF' : '#8B4513'}
+                            color={task.status ? '#F5F5DC' : '#8B4513'}
                         />
                     </TouchableOpacity>
                 </View>
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     // Style for the tasksCompletedText
     tasksCompletedText: {
         fontSize: 20,
-        color: '#FFFFFF',
+        color: '#F5F5DC',
         flex: 1,
         fontWeight: '500',
         overflow: 'hidden',
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     strikeThrough: {
         position: 'absolute',
         height: 2,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F5F5DC',
         width: '90%',
         left: 5,
         top: '90%',
