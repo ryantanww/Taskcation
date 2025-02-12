@@ -231,7 +231,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               style={
                 [
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "fontSize": 24,
                   },
                   undefined,
@@ -430,7 +430,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               style={
                 [
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "fontSize": 24,
                   },
                   undefined,
@@ -629,7 +629,7 @@ exports[`ViewAttachments should match the snapshot 1`] = `
               style={
                 [
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "fontSize": 24,
                   },
                   undefined,

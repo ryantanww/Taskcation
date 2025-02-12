@@ -60,7 +60,7 @@ exports[`<Header /> should match snapshot 1`] = `
       <Text
         style={
           {
-            "color": "#FFFFFF",
+            "color": "#F5F5DC",
             "fontSize": 48,
             "fontWeight": "800",
             "textAlign": "center",

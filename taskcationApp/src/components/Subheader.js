@@ -45,7 +45,7 @@ const Subheader = ({ title, hasKebab = false, itemID, itemType }) => {
         
         Alert.alert(
             'Confirm Delete',
-            `Are you sure you want to delete '${title}'?`,
+            `Are you sure you want to delete ${title}?`,
             [
                 { text: 'Cancel', style: 'cancel' },
                 { 
@@ -67,9 +67,9 @@ const Subheader = ({ title, hasKebab = false, itemID, itemType }) => {
                             navigation.goBack();
                         } catch (error) {
                             // Log error in deleting item
-                            console.error('Error deleting item:', error);
+                            console.error(`Error deleting ${title}:`, error);
                             // Alert error when failed to delete item
-                            Alert.alert('Error', 'Failed to delete the item.');
+                            Alert.alert(`Deleting ${itemType} Error`, `Failed to delete the ${title}.`);
                         }
                     }
                 }

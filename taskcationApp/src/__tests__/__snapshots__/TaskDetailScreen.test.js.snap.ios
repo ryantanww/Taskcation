@@ -1108,7 +1108,7 @@ exports[`TaskDetailScreen should match the snapshot when task is completed 1`] =
                       "overflow": "hidden",
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "flex": 1,
                       "fontSize": 20,
                       "fontWeight": "500",
@@ -1129,7 +1129,7 @@ exports[`TaskDetailScreen should match the snapshot when task is completed 1`] =
                       "marginRight": 10,
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 20,
                       "fontWeight": "500",
                       "marginRight": 10,
@@ -1181,7 +1181,7 @@ exports[`TaskDetailScreen should match the snapshot when task is completed 1`] =
                   style={
                     [
                       {
-                        "color": "#FFFFFF",
+                        "color": "#F5F5DC",
                         "fontSize": 28,
                       },
                       undefined,
@@ -1431,7 +1431,7 @@ exports[`TaskDetailScreen should match the snapshot when task is completed 1`] =
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",
@@ -2378,7 +2378,7 @@ exports[`TaskDetailScreen should match the snapshot when task is not completed 1
                       "overflow": "hidden",
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "flex": 1,
                       "fontSize": 20,
                       "fontWeight": "500",
@@ -2399,7 +2399,7 @@ exports[`TaskDetailScreen should match the snapshot when task is not completed 1
                       "marginRight": 10,
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 20,
                       "fontWeight": "500",
                       "marginRight": 10,
@@ -2451,7 +2451,7 @@ exports[`TaskDetailScreen should match the snapshot when task is not completed 1
                   style={
                     [
                       {
-                        "color": "#FFFFFF",
+                        "color": "#F5F5DC",
                         "fontSize": 28,
                       },
                       undefined,
@@ -2699,7 +2699,7 @@ exports[`TaskDetailScreen should match the snapshot when task is not completed 1
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",
@@ -3644,7 +3644,7 @@ exports[`TaskDetailScreen should match the snapshot when updating UI on successf
                       "overflow": "hidden",
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "flex": 1,
                       "fontSize": 20,
                       "fontWeight": "500",
@@ -3665,7 +3665,7 @@ exports[`TaskDetailScreen should match the snapshot when updating UI on successf
                       "marginRight": 10,
                     },
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 20,
                       "fontWeight": "500",
                       "marginRight": 10,
@@ -3717,7 +3717,7 @@ exports[`TaskDetailScreen should match the snapshot when updating UI on successf
                   style={
                     [
                       {
-                        "color": "#FFFFFF",
+                        "color": "#F5F5DC",
                         "fontSize": 28,
                       },
                       undefined,
@@ -3965,7 +3965,7 @@ exports[`TaskDetailScreen should match the snapshot when updating UI on successf
         style={
           [
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 24,
               "fontWeight": "800",
               "textAlign": "center",

@@ -414,7 +414,7 @@ exports[`GroupDetailScreen should match snapshot when task details and category 
             <View
               style={
                 {
-                  "backgroundColor": "#FFFFFF",
+                  "backgroundColor": "#F5F5DC",
                   "height": 2,
                   "left": 5,
                   "position": "absolute",
@@ -438,7 +438,7 @@ exports[`GroupDetailScreen should match snapshot when task details and category 
                     "overflow": "hidden",
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "flex": 1,
                     "fontSize": 20,
                     "fontWeight": "500",
@@ -490,7 +490,7 @@ exports[`GroupDetailScreen should match snapshot when task details and category 
                 style={
                   [
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 28,
                     },
                     undefined,
@@ -968,7 +968,7 @@ exports[`GroupDetailScreen should match snapshot when tasks details and subject 
             <View
               style={
                 {
-                  "backgroundColor": "#FFFFFF",
+                  "backgroundColor": "#F5F5DC",
                   "height": 2,
                   "left": 5,
                   "position": "absolute",
@@ -992,7 +992,7 @@ exports[`GroupDetailScreen should match snapshot when tasks details and subject 
                     "overflow": "hidden",
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                     "flex": 1,
                     "fontSize": 20,
                     "fontWeight": "500",
@@ -1044,7 +1044,7 @@ exports[`GroupDetailScreen should match snapshot when tasks details and subject 
                 style={
                   [
                     {
-                      "color": "#FFFFFF",
+                      "color": "#F5F5DC",
                       "fontSize": 28,
                     },
                     undefined,

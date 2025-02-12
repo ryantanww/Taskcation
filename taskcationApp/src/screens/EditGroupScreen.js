@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     // Style for the updateButtonText
     updateButtonText: {
         fontWeight: '800',
-        color: '#FFFFFF',
+        color: '#F5F5DC',
         fontSize: 24,
     },
 });

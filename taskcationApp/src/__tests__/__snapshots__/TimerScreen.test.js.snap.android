@@ -76,7 +76,7 @@ exports[`TimerScreen should match the snapshot when subtasks is active tab 1`] =
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -487,7 +487,7 @@ exports[`TimerScreen should match the snapshot when subtasks is active tab 1`] =
                     "fontWeight": "800",
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                   },
                 ]
               }
@@ -510,7 +510,7 @@ exports[`TimerScreen should match the snapshot when subtasks is active tab 1`] =
               }
             >
               No 
-              subtasks
+              Subtasks
               !
             </Text>
           }
@@ -783,7 +783,7 @@ exports[`TimerScreen should match the snapshot when subtasks is active tab 1`] =
           style={
             [
               {
-                "color": "#FFFFFF",
+                "color": "#F5F5DC",
                 "fontSize": 32,
               },
               undefined,
@@ -880,7 +880,7 @@ exports[`TimerScreen should match the snapshot when tasks is active tab 1`] = `
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -1234,7 +1234,7 @@ exports[`TimerScreen should match the snapshot when tasks is active tab 1`] = `
                     "fontWeight": "800",
                   },
                   {
-                    "color": "#FFFFFF",
+                    "color": "#F5F5DC",
                   },
                 ]
               }
@@ -1314,7 +1314,7 @@ exports[`TimerScreen should match the snapshot when tasks is active tab 1`] = `
               }
             >
               No 
-              tasks
+              Tasks
               !
             </Text>
           }
@@ -1587,7 +1587,7 @@ exports[`TimerScreen should match the snapshot when tasks is active tab 1`] = `
           style={
             [
               {
-                "color": "#FFFFFF",
+                "color": "#F5F5DC",
                 "fontSize": 32,
               },
               undefined,

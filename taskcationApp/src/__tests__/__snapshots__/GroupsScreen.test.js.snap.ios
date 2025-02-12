@@ -76,7 +76,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -202,7 +202,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
               "fontWeight": "bold",
             },
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
             },
           ]
         }
@@ -327,7 +327,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
       <Text
         style={
           {
-            "color": "#FFFFFF",
+            "color": "#F5F5DC",
             "fontSize": 24,
             "fontWeight": "800",
           }
@@ -416,7 +416,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
         <Text
           style={
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
               "fontSize": 48,
               "fontWeight": "800",
               "textAlign": "center",
@@ -486,7 +486,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
               "fontWeight": "bold",
             },
             {
-              "color": "#FFFFFF",
+              "color": "#F5F5DC",
             },
           ]
         }
@@ -667,7 +667,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
       <Text
         style={
           {
-            "color": "#FFFFFF",
+            "color": "#F5F5DC",
             "fontSize": 24,
             "fontWeight": "800",
           }

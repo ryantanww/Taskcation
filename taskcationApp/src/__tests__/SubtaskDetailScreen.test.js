@@ -6,6 +6,7 @@ import SubtaskDetailScreen from '../screens/SubtaskDetailScreen';
 import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getPriorityByID } from '../services/priorityLevelsService';
 import { getAttachmentsBySubtaskID } from '../services/attachmentService';
+import { getTimeRecordsBySubtask, deleteTimeRecord } from '../services/timeTrackingService';
 import { Alert } from 'react-native'; 
 
 // Mock subtask for the test
@@ -30,6 +31,13 @@ const mockPriority = {
 // Mock attachment for the test
 const mockAttachments = [
     { id: 'attach1', uri: 'https://test.com/test_attachment.pdf', file_name: 'test_attachment.pdf', file_type: 'application/pdf',},
+];
+
+// Mock time records for the test
+const mockTime = [
+    { id: 'time1', duration: 11100, created_at: new Date('2024-12-02T18:00:00')},
+    { id: 'time2', duration: 12200, created_at: new Date('2024-12-03T15:00:00')},
+    { id: 'time3', duration: 13300, created_at: new Date('2024-12-04T15:00:00')},
 ];
 
 // Mock ViewAttachments Component
@@ -75,6 +83,8 @@ describe('SubtaskDetailScreen', () => {
         getPriorityByID.mockReset();
         getAttachmentsBySubtaskID.mockClear();
         getAttachmentsBySubtaskID.mockReset();
+        getTimeRecordsBySubtask.mockClear();
+        getTimeRecordsBySubtask.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
         jest.spyOn(Alert, 'alert').mockImplementation(() => {});
@@ -82,6 +92,7 @@ describe('SubtaskDetailScreen', () => {
         getSubtaskByID.mockResolvedValue(mockSubtask);
         getPriorityByID.mockResolvedValue(mockPriority);
         getAttachmentsBySubtaskID.mockResolvedValue(mockAttachments);
+        getTimeRecordsBySubtask.mockResolvedValue(mockTime);
     });
     
     // Test to display correct subtask details after fetching
@@ -133,96 +144,6 @@ describe('SubtaskDetailScreen', () => {
         await waitFor(() => {
             // Verify that notes shows No additional notes provided.
             expect(getByText('No additional notes provided.')).toBeTruthy();
-        });
-    });
-
-    // Test to open the timer modal when the View Logged Time button is pressed
-    it('should open the timer modal when the View Logged Time button is pressed', async () => {
-        // Renders the SubtaskDetailScreen component
-        const { getByText, getByTestId } = render(
-            <NavigationContainer>
-                <SubtaskDetailScreen />
-            </NavigationContainer>
-        );
-
-        await waitFor(() => {
-            // Verify that View Logged Time is displayed
-            expect(getByText('View Logged Time')).toBeTruthy();
-        });
-    
-        // Press View Logged Time
-        fireEvent.press(getByText('View Logged Time'));
-
-        await waitFor(() => {
-            // Verify that the timer modal is displayed
-            expect(getByTestId('timer-modal')).toBeTruthy()
-            // Verify that Time title is displayed
-            expect(getByText('Time')).toBeTruthy();
-        });
-    });
-
-    // Test to close the timer modal when the close button is pressed
-    it('should close the timer modal when the close button is pressed', async () => {
-        // Renders the SubtaskDetailScreen component
-        const { getByText, getByTestId, queryByTestId } = render(
-            <NavigationContainer>
-                <SubtaskDetailScreen />
-            </NavigationContainer>
-        );
-
-        await waitFor(() => {
-            // Verify that View Logged Time is displayed
-            expect(getByText('View Logged Time')).toBeTruthy();
-        });
-    
-        // Press View Logged Time
-        fireEvent.press(getByText('View Logged Time'));
-
-        await waitFor(() => {
-            // Verify that the timer modal is displayed
-            expect(getByTestId('timer-modal')).toBeTruthy()
-            // Verify that the timer closer button is displayed
-            expect(getByTestId('timer-close')).toBeTruthy()
-            
-        });
-    
-        // Press the close button
-        fireEvent.press(getByTestId('timer-close'));
-
-        await waitFor(() => {
-            // Verify that the modal is closed
-            expect(queryByTestId('timer-modal')).toBeNull()
-        });
-    });
-
-    // Test to close the timer modal when the overlay is pressed
-    it('should close the timer modal when the overlay is pressed', async () => {
-        // Renders the SubtaskDetailScreen component
-        const { getByText, getByTestId, queryByTestId } = render(
-            <NavigationContainer>
-                <SubtaskDetailScreen />
-            </NavigationContainer>
-        );
-
-        await waitFor(() => {
-            // Verify that View Logged Time is displayed
-            expect(getByText('View Logged Time')).toBeTruthy();
-        });
-    
-        // Press View Logged Time
-        fireEvent.press(getByText('View Logged Time'));
-
-        await waitFor(() => {
-            // Verify that the timer modal is displayed
-            expect(getByTestId('timer-modal')).toBeTruthy()
-        });
-    
-        // Press the timer modal overlay
-        fireEvent.press(getByTestId('timer-TouchableWithoutFeedback'));
-
-        await waitFor(() => {
-            // Verify that the modal is closed
-            expect(queryByTestId('timer-modal')).toBeNull()
         });
     });
 
@@ -286,6 +207,203 @@ describe('SubtaskDetailScreen', () => {
             expect(updateSubtask).toHaveBeenCalledWith(expect.anything(), 'subtask1', { status: false });
             // Verify the success alert for updating subtask
             expect(Alert.alert).toHaveBeenCalledWith('Success', 'Subtask marked as uncompleted.');
+        });
+    });
+
+    // Test to open the timer modal when the View Logged Time button is pressed
+    it('should open the timer modal when the View Logged Time button is pressed', async () => {
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+            // Verify that all components are rendered with the correct time details after fetching
+            expect(getByText('Time')).toBeTruthy();
+            expect(getByText('02/12/2024')).toBeTruthy();
+            expect(getByText('00:00:11.10')).toBeTruthy();
+            expect(getByText('03/12/2024')).toBeTruthy();
+            expect(getByText('00:00:12.20')).toBeTruthy();
+            expect(getByText('04/12/2024')).toBeTruthy();
+            expect(getByText('00:00:13.30')).toBeTruthy();
+        });
+    });
+
+    // Test to display empty state text when no time records exist
+    it('should display empty state text when no time records exist', async () => {
+        getTimeRecordsBySubtask.mockResolvedValueOnce([]);
+
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+            // Verify that No Time Added! is displayed correctly
+            expect(getByText('No Time Added!')).toBeTruthy();
+        });
+
+    });
+
+    // Test to call deleteTimeRecord when delete is confirmed
+    it('should call deleteTimeRecord when delete is confirmed', async () => {
+        // Mock alert to find the destructive button and press the delete button
+        Alert.alert.mockImplementationOnce((title, message, buttons) => {
+            const destructiveButton = buttons.find(b => b.style === 'destructive');
+            destructiveButton?.onPress?.();
+        });
+
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+        });
+
+        // Press the delete button for the first time record
+        fireEvent.press(getByTestId('delete-time1')); 
+    
+        // Verify deleteTimeRecord was called once
+        expect(deleteTimeRecord).toHaveBeenCalledTimes(1);
+        // Verify the delete function was called with the correct time record
+        expect(deleteTimeRecord).toHaveBeenCalledWith(expect.anything(),'time1');
+    });
+
+    // Test to not call deleteTimeRecord if delete alert is cancelled 
+    it('should not call deleteTimeRecord when deletion is cancelled', async () => {
+        // Mock alert to find the cancel button and press the cancel button
+        Alert.alert.mockImplementationOnce((title, message, buttons) => {
+            const cancelButton = buttons.find(b => b.style === 'cancel');
+            cancelButton?.onPress?.();
+        });
+
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+        });
+
+        // Press the delete button for the first time record
+        fireEvent.press(getByTestId('delete-time1')); 
+
+        // Verify that the delete function was not called
+        expect(deleteTimeRecord).not.toHaveBeenCalled();
+    });
+
+
+    // Test to close the timer modal when the close button is pressed
+    it('should close the timer modal when the close button is pressed', async () => {
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId, queryByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+            // Verify that the timer closer button is displayed
+            expect(getByTestId('timer-close')).toBeTruthy()
+            
+        });
+    
+        // Press the close button
+        fireEvent.press(getByTestId('timer-close'));
+
+        await waitFor(() => {
+            // Verify that the modal is closed
+            expect(queryByTestId('timer-modal')).toBeNull()
+        });
+    });
+
+    // Test to close the timer modal when the overlay is pressed
+    it('should close the timer modal when the overlay is pressed', async () => {
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId, queryByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+        });
+    
+        // Press the timer modal overlay
+        fireEvent.press(getByTestId('timer-TouchableWithoutFeedback'));
+
+        await waitFor(() => {
+            // Verify that the modal is closed
+            expect(queryByTestId('timer-modal')).toBeNull()
         });
     });
 
@@ -382,6 +500,24 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
+    // Test to show an alert for failing to fetch time records if getTimeRecordsBySubtask fails
+    it('should show an alert for failing to fetch time records if getTimeRecordsBySubtask fails', async () => {
+        // Mock subtasks service with an error
+        getTimeRecordsBySubtask.mockRejectedValueOnce(new Error('Error fetching time record'));
+
+        // Renders the SubtaskDetailScreen component
+        render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that an error alert is shown to the user when failed to fetch subtasks
+            expect(Alert.alert).toHaveBeenCalledWith('Fetching Time Record Error', 'Failed to fetch time record.');
+        });
+    });
+
     // Test to show an alert for failing to update subtask if updateSubtask fails
     it('should show an alert for failing to update subtask if updateSubtask fails', async () => {
         // Mock update subtask service with an error
@@ -446,6 +582,44 @@ describe('SubtaskDetailScreen', () => {
         });
     });
 
+    // Test to show an alert if deletion fails for time record
+    it('should show an alert if deletion fails for time record', async () => {
+        Alert.alert.mockImplementationOnce((title, message, buttons) => {
+            const destructiveButton = buttons.find(b => b.style === 'destructive');
+            destructiveButton?.onPress?.();
+        });
+        // Mock deleteTask error
+        deleteTimeRecord.mockRejectedValueOnce(new Error('Error deleting time record'));
+        
+        // Renders the SubtaskDetailScreen component
+        const { getByText, getByTestId } = render(
+            <NavigationContainer>
+                <SubtaskDetailScreen />
+            </NavigationContainer>
+        );
+        
+        await waitFor(() => {
+            // Verify that View Logged Time is displayed
+            expect(getByText('View Logged Time')).toBeTruthy();
+        });
+    
+        // Press View Logged Time
+        fireEvent.press(getByText('View Logged Time'));
+
+        await waitFor(() => {
+            // Verify that the timer modal is displayed
+            expect(getByTestId('timer-modal')).toBeTruthy()
+        });
+
+        // Press the delete button for the first time record
+        fireEvent.press(getByTestId('delete-time1')); 
+        
+        await waitFor(() => {
+            // Verify that an error alert is shown to the user when there is an error deleting the time record
+            expect(Alert.alert).toHaveBeenCalledWith('Deleting Time Record Error', 'Failed to delete the time record.');
+        });
+    });
+
     // Test to show an alert for failing to refresh subtask
     it('should show an alert for failing to refresh subtask', async () => {
         // Mock useFocusEffect
@@ -456,7 +630,7 @@ describe('SubtaskDetailScreen', () => {
         // Mock the subtask details with the error
         getSubtaskByID
             .mockResolvedValueOnce(mockSubtask)
-            .mockRejectedValueOnce(new Error('Error refreshing subtask'));
+            .mockRejectedValueOnce(new Error('Error refreshing subtask details'));
         
         // Renders the SubtaskDetailScreen component
         render(
@@ -467,7 +641,7 @@ describe('SubtaskDetailScreen', () => {
         
         await waitFor(() => {
             // Verify that an error alert is shown to the user when failed to refresh subtask
-            expect(Alert.alert).toHaveBeenCalledWith('Refreshing Subtask Error', 'Failed to refresh subtask.');
+            expect(Alert.alert).toHaveBeenCalledWith('Refreshing Subtask Details Error', 'Failed to refresh subtask details.');
         });
     });
 

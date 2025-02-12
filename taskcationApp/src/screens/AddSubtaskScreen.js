@@ -192,9 +192,7 @@ const AddSubtaskScreen = () => {
 
     // Function to handle deleting attachment from the list
     const handleDeleteAttachment = (attachment) => {
-        setAttachments((prev) =>
-            prev.filter((item) => item.uri !== attachment.uri)
-        );
+        setAttachments((prev) => prev.filter((item) => item.uri !== attachment.uri));
     };
 
     // Function to handle adding subtask and attachment into database
@@ -516,7 +514,7 @@ const styles = StyleSheet.create({
     // Style for the addButtonText
     addButtonText: {
         fontWeight: '800',
-        color: '#FFFFFF',
+        color: '#F5F5DC',
         fontSize: 24,
     },
 });
