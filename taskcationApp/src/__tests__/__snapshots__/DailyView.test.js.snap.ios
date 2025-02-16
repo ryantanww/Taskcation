@@ -1,0 +1,1570 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DailyView should match snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginHorizontal": 8,
+        "marginVertical": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#F5F5DC",
+          "opacity": 1,
+          "padding": 4,
+        }
+      }
+      testID="prev-day"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#8B4513",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      style={
+        {
+          "color": "#8B4513",
+          "fontSize": 32,
+          "fontWeight": "800",
+        }
+      }
+    >
+      02 January 2025
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#F5F5DC",
+          "opacity": 1,
+          "padding": 4,
+        }
+      }
+      testID="next-day"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#8B4513",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+  <RCTScrollView
+    showsVerticalScrollIndicator={false}
+    style={
+      {
+        "backgroundColor": "#F5F5DC",
+        "borderColor": "#8B4513",
+        "borderWidth": 1,
+        "flex": 1,
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            1 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            2 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            3 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            4 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            5 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            6 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            7 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            8 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            9 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            10 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            11 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            12 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            1 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            2 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            3 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            4 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            5 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            6 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#F5F5DC",
+                "borderColor": "#8B4513",
+                "borderRadius": 8,
+                "borderWidth": 2,
+                "marginHorizontal": 2,
+                "marginVertical": 2,
+                "minWidth": "90%",
+                "opacity": 1,
+                "paddingHorizontal": 4,
+                "paddingVertical": 2,
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 16,
+                    "fontWeight": "500",
+                  },
+                  false,
+                ]
+              }
+            >
+              Test Task 1
+            </Text>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#8B4513",
+                "borderColor": "#8B4513",
+                "borderRadius": 8,
+                "borderWidth": 2,
+                "marginHorizontal": 2,
+                "marginVertical": 2,
+                "minWidth": "90%",
+                "opacity": 1,
+                "paddingHorizontal": 4,
+                "paddingVertical": 2,
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              ellipsizeMode="tail"
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 16,
+                    "fontWeight": "500",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Test Task 2
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 2,
+                  "position": "absolute",
+                  "top": "55%",
+                  "width": "100%",
+                }
+              }
+              testID="strikeThrough-task2"
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            7 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            8 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            9 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            10 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            11 PM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "borderBottomWidth": 1,
+            "borderColor": "#8B4513",
+            "flexDirection": "row",
+            "minHeight": 70,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "width": "20%",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#8B4513",
+                "fontSize": 18,
+                "fontWeight": "800",
+              }
+            }
+          >
+            12 AM
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "borderColor": "#8B4513",
+              "borderWidth": 1,
+              "justifyContent": "flex-start",
+              "width": "80%",
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "minHeight": 70,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

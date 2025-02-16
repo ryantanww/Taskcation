@@ -98,17 +98,10 @@ const GroupsScreen = () => {
             <Header />
             {/* Render the Subjects and Categories Tabs */}
             <View style={styles.tabContainer}>
-                <TouchableOpacity
-                    style={[styles.tab, activeTab === 'Subjects' && styles.activeTab]}
-                    onPress={() => handleTabPress('Subjects')}
-                >
+                <TouchableOpacity style={[styles.tab, activeTab === 'Subjects' && styles.activeTab]} onPress={() => handleTabPress('Subjects')}>
                     <Text style={[styles.tabText, activeTab === 'Subjects' && styles.activeTabText]}>Subjects</Text>
                 </TouchableOpacity>
-        
-                <TouchableOpacity
-                    style={[styles.tab, activeTab === 'Categories' && styles.activeTab]}
-                    onPress={() => handleTabPress('Categories')}
-                >
+                <TouchableOpacity style={[styles.tab, activeTab === 'Categories' && styles.activeTab]} onPress={() => handleTabPress('Categories')}>
                     <Text style={[styles.tabText, activeTab === 'Categories' && styles.activeTabText]}>Categories</Text>
                 </TouchableOpacity>
             </View>
@@ -116,14 +109,8 @@ const GroupsScreen = () => {
             {/* Render corresponding group types groups */}
             <ScrollView style={styles.scrollView}>
                 {filteredGroups.map((group) => (
-                    <TouchableOpacity
-                        key={group.id}
-                        style={styles.groupItem}
-                        onPress={() => navigation.navigate('GroupDetailScreen', { groupID: group.id })}
-                    >
-                        <Text style={styles.groupItemText}>
-                            {group.group_name}
-                        </Text>
+                    <TouchableOpacity key={group.id} style={styles.groupItem} onPress={() => navigation.navigate('GroupDetailScreen', { groupID: group.id })}>
+                        <Text style={styles.groupItemText}>{group.group_name}</Text>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
@@ -154,7 +141,6 @@ const styles = StyleSheet.create({
     // Style for the tabContainer
     tabContainer: {
         flexDirection: 'row',
-        marginTop: 1,
     },
     // Style for the tab
     tab: {
@@ -164,6 +150,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#F5F5DC', 
         borderWidth: 2,
+        borderRadius: 8,
         borderColor: '#8B4513',
     },
     // Style for the activeTab
@@ -180,7 +167,7 @@ const styles = StyleSheet.create({
     tabText: {
         color: '#8B4513',
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: '800',
     },
     // Style for the activeTabText
     activeTabText: {

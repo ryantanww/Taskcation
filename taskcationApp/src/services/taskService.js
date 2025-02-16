@@ -8,7 +8,8 @@ import {
     query,
     where,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    orderBy
 } from 'firebase/firestore';
 
 export async function createTask(db, taskData) {
@@ -175,7 +176,7 @@ export async function getTasksByCreator(db, userID) {
 
         // If no documents exist, return null
         if (snap.empty) {
-            return null;
+            return [];
         }
 
         // Map documents to task objects
@@ -194,7 +195,7 @@ export async function getTasksByGroup(db, groupID) {
 
         // If no documents exist, return null
         if (snap.empty) {
-            return null;
+            return [];
         }
 
         // Map documents to task objects
@@ -202,5 +203,26 @@ export async function getTasksByGroup(db, groupID) {
     } catch (error) {
         console.error('Error fetching tasks by group:', error);
         throw error; // Optionally re-throw the error for higher-level handling
+    }
+}
+
+export async function getTasksForRange(db, userID, startDate, endDate) {
+    try {
+        const q = query(
+            collection(db, 'Tasks'),
+            where('created_by', '==', userID),
+            where('start_date', '>=', startDate),
+            where('end_date', '<=', endDate),
+            orderBy('end_date')
+        );
+        
+        const snap = await getDocs(q);
+        if (snap.empty) {
+            return []; 
+        }
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (error) {
+        console.error('Error fetching tasks for range:', error);
+        throw error;
     }
 }

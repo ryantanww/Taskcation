@@ -25,8 +25,7 @@ const mockPriorities = [
     { id: '5', priority_name: 'N/A' },
 ];
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+
 
 // Mock AddAttachments Component
 jest.mock('../components/AddAttachments', () => {
@@ -101,6 +100,8 @@ describe('AddTaskScreen', () => {
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {
@@ -108,6 +109,14 @@ describe('AddTaskScreen', () => {
             }
             return null;
         });
+    });
+
+    // Test to check if user ID is stored in AsyncStorage
+    it('should store user ID in AsyncStorage', async () => {
+        // Retrieve the user ID
+        const userId = await AsyncStorage.getItem('user_id');
+        // Verify that the user ID is correctly stored
+        expect(userId).toBe('temp_user_123');
     });
 
     // Test to render the Add Task screen with all components

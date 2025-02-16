@@ -129,8 +129,7 @@ jest.mock('react-native-dropdown-picker', () => {
         };
 });
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+
 
 describe('EditSubtaskScreen', () => {
     // Clear all mocks and reset them before each test
@@ -146,6 +145,8 @@ describe('EditSubtaskScreen', () => {
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {

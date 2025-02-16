@@ -63,7 +63,6 @@ const HomeScreen = () => {
         return null; 
     }
 
-
     // Function to format the dates into dd/mm/yyyy format
     const formatDate = (date) => {
         const dateObj = convertToDate(date);
@@ -164,6 +163,7 @@ const HomeScreen = () => {
             })();
     }, []);
     
+    // useEffect to fetch tasks when screen is focused
     useEffect(() => {
         // Call the fetchTasks function whenever isFocused or userID changes
         if (isFocused && userID) {
@@ -208,9 +208,7 @@ const HomeScreen = () => {
         
         return (
             // Allows users to navigate to TaskDetailScreen screen when clicked
-            <TouchableOpacity
-                onPress={() => navigation.navigate('TaskDetailScreen', { taskID: task.id })}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate('TaskDetailScreen', { taskID: task.id })}>
                 {/* Task container for each task, changes when completed */}
                 <View style={[ styles.tasksContainer, task.status && styles.tasksCompletedContainer]}>
                     {/* Strike through line only when task is completed */}
@@ -223,11 +221,7 @@ const HomeScreen = () => {
                     
                     {/* Clickable Checkbox for toggling task completion */}
                     <TouchableOpacity onPress={() => toggleTaskCompletion(task.id)} testID={`checkbox-${task.id}`} >
-                        <Ionicons
-                            name={task.status ? 'checkbox' : 'square-outline'}
-                            size={28}
-                            color={task.status ? '#F5F5DC' : '#8B4513'}
-                        />
+                        <Ionicons name={task.status ? 'checkbox' : 'square-outline'} size={28} color={task.status ? '#F5F5DC' : '#8B4513'}/>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
@@ -331,11 +325,7 @@ const HomeScreen = () => {
 
                                 {/* Clickable Checkbox for toggling task completion */}
                                 <TouchableOpacity onPress={handleCheckboxToggle} testID='checkbox-no-tasks' >
-                                    <Ionicons
-                                        name={isChecked ? 'checkbox' : 'square-outline'}
-                                        size={28}
-                                        color={isChecked ? '#F5F5DC' : '#8B4513'}
-                                    />
+                                    <Ionicons name={isChecked ? 'checkbox' : 'square-outline'} size={28} color={isChecked ? '#F5F5DC' : '#8B4513'}/>
                                 </TouchableOpacity>
                             </View>
                         </View>

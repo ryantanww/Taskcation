@@ -113,7 +113,7 @@ const TimerScreen = () => {
             // Alert error when failed to fetch tasks or subtasks
             Alert.alert('Error Fetching Tasks or Subtasks', 'Failed to fetch tasks or subtasks.');
         }
-    }
+    };
 
     // Function to start the timer
     const startTimer = () => {
@@ -206,7 +206,7 @@ const TimerScreen = () => {
             Alert.alert('Time Error', 'Time should be more than 0!');
             return;
         }
-    }
+    };
 
     // Function to save time record and navigate to task or subtask detail screen
     const saveTimeRecordAndNavigate = async (selectedID) => {

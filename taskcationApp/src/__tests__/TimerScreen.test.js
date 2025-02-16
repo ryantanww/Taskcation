@@ -39,8 +39,6 @@ jest.mock('@react-navigation/native', () => {
     };
 });
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 describe('TimerScreen', () => {
     // Clear all mocks and reset them before each test
@@ -52,6 +50,8 @@ describe('TimerScreen', () => {
         createTimeRecord.mockClear();
         createTimeRecord.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Use fake timers for testing
         jest.useFakeTimers();
         // Intialise the AsyncStorage with user_id and joined_date
@@ -64,6 +64,14 @@ describe('TimerScreen', () => {
         // Mock the required services
         getTasksByCreator.mockResolvedValue(mockTasks);
         getSubtasksByCreator.mockResolvedValue(mockSubtasks);
+    });
+
+    // Test to check if user ID is stored in AsyncStorage
+    it('should store user ID in AsyncStorage', async () => {
+        // Retrieve the user ID
+        const userId = await AsyncStorage.getItem('user_id');
+        // Verify that the user ID is correctly stored
+        expect(userId).toBe('temp_user_123');
     });
 
     // Test to render timer screen with all components

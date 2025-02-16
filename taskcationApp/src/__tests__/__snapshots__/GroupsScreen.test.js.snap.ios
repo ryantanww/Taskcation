@@ -92,7 +92,6 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
     style={
       {
         "flexDirection": "row",
-        "marginTop": 1,
       }
     }
   >
@@ -129,6 +128,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
           "alignItems": "center",
           "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
+          "borderRadius": 8,
           "borderWidth": 2,
           "flex": 1,
           "justifyContent": "center",
@@ -143,7 +143,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
             {
               "color": "#8B4513",
               "fontSize": 24,
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             false,
           ]
@@ -185,6 +185,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
           "alignItems": "center",
           "backgroundColor": "#8B4513",
           "borderColor": "#8B4513",
+          "borderRadius": 8,
           "borderWidth": 2,
           "flex": 1,
           "justifyContent": "center",
@@ -199,7 +200,7 @@ exports[`GroupsScreen should match the snapshot when Categories tab is active 1`
             {
               "color": "#8B4513",
               "fontSize": 24,
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             {
               "color": "#F5F5DC",
@@ -432,7 +433,6 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
     style={
       {
         "flexDirection": "row",
-        "marginTop": 1,
       }
     }
   >
@@ -469,6 +469,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
           "alignItems": "center",
           "backgroundColor": "#8B4513",
           "borderColor": "#8B4513",
+          "borderRadius": 8,
           "borderWidth": 2,
           "flex": 1,
           "justifyContent": "center",
@@ -483,7 +484,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
             {
               "color": "#8B4513",
               "fontSize": 24,
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             {
               "color": "#F5F5DC",
@@ -527,6 +528,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
           "alignItems": "center",
           "backgroundColor": "#F5F5DC",
           "borderColor": "#8B4513",
+          "borderRadius": 8,
           "borderWidth": 2,
           "flex": 1,
           "justifyContent": "center",
@@ -541,7 +543,7 @@ exports[`GroupsScreen should match the snapshot when Subjects tab is active 1`] 
             {
               "color": "#8B4513",
               "fontSize": 24,
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             false,
           ]

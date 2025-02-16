@@ -26,8 +26,7 @@ jest.mock('@react-navigation/native', () => {
     };
 });
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+
 
 describe('GroupsScreen', () => {
     // Clear all mocks before each test
@@ -35,6 +34,8 @@ describe('GroupsScreen', () => {
         getGroupsByCreator.mockClear();
         getGroupsByCreator.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {

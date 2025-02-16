@@ -19,8 +19,7 @@ const mockPriorities = [
     { id: '5', priority_name: 'N/A' },
 ];
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+
 
 // Mock AddAttachments Component
 jest.mock('../components/AddAttachments', () => {
@@ -94,6 +93,8 @@ describe('AddSubtaskScreen', () => {
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {

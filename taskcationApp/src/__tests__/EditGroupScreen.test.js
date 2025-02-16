@@ -33,8 +33,6 @@ const mockGrades = [
     { id: 'NA', grade: 'N/A' },
 ];
 
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 // Mock useNavigation hook
 const mockNavigation = {
@@ -96,6 +94,8 @@ describe('EditGroupScreen', () => {
         getAllGrades.mockClear();
         getAllGrades.mockReset();
         jest.clearAllMocks();
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
         // Mock required services
         getGroupByID.mockResolvedValue(mockSubject);
         getAllGrades.mockResolvedValue(mockGrades);
