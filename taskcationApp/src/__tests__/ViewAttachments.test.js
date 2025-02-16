@@ -13,10 +13,6 @@ const mockAttachments = [
     { id: '3', uri: 'https://test.com/document1.pdf', file_name: 'Document 1', file_type: 'application/pdf' },
 ];
 
-// Spy on the ViewFile function
-jest.spyOn(viewFileModule, 'default');
-// Spy on Alert.alert to verify alerts
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 // Mock function for simulating 'onDeleteAttachment' prop
 const mockOnDeleteAttachment = jest.fn();
@@ -25,6 +21,10 @@ describe('ViewAttachments', () => {
     // Clear all mocks before each test
     beforeEach(() => {
         jest.clearAllMocks();
+        // Spy on the ViewFile function
+        jest.spyOn(viewFileModule, 'default');
+        // Spy on Alert.alert to verify alerts
+        jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     });
 
     // Test to render attachments correctly

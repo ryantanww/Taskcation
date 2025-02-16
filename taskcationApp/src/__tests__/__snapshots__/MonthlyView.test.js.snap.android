@@ -1,0 +1,4115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonthlyView should match snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#F5F5DC",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginHorizontal": 8,
+        "marginVertical": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#F5F5DC",
+          "opacity": 1,
+          "padding": 4,
+        }
+      }
+      testID="prev-month"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#8B4513",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      style={
+        {
+          "color": "#8B4513",
+          "fontSize": 32,
+          "fontWeight": "800",
+        }
+      }
+    >
+      January 2025
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#F5F5DC",
+          "opacity": 1,
+          "padding": 4,
+        }
+      }
+      testID="next-month"
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "#8B4513",
+              "fontSize": 32,
+            },
+            undefined,
+            {
+              "fontFamily": "ionicons",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "#F5F5DC",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "borderColor": "#8B4513",
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "borderTopWidth": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Sun
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Mon
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Tue
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Wed
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Thu
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Fri
+      </Text>
+      <Text
+        style={
+          {
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "color": "#8B4513",
+            "fontSize": 20,
+            "fontWeight": "800",
+            "paddingVertical": 4,
+            "textAlign": "center",
+            "width": "14.28%",
+          }
+        }
+      >
+        Sat
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "borderBottomWidth": 1,
+          "borderColor": "#8B4513",
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                {
+                  "color": "#d2691e",
+                  "fontWeight": "500",
+                },
+              ]
+            }
+          >
+            29
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                {
+                  "color": "#d2691e",
+                  "fontWeight": "500",
+                },
+              ]
+            }
+          >
+            30
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                {
+                  "color": "#d2691e",
+                  "fontWeight": "500",
+                },
+              ]
+            }
+          >
+            31
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            1
+          </Text>
+        </View>
+        <RCTScrollView
+          data={
+            [
+              {
+                "end_date": 2025-01-01T07:00:00.000Z,
+                "id": "task3",
+                "status": false,
+                "task_name": "Test Task 3",
+              },
+            ]
+          }
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "backgroundColor": "#F5F5DC",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "marginBottom": 0.5,
+                    "opacity": 1,
+                  }
+                }
+                testID="cell-task3"
+              >
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "alignItems": "center",
+                        "color": "#8B4513",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Test Task 3
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                {
+                  "backgroundColor": "#8B4513",
+                  "borderRadius": 999,
+                  "color": "#F5F5DC",
+                  "overflow": "hidden",
+                  "paddingHorizontal": 6,
+                  "paddingVertical": 2,
+                },
+                false,
+              ]
+            }
+          >
+            2
+          </Text>
+        </View>
+        <RCTScrollView
+          data={
+            [
+              {
+                "end_date": 2025-01-02T10:00:00.000Z,
+                "id": "task1",
+                "status": false,
+                "task_name": "Test Task 1",
+              },
+              {
+                "end_date": 2025-01-02T10:00:00.000Z,
+                "id": "task2",
+                "status": true,
+                "task_name": "Test Task 2",
+              },
+            ]
+          }
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "backgroundColor": "#F5F5DC",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "marginBottom": 0.5,
+                    "opacity": 1,
+                  }
+                }
+                testID="cell-task1"
+              >
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "alignItems": "center",
+                        "color": "#8B4513",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Test Task 1
+                </Text>
+              </View>
+            </View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "backgroundColor": "#8B4513",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "marginBottom": 0.5,
+                    "opacity": 1,
+                  }
+                }
+                testID="cell-task2"
+              >
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "alignItems": "center",
+                        "color": "#8B4513",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                      },
+                      {
+                        "alignItems": "center",
+                        "color": "#F5F5DC",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                      },
+                    ]
+                  }
+                >
+                  Test Task 2
+                </Text>
+                <View
+                  style={
+                    {
+                      "backgroundColor": "#F5F5DC",
+                      "height": 2,
+                      "position": "absolute",
+                      "top": "50%",
+                      "width": "100%",
+                      "zIndex": 0,
+                    }
+                  }
+                  testID="strikeThrough-task2"
+                />
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            3
+          </Text>
+        </View>
+        <RCTScrollView
+          data={
+            [
+              {
+                "end_date": 2025-01-03T07:00:00.000Z,
+                "id": "task4",
+                "status": false,
+                "task_name": "Test Task 4",
+              },
+            ]
+          }
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "backgroundColor": "#F5F5DC",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "marginBottom": 0.5,
+                    "opacity": 1,
+                  }
+                }
+                testID="cell-task4"
+              >
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "alignItems": "center",
+                        "color": "#8B4513",
+                        "fontSize": 14,
+                        "fontWeight": "500",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  Test Task 4
+                </Text>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            4
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            5
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            6
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            7
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            8
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            9
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            10
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            11
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            12
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            13
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            14
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            15
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            16
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            17
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            18
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            19
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            20
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            21
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            22
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            23
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            24
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            25
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            26
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            27
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            28
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            29
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            30
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                false,
+              ]
+            }
+          >
+            31
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+      <View
+        style={
+          {
+            "backgroundColor": "#F5F5DC",
+            "borderColor": "#8B4513",
+            "borderWidth": 1,
+            "maxHeight": 70,
+            "minHeight": 70,
+            "paddingLeft": 2,
+            "width": "14.28%",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "color": "#8B4513",
+                  "fontSize": 20,
+                  "fontWeight": "800",
+                  "marginBottom": 2,
+                  "paddingVertical": 2,
+                },
+                false,
+                {
+                  "color": "#d2691e",
+                  "fontWeight": "500",
+                },
+              ]
+            }
+          >
+            1
+          </Text>
+        </View>
+        <RCTScrollView
+          data={[]}
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          removeClippedSubviews={true}
+          renderItem={[Function]}
+          scrollEnabled={true}
+          scrollEventThrottle={0.0001}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flex": 1,
+        "paddingHorizontal": 12,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#8B4513",
+          "fontSize": 24,
+          "fontWeight": "800",
+          "marginTop": 6,
+          "textAlign": "left",
+        }
+      }
+    >
+      Tasks for 
+      02/01/2025
+    </Text>
+    <View
+      style={
+        {
+          "backgroundColor": "#8B4513",
+          "height": 2,
+          "marginBottom": 6,
+        }
+      }
+    />
+    <RCTScrollView
+      data={
+        [
+          {
+            "end_date": 2025-01-02T10:00:00.000Z,
+            "id": "task1",
+            "status": false,
+            "task_name": "Test Task 1",
+          },
+          {
+            "end_date": 2025-01-02T10:00:00.000Z,
+            "id": "task2",
+            "status": true,
+            "task_name": "Test Task 2",
+          },
+        ]
+      }
+      getItem={[Function]}
+      getItemCount={[Function]}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={true}
+      renderItem={[Function]}
+      scrollEventThrottle={0.0001}
+      showsVerticalScrollIndicator={false}
+      stickyHeaderIndices={[]}
+      style={
+        {
+          "flex": 1,
+        }
+      }
+      viewabilityConfigCallbackPairs={[]}
+    >
+      <View>
+        <View
+          onFocusCapture={[Function]}
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="list-task1"
+          >
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#F5F5DC",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "marginTop": 6,
+                    "paddingHorizontal": 10,
+                    "paddingVertical": 12,
+                    "position": "relative",
+                  },
+                  false,
+                ]
+              }
+            >
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#8B4513",
+                      "flex": 1,
+                      "fontSize": 20,
+                      "fontWeight": "500",
+                      "overflow": "hidden",
+                    },
+                    false,
+                  ]
+                }
+              >
+                Test Task 1
+              </Text>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+                testID="checkbox-task1"
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#8B4513",
+                        "fontSize": 28,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "ionicons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onFocusCapture={[Function]}
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="list-task2"
+          >
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#F5F5DC",
+                    "borderColor": "#8B4513",
+                    "borderRadius": 8,
+                    "borderWidth": 2,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "marginTop": 6,
+                    "paddingHorizontal": 10,
+                    "paddingVertical": 12,
+                    "position": "relative",
+                  },
+                  {
+                    "backgroundColor": "#8B4513",
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  {
+                    "backgroundColor": "#F5F5DC",
+                    "height": 2,
+                    "left": 5,
+                    "position": "absolute",
+                    "top": "90%",
+                    "width": "90%",
+                    "zIndex": 0,
+                  }
+                }
+                testID="strikeThrough-list-task2"
+              />
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={
+                  [
+                    {
+                      "color": "#8B4513",
+                      "flex": 1,
+                      "fontSize": 20,
+                      "fontWeight": "500",
+                      "overflow": "hidden",
+                    },
+                    {
+                      "color": "#F5F5DC",
+                      "flex": 1,
+                      "fontSize": 20,
+                      "fontWeight": "500",
+                      "overflow": "hidden",
+                    },
+                  ]
+                }
+              >
+                Test Task 2
+              </Text>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+                testID="checkbox-task2"
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#F5F5DC",
+                        "fontSize": 28,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "ionicons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

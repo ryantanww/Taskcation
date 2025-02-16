@@ -191,6 +191,7 @@ describe('TaskDetailScreen', () => {
     it('should mark task as completed', async () => {
         // Mock the updateTask service
         updateTask.mockResolvedValueOnce(true);
+        // Mock the markAllSubtasksComplete service
         markAllSubtasksComplete.mockResolvedValue(true);
     
         // Renders the TaskDetailScreen component
@@ -660,6 +661,7 @@ describe('TaskDetailScreen', () => {
         );
 
         await waitFor(() => {
+            // Verify that an error alert is shown to the user when failed to fetch task
             expect(Alert.alert).toHaveBeenCalledWith('Fetching Task Error', 'Failed to fetch task.');
         });
     });
@@ -950,6 +952,7 @@ describe('TaskDetailScreen', () => {
     it('should match the snapshot when task is completed', async () => {
         // Mock the updateTask service
         updateTask.mockResolvedValueOnce(true);
+        // Mock the markAllSubtasksComplete service
         markAllSubtasksComplete.mockResolvedValue(true);
 
         // Renders the TaskDetailScreen component

@@ -246,7 +246,9 @@ describe('HomeScreen', () => {
     it('should toggle task completion', async () => {
         // Mock tasks
         getTasksByCreator.mockResolvedValue(mockTasks);
+        // Mock the updateTask service
         updateTask.mockResolvedValue(true);
+        // Mock the markAllSubtasksComplete service
         markAllSubtasksComplete.mockResolvedValue(true);
         
         // Renders the HomeScreen component
@@ -322,7 +324,6 @@ describe('HomeScreen', () => {
     it('should navigate to TaskDetailScreen when a task is pressed', async () => {
         // Mock tasks
         getTasksByCreator.mockResolvedValue(mockTasks);
-        
         // Mock groups
         getGroupsByCreator.mockResolvedValueOnce(mockGroups);
 
