@@ -49,6 +49,11 @@ jest.mock('./src/services/gradesService', () => ({
     getAllGrades: jest.fn(),
 }));
 
+jest.mock('./src/utils/suggestPriority', () => ({
+    suggestGradePriority: jest.fn(),
+    suggestDatePriority: jest.fn(),
+}));
+
 // Mock Firestore Timestamp
 const Timestamp = {
     fromDate: (date) => ({

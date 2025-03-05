@@ -14,7 +14,7 @@ const mockSubject = {
     id: 'group1',
     group_name: 'Test Subject',
     group_type: 'Subjects',
-    grade_id: 'grade1',
+    grade_id: 'A',
 };
 
 // Mock Category
@@ -26,7 +26,7 @@ const mockCategory = {
 
 // Mock Grade
 const mockGrade = {
-    id: 'grade1',
+    id: 'A',
     grade: 'A',
 };
 
