@@ -1,4 +1,4 @@
-// jest.setup.js
+// jest.setup.js for mocking all the required dependencies needed for Jest
 jest.mock('@react-native-async-storage/async-storage', () =>
     require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
@@ -93,7 +93,6 @@ jest.mock('./src/services/attachmentService', () => ({
 jest.mock('./src/services/timeTrackingService', () => ({
     getTimeRecordsBySubtask: jest.fn(),
     getTimeRecordsByTask: jest.fn(),
-    getTimeRecordByID: jest.fn(),
     updateTask: jest.fn(),
     createTimeRecord: jest.fn(),
     deleteTimeRecord: jest.fn(),

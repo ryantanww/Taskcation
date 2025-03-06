@@ -1,3 +1,4 @@
+// babel.config.js for optimising Expo and React Native
 module.exports = function (api) {
     api.cache(false);
     return {
