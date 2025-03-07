@@ -152,7 +152,7 @@ const HomeScreen = () => {
                     setTasks(fetchedTasks);
                 }
             } catch (err) {
-                // Log any errors when initialising tasks
+                // Log any errors when initialising user, groups or tasks
                 console.error('Initialisation error:', err);
                 // Set error if initialising fails
                 setError('Failed to initialise user, groups or tasks.');
@@ -288,7 +288,7 @@ const HomeScreen = () => {
     // Display error message if initialising user and fetching fails
     if (error) {
         return (
-            <View style={styles.container}>
+            <View style={styles.loadingContainer}>
                 <Text style={styles.errorText}>{error}</Text>
             </View>
         );

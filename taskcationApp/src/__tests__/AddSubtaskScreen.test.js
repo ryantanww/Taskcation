@@ -275,15 +275,14 @@ describe('AddSubtaskScreen', () => {
                 subtask_notes: 'Testing Subtask Notes.',
                 priority_id: '1',
                 status: false,
-                attachments: [],
             });
 
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
-                task_id: 'task1',
                 subtask_id: 'subtask1',
+                created_by: 'temp_user_123',
                 file_name: 'test_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/test_attachment.pdf',

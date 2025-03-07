@@ -161,6 +161,18 @@ export async function deleteTask(db, taskID) {
         // Delete all attachments linked to the task
         await Promise.all(attachmentDeletions);
 
+        // Create a Firestore query to filter time records by task_id
+        const timeQuery = query(collection(db, 'TimeTracking'), where('task_id', '==', taskID));
+        // Execute the query and get the corresponding time records
+        const timeSnapshots = await getDocs(timeQuery);
+        
+        // Map over the document snapshots and return an array of time records to be deleted
+        const timeDeletions = timeSnapshots.docs.map(timeDoc => 
+            deleteDoc(doc(db, 'TimeTracking', timeDoc.id))
+        );
+        // Delete all time records linked to the task
+        await Promise.all(timeDeletions);
+
         // Finally delete the task document based on task_id
         await deleteDoc(doc(db, 'Tasks', taskID));
 

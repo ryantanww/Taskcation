@@ -240,11 +240,7 @@ const TaskDetailScreen = () => {
         return subtasks.map((subtask) => {
             return (
             // Allows users to navigate to SubtaskDetail screen when clicked
-            <TouchableOpacity
-                disabled={task.status}
-                key={subtask.id}
-                onPress={() => navigation.navigate('SubtaskDetailScreen', {subtaskID: subtask.id,})}
-            >
+            <TouchableOpacity disabled={task.status} key={subtask.id} onPress={() => navigation.navigate('SubtaskDetailScreen', {subtaskID: subtask.id,})}>
                 {/* Subtask container for each subtask, changes when completed */}
                 <View style={[styles.subtasksContainer, subtask.status && styles.subtasksCompletedContainer]}>
                     {/* Subtask row to align the name, date and checkbox correctly */}
@@ -677,7 +673,7 @@ const TaskDetailScreen = () => {
                                 <TouchableWithoutFeedback>
                                     {/* Title for the Times */}
                                     <View style={styles.timerContainer}>
-                                        <TouchableOpacity style={styles.addTimeButton} onPress={() => navigation.navigate('BottomTab', { screen: 'Timer' })}>
+                                        <TouchableOpacity style={styles.addTimeButton} onPress={() => {setTimerModalVisible(false); navigation.navigate('BottomTab', { screen: 'Timer' });}}>
                                             <Text style={styles.sectionTitle}>Time</Text>
                                             <Ionicons name='add-circle-outline' size={32} color='#8B4513' />
                                         </TouchableOpacity>
@@ -822,7 +818,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 6,
         backgroundColor: '#F5F5DC',
     },
-    // Style for the subtaskButton
+    // Style for the addTimeButton
     addTimeButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',

@@ -1,6 +1,7 @@
 // Import Firestore functions from Firebase
 import {
     collection,
+    doc,
     addDoc,
     getDocs,
     query,
@@ -20,8 +21,13 @@ export async function createUser(db, userData) {
         throw new Error(`Username '${userData.username}' already in use`);
     }
 
+    // Generate a new document reference with a new ID
+    const newUserDocRef = doc(collection(db, 'Users'));
+    const newUserID = newUserDocRef.id;
+    
     // Create a new document in the Users collection with the user data
     const docRef = await addDoc(collection(db, 'Users'), {
+        user_id: newUserID,
         username: userData.username,
         is_temporary: userData.is_temporary ?? false,
         created_at: serverTimestamp(),
@@ -29,5 +35,5 @@ export async function createUser(db, userData) {
     });
 
     // Return the newly created document's ID
-    return docRef.id;
+    return newUserID;
 }

@@ -224,9 +224,12 @@ const TimerScreen = () => {
             if (activeTab === 'Tasks') {
                 // If active tab is Tasks take the taskID
                 timeData.task_id = selectedID;
+                timeData.created_by = userID;
+
             } else {
                 // If active tab is Subtasks take the subtaskID
                 timeData.subtask_id = selectedID;
+                timeData.created_by = userID;
             }
 
             // Create a new time record with the provided details and store it in the database

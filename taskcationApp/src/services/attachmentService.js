@@ -12,11 +12,6 @@ import {
 
 // Function to create a new attachment in Firestore
 export async function createAttachment(db, attachmentData) {
-    // Validate whether task_id exists or is a non-empty string
-    if (!attachmentData.task_id || typeof attachmentData.task_id !== 'string') {
-        throw new Error('task_id is required (non-empty string).');
-    }
-
     // Validate whether file_name exists or is a non-empty string
     if (!attachmentData.file_name || typeof attachmentData.file_name !== 'string') {
         throw new Error('file_name is required (non-empty string).');
@@ -40,7 +35,8 @@ export async function createAttachment(db, attachmentData) {
     // Create the attachment data to store in Firestore
     const docData = {
         task_id:      attachmentData.task_id      ?? '',
-        subtask_id:  attachmentData.subtask_id  ?? '',
+        subtask_id:   attachmentData.subtask_id  ?? '',
+        created_by:   attachmentData.created_by,
         file_name:    attachmentData.file_name    ?? '',
         file_type:    attachmentData.file_type    ?? '',
         uri:          attachmentData.uri          ?? '',

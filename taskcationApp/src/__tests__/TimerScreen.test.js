@@ -620,6 +620,7 @@ describe('TimerScreen', () => {
             // Verify the time creation information
             expect(createTimeRecord).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                created_by: 'temp_user_123',
                 duration: 100,
             });
             // Verify the success alert for time creation
@@ -684,6 +685,7 @@ describe('TimerScreen', () => {
             // Verify the time creation information
             expect(createTimeRecord).toHaveBeenCalledWith(expect.any(Object), {
                 subtask_id: 'subtask2',
+                created_by: 'temp_user_123',
                 duration: 100,
             });
             // Verify the success alert for time creation

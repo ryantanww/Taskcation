@@ -286,7 +286,6 @@ const AddTaskScreen = () => {
                 group_id: selectedGroup,
                 priority_id: selectedPriority,
                 status: false,
-                attachments: [],
             });
 
             // If there are attachments, store them into the database
@@ -294,6 +293,7 @@ const AddTaskScreen = () => {
                 const attachmentPromises = attachments.map((attachment) =>
                     createAttachment(db, {
                         task_id: taskID,
+                        created_by: userID,
                         file_name: attachment.file_name,
                         file_type: attachment.file_type,
                         uri: attachment.uri,

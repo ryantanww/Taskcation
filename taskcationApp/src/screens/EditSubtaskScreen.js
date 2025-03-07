@@ -322,10 +322,11 @@ const EditSubtaskScreen = () => {
             const newAttachments = attachments.filter(att => !att.id);
             // If there are new attachments, store them into the database
             if (newAttachments.length > 0) {
-                const attachmentPromises = attachments.map(attachment =>
+                const attachmentPromises = newAttachments.map(attachment =>
                     createAttachment(db, {
                         task_id: taskID,
                         subtask_id: subtaskID,
+                        created_by: userID,
                         file_name: attachment.file_name,
                         file_type: attachment.file_type,
                         uri: attachment.uri,

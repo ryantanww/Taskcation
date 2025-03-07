@@ -20,7 +20,8 @@ export async function createTimeRecord(db, timeData) {
     // Create a new document in the TimeTracking collection with the validated data
     const docRef = await addDoc(collection(db, 'TimeTracking'), {
         task_id:     timeData.task_id     ?? '',
-        subtask_id: timeData.subtask_id ?? '',
+        subtask_id:  timeData.subtask_id ?? '',
+        created_by:  timeData.created_by,
         duration:    timeData.duration ?? 0,
         created_at:  serverTimestamp(),
     });

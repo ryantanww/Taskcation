@@ -329,19 +329,20 @@ describe('EditTaskScreen', () => {
             // Verify updateTask was called with updated values
             expect(updateTask).toHaveBeenCalledWith(expect.any(Object), 'task1', 
                 expect.objectContaining({
-                task_name: 'Updated Task Name',
-                start_date: earlierDate,
-                end_date: laterDate,
-                duration: expect.any(Number),
-                task_notes: 'Updating test notes.',
-                group_id: '2',
-                priority_id: '1',
+                    task_name: 'Updated Task Name',
+                    start_date: earlierDate,
+                    end_date: laterDate,
+                    duration: expect.any(Number),
+                    task_notes: 'Updating test notes.',
+                    group_id: '2',
+                    priority_id: '1',
             }));
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                created_by: 'temp_user_123',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/new_attachment.pdf',

@@ -9,9 +9,10 @@ import {
     StyleSheet,
     Modal,
     FlatList,
+    ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRoute, useFocusEffect  } from '@react-navigation/native';
+import { useNavigation, useRoute, useFocusEffect  } from '@react-navigation/native';
 import Subheader from '../components/Subheader';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ViewAttachments from '../components/ViewAttachments';
@@ -24,7 +25,10 @@ import { db } from '../../firebaseConfig';
 const SubtaskDetailScreen = () => {
     // Access the route  object to get the subtaskID passed from navigation
     const route = useRoute();
-    const { subtaskID } = route.params;
+    const { subtaskID,  showTimerModal } = route.params;
+
+    // Access the navigation object
+    const navigation = useNavigation();
 
     // State to control the timer modal
     const [timerModalVisible, setTimerModalVisible] = useState(false);
@@ -45,19 +49,25 @@ const SubtaskDetailScreen = () => {
     const [loading, setLoading] = useState(true);
 
     // useEffect to fetch subtask on component mount
-    useEffect(() => {    
+    useEffect(() => {
         fetchSubtask();
     }, [subtaskID]);
 
     // useEffect to fetch other related data using subtask details such as priority, attachments, time
-        useEffect(() => {
-            // Check if there is subtask
-            if (!subtask) return; 
-    
-            fetchPriority();
-            fetchAttachments();
-            fetchTimeRecords();
-        }, [subtask]); 
+    useEffect(() => {
+        // Check if there is subtask
+        if (!subtask) return; 
+
+        fetchPriority();
+        fetchAttachments();
+        fetchTimeRecords();
+    }, [subtask]); 
+
+    useEffect(() => {
+        if (showTimerModal) {
+            setTimerModalVisible(true);
+        }
+    }, [showTimerModal]);
 
     // Function to fetch subtask details from database
     const fetchSubtask = async () => {
@@ -371,139 +381,142 @@ const SubtaskDetailScreen = () => {
             {/* Render the Subheader component */}
             <Subheader title={subtask.subtask_name} hasKebab={!subtask.status} itemID={subtask.id} itemType={'Subtask'} />
 
-            <View style={[styles.detailContainer, subtask.status && styles.completedDetailContainer]}>
-                {/* Start Date */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={{ position: 'relative' }}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Start Date</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                    <View style={[styles.row, { position: 'relative' }]}>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDate(subtask.start_date)}</Text>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{formatTime(subtask.start_date)}</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* End Date */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={{ position: 'relative' }}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>End Date</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                    <View style={[styles.row, { position: 'relative' }]}>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDate(subtask.end_date)}</Text>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{formatTime(subtask.end_date)}</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* Duration */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={[styles.row, { position: 'relative' }]}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Duration</Text>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDuration(subtask.duration)}</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* Notes */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={{ position: 'relative' }}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Notes</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                    <View style={{ position: 'relative' }}>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>
-                            {subtask.subtask_notes || 'No additional notes provided.'}
-                        </Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* Task the subtask belongs to */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={[styles.row, { position: 'relative' }]}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Task</Text>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{subtask.task_name}</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* Priority */}
-                <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={[styles.row, { position: 'relative' }]}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Priority</Text>
-                        <Text style={[styles.text, subtask.status && styles.completedText]}>{priority?.priority_name || 'N/A'}</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                </View>
-                
-                {/* Attachments */}
-                <View style={[styles.attachmentContainer, subtask.status && styles.completedSubContainer]}>
-                    <View style={{ position: 'relative' }}>
-                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Attachments</Text>
-                        {subtask.status && <View style={styles.strikeRow} />}
-                    </View>
-                    <View pointerEvents={subtask.status ? 'none' : 'auto'} style={{ position: 'relative' }}>
-                        <ViewAttachments attachments={attachments} />
-                        {subtask.status && <View style={styles.blockOverlay} />}
-                    </View>
-                </View>
-                
-                {/* Timer button */}
-                <TouchableOpacity disabled={subtask.status} style={[styles.button, subtask.status && styles.completedSubContainer]} onPress={() => setTimerModalVisible(true)}>
-                    <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>View Logged Time</Text>
-                    <Ionicons name='time' size={32} color={subtask.status ? '#F5F5DC' : '#8B4513'} />
-                    {subtask.status && <View style={styles.strikeButton} />}
-                </TouchableOpacity>
-
-                {/* Modal for timer */}
-                <Modal
-                    visible={timerModalVisible}
-                    transparent
-                    animationType='slide'
-                    onRequestClose={() => setTimerModalVisible(false)}
-                    testID='timer-modal'
-                >
-                    {/* TouchableWithoutFeedback to allow pressing outside of the overlay to close the modal */}
-                    <TouchableWithoutFeedback onPress={() => setTimerModalVisible(false)} testID='timer-TouchableWithoutFeedback'>
-                        <View style={styles.modalOverlay}>
-                            {/* TouchableWithoutFeedback to not close the modal when pressing within the overlay */}
-                            <TouchableWithoutFeedback>
-                                {/* Title for the Times */}
-                                <View style={styles.timerContainer}>
-                                    <TouchableOpacity style={styles.addTimeButton} onPress={() => navigation.navigate('BottomTab', { screen: 'Timer' })}>
-                                        <Text style={styles.sectionTitle}>Time</Text>
-                                        <Ionicons name='add-circle-outline' size={32} color='#8B4513' />
-                                    </TouchableOpacity>
-                                    {/* Display each time */}
-                                    <FlatList
-                                        data={timeRecords}
-                                        renderItem={renderTimeRecord}
-                                        keyExtractor={(item) => item.id.toString()}
-                                        contentContainerStyle={styles.timeRecordsList}
-                                        ListEmptyComponent={
-                                            <Text style={styles.emptyText}>
-                                                No Time Added!
-                                            </Text>
-                                        }
-                                    />
-                                </View>
-                            </TouchableWithoutFeedback>
-                            {/* Button to close the add attachment modal */}
-                            <TouchableOpacity
-                                onPress={() => setTimerModalVisible(false)}
-                                style={styles.closeButton}
-                                testID='timer-close'
-                            >
-                                <Ionicons name='close' size={32} color='#F5F5DC' />
-                            </TouchableOpacity>
+            {/* Scrollable content container to allow vertical scrolling */}
+            <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+                <View style={[styles.detailContainer, subtask.status && styles.completedDetailContainer]}>
+                    {/* Start Date */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={{ position: 'relative' }}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Start Date</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
                         </View>
-                    </TouchableWithoutFeedback>
-                </Modal>
+                        <View style={[styles.row, { position: 'relative' }]}>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDate(subtask.start_date)}</Text>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{formatTime(subtask.start_date)}</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* End Date */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={{ position: 'relative' }}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>End Date</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                        <View style={[styles.row, { position: 'relative' }]}>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDate(subtask.end_date)}</Text>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{formatTime(subtask.end_date)}</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* Duration */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={[styles.row, { position: 'relative' }]}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Duration</Text>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{formatDuration(subtask.duration)}</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* Notes */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={{ position: 'relative' }}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Notes</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                        <View style={{ position: 'relative' }}>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>
+                                {subtask.subtask_notes || 'No additional notes provided.'}
+                            </Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* Task the subtask belongs to */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={[styles.row, { position: 'relative' }]}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Task</Text>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{subtask.task_name}</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* Priority */}
+                    <View style={[styles.textContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={[styles.row, { position: 'relative' }]}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Priority</Text>
+                            <Text style={[styles.text, subtask.status && styles.completedText]}>{priority?.priority_name || 'N/A'}</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                    </View>
+                    
+                    {/* Attachments */}
+                    <View style={[styles.attachmentContainer, subtask.status && styles.completedSubContainer]}>
+                        <View style={{ position: 'relative' }}>
+                            <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>Attachments</Text>
+                            {subtask.status && <View style={styles.strikeRow} />}
+                        </View>
+                        <View pointerEvents={subtask.status ? 'none' : 'auto'} style={{ position: 'relative' }}>
+                            <ViewAttachments attachments={attachments} />
+                            {subtask.status && <View style={styles.blockOverlay} />}
+                        </View>
+                    </View>
+                    
+                    {/* Timer button */}
+                    <TouchableOpacity disabled={subtask.status} style={[styles.button, subtask.status && styles.completedSubContainer]} onPress={() => setTimerModalVisible(true)}>
+                        <Text style={[styles.sectionTitle, subtask.status && styles.completedText]}>View Logged Time</Text>
+                        <Ionicons name='time' size={32} color={subtask.status ? '#F5F5DC' : '#8B4513'} />
+                        {subtask.status && <View style={styles.strikeButton} />}
+                    </TouchableOpacity>
+
+                    {/* Modal for timer */}
+                    <Modal
+                        visible={timerModalVisible}
+                        transparent
+                        animationType='slide'
+                        onRequestClose={() => setTimerModalVisible(false)}
+                        testID='timer-modal'
+                    >
+                        {/* TouchableWithoutFeedback to allow pressing outside of the overlay to close the modal */}
+                        <TouchableWithoutFeedback onPress={() => setTimerModalVisible(false)} testID='timer-TouchableWithoutFeedback'>
+                            <View style={styles.modalOverlay}>
+                                {/* TouchableWithoutFeedback to not close the modal when pressing within the overlay */}
+                                <TouchableWithoutFeedback>
+                                    {/* Title for the Times */}
+                                    <View style={styles.timerContainer}>
+                                        <TouchableOpacity style={styles.addTimeButton}  onPress={() => {setTimerModalVisible(false); navigation.navigate('BottomTab', { screen: 'Timer' });}}>
+                                            <Text style={styles.sectionTitle}>Time</Text>
+                                            <Ionicons name='add-circle-outline' size={32} color='#8B4513' />
+                                        </TouchableOpacity>
+                                        {/* Display each time */}
+                                        <FlatList
+                                            data={timeRecords}
+                                            renderItem={renderTimeRecord}
+                                            keyExtractor={(item) => item.id.toString()}
+                                            contentContainerStyle={styles.timeRecordsList}
+                                            ListEmptyComponent={
+                                                <Text style={styles.emptyText}>
+                                                    No Time Added!
+                                                </Text>
+                                            }
+                                        />
+                                    </View>
+                                </TouchableWithoutFeedback>
+                                {/* Button to close the add attachment modal */}
+                                <TouchableOpacity
+                                    onPress={() => setTimerModalVisible(false)}
+                                    style={styles.closeButton}
+                                    testID='timer-close'
+                                >
+                                    <Ionicons name='close' size={32} color='#F5F5DC' />
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </Modal>
                 
-            </View>
+                </View>
+            </ScrollView>
 
             {/* Mark as Completed / Uncompleted button */}
             <View style={[styles.completeButtonContainer, subtask.status && styles.completedSubContainer]}>
@@ -602,6 +615,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginTop: 5,
         marginHorizontal: 6,
+        backgroundColor: '#F5F5DC',
+    },
+    // Style for the addTimeButton
+    addTimeButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 2,
+        padding: 8,
+        borderColor: '#8B4513',
         backgroundColor: '#F5F5DC',
     },
     // Style for the completeButtonContainer

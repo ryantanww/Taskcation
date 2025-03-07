@@ -311,6 +311,7 @@ describe('EditSubtaskScreen', () => {
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                created_by: 'temp_user_123',
                 subtask_id: 'subtask1',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
