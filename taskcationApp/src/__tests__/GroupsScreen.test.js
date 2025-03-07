@@ -50,9 +50,9 @@ describe('GroupsScreen', () => {
     // Test to check if user ID is stored in AsyncStorage
     it('should store user ID in AsyncStorage', async () => {
         // Retrieve the user ID
-        const userID = await AsyncStorage.getItem('user_id');
+        const userId = await AsyncStorage.getItem('user_id');
         // Verify that the user ID is correctly stored
-        expect(userID).toBe('temp_user_123');
+        expect(userId).toBe('temp_user_123');
     });
 
     // Test to load groups on mount
