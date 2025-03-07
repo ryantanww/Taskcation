@@ -84,18 +84,18 @@ const HomeScreen = () => {
                 // Set loading state to true
                 setLoading(true);
                 // Retrieve the user ID and joined date from AsyncStorage
-                let storedUserId = await AsyncStorage.getItem('user_id');
+                let storedUserID = await AsyncStorage.getItem('user_id');
                 let storedJoinedDate = await AsyncStorage.getItem('joined_date');
         
                 // If there is no user ID, create a temporary user
-                if (!storedUserId) {
+                if (!storedUserID) {
                     // Generate a random temporary username
                     const tempName = `temp_user_${Math.floor(Math.random() * 10000)}`;
 
                     // Use the temporary username to create a temporary user in the Firebase database
                     const newUserId = await createUser(db, { username: tempName, is_temporary: true });
                     // Store the new user ID
-                    storedUserId = newUserId;
+                    storedUserID = newUserId;
 
                     // Get the current date
                     const today = new Date().toISOString();
@@ -103,16 +103,16 @@ const HomeScreen = () => {
                     storedJoinedDate = today;
 
                     // Save the user ID and joined date into AsyncStorage
-                    await AsyncStorage.setItem('user_id', storedUserId);
+                    await AsyncStorage.setItem('user_id', storedUserID);
                     await AsyncStorage.setItem('joined_date', storedJoinedDate);
                 }
         
                 // Set user ID and joined date in state
-                setUserID(storedUserId);
+                setUserID(storedUserID);
                 setJoinedDate(formatDate(storedJoinedDate));
         
                 // Fetch groups created by the user
-                const userGroups = await getGroupsByCreator(db, storedUserId);
+                const userGroups = await getGroupsByCreator(db, storedUserID);
 
                 // If no groups exist, create a default category and subject
                 if (userGroups.length === 0) {
@@ -120,18 +120,18 @@ const HomeScreen = () => {
                         group_name: 'Math',
                         group_type: 'Subjects',
                         grade_id: 'NA',
-                        created_by: storedUserId,
+                        created_by: storedUserID,
                     });
                     await createGroup(db, {
                         group_name: 'General',
                         group_type: 'Categories',
                         grade_id: 'NA',
-                        created_by: storedUserId,
+                        created_by: storedUserID,
                     });
                 }
         
                 // Fetch the tasks from the Firebase database
-                const fetchedTasks = await getTasksByCreator(db, storedUserId);
+                const fetchedTasks = await getTasksByCreator(db, storedUserID);
         
                 // If there are no tasks found return an empty array else retrieve and store the user tasks
                 if (!fetchedTasks) {
