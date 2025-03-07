@@ -155,7 +155,7 @@ const EditGroupScreen = () => {
                                     closeOnBackPressed={true}
                                     closeOnBlur={true}
                                     style={styles.dropdown}
-                                    placeholderStyle={styles.text}
+                                    placeholderStyle={styles.placeholderText}
                                     textStyle={styles.text}
                                     dropDownContainerStyle={styles.dropdownContainer}
                                     listMode='SCROLLVIEW'
@@ -214,6 +214,12 @@ const styles = StyleSheet.create({
     // Style for the text
     text: {
         color: '#8B4513',
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    // Style for the placeholderText
+    placeholderText: {
+        color: '#A5734D',
         fontSize: 20,
         fontWeight: '500',
     },

@@ -1,14 +1,14 @@
+// Import dependencies and libraries used for Header
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Header = () => {
     // Hook for navigating to other screens
     const navigation = useNavigation();
 
     return (
-        <SafeAreaView>
+        <>
             {/* Header container */}
             <View style={styles.header}>
                 {/* App title navigates to Home on press */}
@@ -16,7 +16,7 @@ const Header = () => {
                     <Text style={styles.headerTitle}>Taskcation</Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </>
     );
 };
 

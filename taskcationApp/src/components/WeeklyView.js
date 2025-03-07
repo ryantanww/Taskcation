@@ -93,7 +93,7 @@ const WeeklyView = ({ selectedDate, tasks, onTaskPress, onPrevWeek, onNextWeek  
     function renderDayHourTask(task) {
         return (
             // Allows users to navigate to TaskDetailScreen screen when clicked
-            <TouchableOpacity style={[styles.dayTask, task.status && styles.dayTaskCompleted]} onPress={() => onTaskPress(task.id)}>
+            <TouchableOpacity key={`task-${task.id}`} style={[styles.dayTask, task.status && styles.dayTaskCompleted]} onPress={() => onTaskPress(task.id)}>
                 {/* Task name */}
                 <Text style={[styles.dayTaskText, task.status && styles.dayTaskTextCompleted]} numberOfLines={1} ellipsizeMode='tail'>
                     {task.task_name}

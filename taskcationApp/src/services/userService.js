@@ -1,7 +1,7 @@
+// Import Firestore functions from Firebase
 import {
     collection,
     doc,
-    getDoc,
     addDoc,
     getDocs,
     query,
@@ -9,42 +9,31 @@ import {
     serverTimestamp
 } from 'firebase/firestore';
 
-/**
- * CREATE a user (temporary or real)
- * If you want username uniqueness, you can check it here.
- */
+// Function to create a new user in Firestore
 export async function createUser(db, userData) {
-    // e.g., userData = { username: 'temp_12345', is_temporary: true }
-    if (!db) throw new Error('Firestore instance is not defined');
-    // Check if you want to ensure 'username' unique across Users
-    if (!userData.username) {
-        throw new Error('username is required');
-    }
-    console.log('Firestore instance:', db);
-    // Optionally check if username is taken:
+    // Create a Firestore query to check if the username already exists
     const q = query(collection(db, 'Users'), where('username', '==', userData.username));
+
+    // Execute the query
     const snap = await getDocs(q);
+    // If a user with the same username exists, throw an error
     if (!snap.empty) {
         throw new Error(`Username '${userData.username}' already in use`);
     }
 
-    // Create doc in 'Users' with random ID
+    // Generate a new document reference with a new ID
+    const newUserDocRef = doc(collection(db, 'Users'));
+    const newUserID = newUserDocRef.id;
+    
+    // Create a new document in the Users collection with the user data
     const docRef = await addDoc(collection(db, 'Users'), {
+        user_id: newUserID,
         username: userData.username,
         is_temporary: userData.is_temporary ?? false,
         created_at: serverTimestamp(),
         updated_at: serverTimestamp()
     });
 
-    return docRef.id; // This is the user's doc ID
+    // Return the newly created document's ID
+    return newUserID;
 }
-
-/**
- * GET user by doc ID
- */
-export async function getUserByID(db, userID) {
-    const snap = await getDoc(doc(db, 'Users', userID));
-    return snap.exists() ? snap.data() : null;
-}
-
-

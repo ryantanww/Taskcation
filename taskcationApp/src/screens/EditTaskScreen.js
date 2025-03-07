@@ -21,6 +21,8 @@ import { getTaskByID, updateTask } from '../services/taskService';
 import { getGroupsByCreator } from '../services/groupsService';
 import { getAllPriorities } from '../services/priorityLevelsService';
 import { getAttachmentsByTaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
+import { getGradeByID } from '../services/gradesService';
+import { suggestGradePriority, suggestDatePriority } from '../utils/suggestPriority';
 import { db } from '../../firebaseConfig';
 
 const EditTaskScreen = () => {
@@ -86,7 +88,12 @@ const EditTaskScreen = () => {
                 // Fetch user's groups from the database
                 const userGroups = await getGroupsByCreator(db, storedUserID);
                 // Map groups to dropdown format
-                setGroups(userGroups.map(group => ({ label: group.group_name, value: group.id })));
+                setGroups(userGroups.map(group => ({ 
+                    label: group.group_name, 
+                    value: group.id,
+                    group_type: group.group_type,
+                    grade_id: group.grade_id,
+                })));
 
                 // Fetch all priorities from the database
                 const allPriorities = await getAllPriorities(db);
@@ -229,6 +236,18 @@ const EditTaskScreen = () => {
                 }
                 return newDate;
             });
+            
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(date);
+
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(date)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Date.');
+            }
         }
     };
     
@@ -241,6 +260,17 @@ const EditTaskScreen = () => {
             updatedDate.setHours(time.getHours(), time.getMinutes());
             // Update the end time
             setEndDate(updatedDate);
+
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(updatedDate);
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(updatedDate)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Time.');
+            }
         }
     };
 
@@ -315,14 +345,15 @@ const EditTaskScreen = () => {
             const newAttachments = attachments.filter(att => !att.id);
             // If there are new attachments, store them into the database
             if (newAttachments.length > 0) {
-                const attachmentPromises = attachments.map(attachment =>
+                const attachmentPromises = newAttachments.map(attachment =>
                     createAttachment(db, {
-                    task_id: taskID,
-                    file_name: attachment.file_name,
-                    file_type: attachment.file_type,
-                    uri: attachment.uri,
-                    size: attachment.size,
-                    durationMillis: attachment.durationMillis || null,
+                        task_id: taskID,
+                        created_by: userID,
+                        file_name: attachment.file_name,
+                        file_type: attachment.file_type,
+                        uri: attachment.uri,
+                        size: attachment.size,
+                        durationMillis: attachment.durationMillis || null,
                     })
                 );
                 // Wait for all attachments to be stored
@@ -449,13 +480,49 @@ const EditTaskScreen = () => {
                     />
 
                     {/* Dropdown for Groups */}
-                    <View style={[styles.pickerContainer, { zIndex: groupOpen ? 2000 : 0 }]}>
+                    <View style={styles.pickerContainer}>
                         <DropDownPicker
                             open={groupOpen}
                             value={selectedGroup}
                             items={groups}
                             setOpen={setGroupOpen}
-                            setValue={setSelectedGroup}
+                            setValue={(callback) => {
+                                // Determines the new selected group value based on whether the callback is a function
+                                const newGroup = typeof callback === 'function' ? callback(selectedGroup) : callback;
+                                
+                                // Update the state with the new selected group
+                                setSelectedGroup(newGroup);
+
+                                // Find the corresponding group from the groups list
+                                const group = groups.find(g => g.value === newGroup);
+
+                                // Check if the selected group exists and is group type Subjects and has a grade that is not NA
+                                if (group && group.group_type === 'Subjects' && group.grade_id && group.grade_id !== 'NA') {
+                                    // Fetch the grade details using the group grade_id
+                                    getGradeByID(db, group.grade_id)
+                                        .then(gradeData => {
+                                            // Extract the grade letter from the fetched data
+                                            const gradeLetter = gradeData?.grade;
+
+                                            // Get priority suggestion based on the grade letter
+                                            const suggested = suggestGradePriority(gradeLetter);
+                                            // If there is a priority suggestion
+                                            if (suggested) {
+                                                // Show an alert suggesting the priority level for the grade
+                                                Alert.alert(`I suggest a priority of ${suggested} for grade ${gradeLetter}!`);
+                                            } else {
+                                                // Log any errors when suggesting priority for group
+                                                console.error('Error Suggesting Priority for Group.');
+                                            }
+                                        })
+                                        .catch(error => {
+                                            // Log any errors when fetching grade fails
+                                            console.error('Error Fetching Grade:', error);
+                                            // Set error if fetching grade fails
+                                            Alert.alert('Error Fetching Grade', 'Failed to fetch grade.');
+                                        });
+                                }
+                            }}
                             setItems={setGroups}
                             placeholder='Groups'
                             onOpen={() => setPriorityOpen(false)}
@@ -463,7 +530,7 @@ const EditTaskScreen = () => {
                             closeOnBackPressed={true}
                             closeOnBlur={true}
                             style={styles.dropdown}
-                            placeholderStyle={styles.text}
+                            placeholderStyle={styles.placeholderText}
                             textStyle={styles.text}
                             dropDownContainerStyle={styles.dropdownContainer}
                             listMode='SCROLLVIEW'
@@ -486,7 +553,7 @@ const EditTaskScreen = () => {
                             closeOnBackPressed={true}
                             closeOnBlur={true}
                             style={styles.dropdown}
-                            placeholderStyle={styles.text}
+                            placeholderStyle={styles.placeholderText}
                             textStyle={styles.text}
                             dropDownContainerStyle={styles.dropdownContainer}
                             listMode='SCROLLVIEW'

@@ -20,6 +20,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
 import { getAttachmentsBySubtaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
+import { suggestDatePriority } from '../utils/suggestPriority';
 import { db } from '../../firebaseConfig';
 
 const EditSubtaskScreen = () => {
@@ -220,6 +221,18 @@ const EditSubtaskScreen = () => {
                 }
                 return newDate;
             });
+
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(date);
+
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(date)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Date.');
+            }
         }
     };
     
@@ -232,6 +245,17 @@ const EditSubtaskScreen = () => {
             updatedDate.setHours(time.getHours(), time.getMinutes());
             // Update the end time
             setEndDate(updatedDate);
+
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(updatedDate);
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(updatedDate)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Time.');
+            }
         }
     };
 
@@ -298,10 +322,11 @@ const EditSubtaskScreen = () => {
             const newAttachments = attachments.filter(att => !att.id);
             // If there are new attachments, store them into the database
             if (newAttachments.length > 0) {
-                const attachmentPromises = attachments.map(attachment =>
+                const attachmentPromises = newAttachments.map(attachment =>
                     createAttachment(db, {
                         task_id: taskID,
                         subtask_id: subtaskID,
+                        created_by: userID,
                         file_name: attachment.file_name,
                         file_type: attachment.file_type,
                         uri: attachment.uri,
@@ -446,7 +471,7 @@ const EditSubtaskScreen = () => {
                             closeOnBackPressed={true}
                             closeOnBlur={true}
                             style={styles.dropdown}
-                            placeholderStyle={styles.text}
+                            placeholderStyle={styles.placeholderText}
                             textStyle={styles.text}
                             dropDownContainerStyle={styles.dropdownContainer}
                             listMode='SCROLLVIEW'

@@ -1,3 +1,4 @@
+// jest.config.js for optimising Expo and React Native
 /** @returns {Promise<import('jest').Config>} */
 module.exports = async () => {
     return {

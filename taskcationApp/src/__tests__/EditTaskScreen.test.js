@@ -8,6 +8,8 @@ import { updateTask, getTaskByID } from '../services/taskService';
 import { createAttachment, deleteAttachment, getAttachmentsByTaskID } from '../services/attachmentService';
 import { getGroupsByCreator } from '../services/groupsService';
 import { getAllPriorities } from '../services/priorityLevelsService';
+import { getGradeByID } from '../services/gradesService';
+import { suggestGradePriority, suggestDatePriority } from '../utils/suggestPriority';
 import { Alert } from 'react-native';
 
 // Mock task for the test
@@ -28,8 +30,8 @@ const mockAttachments = [
 
 // Array of mocked groups to do dropdown testing
 const mockGroups = [
-    { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123' },
-    { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123' },
+    { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'A' },
+    { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
 ];
 
 // Array of mocked priorities to do dropdown testing
@@ -148,9 +150,17 @@ describe('EditTaskScreen', () => {
         getGroupsByCreator.mockReset();
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
+        getGradeByID.mockClear();
+        getGradeByID.mockReset();
+        suggestGradePriority.mockClear();
+        suggestGradePriority.mockReset();
+        suggestDatePriority.mockClear();
+        suggestDatePriority.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
         jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+        // Spy on console to verify errors
+        jest.spyOn(console, 'error').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {
@@ -245,7 +255,7 @@ describe('EditTaskScreen', () => {
         // Simulate changing the start time to an earlier time
         fireEvent(startTimePicker, 'onChange', {type: 'set'}, earlierDate);
 
-        // Press on end date which is 21/01/2025
+        // Press on end date which is 21/01/2025which is 21/01/2025
         fireEvent.press(getByText('21/01/2025'));
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
@@ -319,19 +329,20 @@ describe('EditTaskScreen', () => {
             // Verify updateTask was called with updated values
             expect(updateTask).toHaveBeenCalledWith(expect.any(Object), 'task1', 
                 expect.objectContaining({
-                task_name: 'Updated Task Name',
-                start_date: earlierDate,
-                end_date: laterDate,
-                duration: expect.any(Number),
-                task_notes: 'Updating test notes.',
-                group_id: '2',
-                priority_id: '1',
+                    task_name: 'Updated Task Name',
+                    start_date: earlierDate,
+                    end_date: laterDate,
+                    duration: expect.any(Number),
+                    task_notes: 'Updating test notes.',
+                    group_id: '2',
+                    priority_id: '1',
             }));
             // Verify that the createAttachment was called once
             expect(createAttachment).toHaveBeenCalledTimes(1);
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                created_by: 'temp_user_123',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
                 uri: 'https://test.com/new_attachment.pdf',
@@ -387,6 +398,606 @@ describe('EditTaskScreen', () => {
         // Press on Urgent
         fireEvent.press(getByText('Urgent'));
     });
+
+    // Test to show suggestion alert for group grade A
+    it('should show suggestion alert for group grade A', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'A' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'A' });
+        suggestGradePriority.mockReturnValueOnce('Low');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with Low for grade A
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of Low for grade A!');
+        });
+    });
+
+    // Test to show suggestion alert for group grade B
+    it('should show suggestion alert for group grade B', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'B' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'B' });
+        suggestGradePriority.mockReturnValueOnce('Low');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with Low for grade B
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of Low for grade B!');
+        });
+    });
+
+    // Test to show suggestion alert for group grade C
+    it('should show suggestion alert for group grade C', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'C' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'C' });
+        suggestGradePriority.mockReturnValueOnce('Medium');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with Medium for grade C
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of Medium for grade C!');
+        });
+    });
+
+    // Test to show suggestion alert for group grade D
+    it('should show suggestion alert for group grade D', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'D' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'D' });
+        suggestGradePriority.mockReturnValueOnce('High');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with High for grade D
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of High for grade D!');
+        });
+    });
+
+    // Test to show suggestion alert for group grade E
+    it('should show suggestion alert for group grade E', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'E' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'E' });
+        suggestGradePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with Urgent for grade E
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of Urgent for grade E!');
+        });
+    });
+
+    // Test to show suggestion alert for group grade F
+    it('should show suggestion alert for group grade F', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'F' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'F' });
+        suggestGradePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with Urgent for grade F
+            expect(Alert.alert).toHaveBeenCalledWith('I suggest a priority of Urgent for grade F!');
+        });
+    });
+
+    // Test to not show suggestion alert for group grade N/A
+    it('should not show suggestion alert for group grade N/A', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'A' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'NA' });
+        suggestGradePriority.mockReturnValueOnce('N/A');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is not called for grades that are N/A
+            expect(Alert.alert).not.toHaveBeenCalledWith();
+        });
+    });
+
+    // Test to not show suggestion alert for group type as category
+    it('should not show suggestion alert for group type as category', async () => {
+        // Mock group and priority services
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that General is displayed correctly
+            expect(getByText('General')).toBeTruthy();
+        });
+
+        // Press General
+        fireEvent.press(getByText('General'));
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is not called for group types as category
+            expect(Alert.alert).not.toHaveBeenCalledWith();
+        });
+    });
+
+    // Test to show suggestion alert for end date less than 1 day
+    it('should show suggestion alert for end date less than 1 day', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on end date which is 21/01/2025
+        fireEvent.press(getByText('21/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockTask.end_date + 86000000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with less than 1 day
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Urgent for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date when end time is selected
+    it('should show suggestion alert for end date when end time is selected', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on end time which is 12:00
+        fireEvent.press(getByText('12:00'));
+
+        // Retrieve the end time picker component
+        const endTimePicker = getByTestId('endTimePicker');
+
+        // End time set few seconds later
+        const laterTime = new Date(mockTask.end_date + 3000); 
+        const endTimeString = laterTime.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end time to an later time
+        fireEvent(endTimePicker, 'onChange', {type: 'set'}, laterTime);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with less than 1 day when selecting time
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Urgent for end date ${endTimeString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 1 day and less than 5 days
+    it('should show suggestion alert for end date more than 1 day and less than 5 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('High');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on end date which is 21/01/2025
+        fireEvent.press(getByText('21/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockTask.end_date + 172800000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 1 day and less than 5 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of High for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 5 days and less than 10 days
+    it('should show suggestion alert for end date more than 5 days and less than 10 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Medium');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on end date which is 21/01/2025
+        fireEvent.press(getByText('21/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockTask.end_date + 518400000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 5 day and less than 10 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Medium for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 10 days
+    it('should show suggestion alert for end date more than 10 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Low');
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+
+        // Press on end date which is 21/01/2025
+        fireEvent.press(getByText('21/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockTask.end_date + 950400000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 10 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Low for end date ${endDateString}!`);
+        });
+    });
+
 
     // Test to render loading indicator initially
     it('should render loading indicator initially', async () => {
@@ -583,7 +1194,7 @@ describe('EditTaskScreen', () => {
         // Set an invalid end date
         const invalidEndDate = new Date('2025-01-19T10:00:00');
 
-        // Press on end date which is 21/01/2025
+        // Press on end date which is 21/01/2025which is 21/01/2025
         fireEvent.press(getByText('21/01/2025'));
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
@@ -659,6 +1270,189 @@ describe('EditTaskScreen', () => {
         await waitFor(() => {
             // Verify that an error alert is shown to the user when priorities loading fails
             expect(Alert.alert).toHaveBeenCalledWith('Initialising User, Groups and Priorities Error', 'Failed to initialise user, groups and priorities.');
+        });
+    });
+
+    // Test to show an alert if failed to fetch grade
+    it('should show an alert if failed to fetch grade', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'A' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+
+        // Mock groups 
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+
+        // Mock grade error
+        getGradeByID.mockRejectedValueOnce(new Error('Error Fetching Grade'));
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+    
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify that an error alert is shown to the user when fetching grade fails
+            expect(Alert.alert).toHaveBeenCalledWith('Error Fetching Grade', 'Failed to fetch grade.');
+        });
+    });
+
+    // Test to show console error when no suggestion is returned for grades
+    it('should show console error when no suggestion is returned for grades', async () => {
+        // Mock task with group id 2
+        const mockTask = {
+            task_id: 'task1',
+            task_name: 'Test Edit Task',
+            start_date: new Date('2025-01-20T10:00:00'),
+            end_date: new Date('2025-01-21T12:00:00'),
+            task_notes: 'Test notes.',
+            group_id: '2',
+            priority_id: '2',
+        };
+        getTaskByID.mockResolvedValueOnce(mockTask);
+
+        // Mock the groups with correct grade
+        const mockGroups = [
+            { id: '1', group_name: 'Math', group_type: 'Subjects', created_by: 'temp_user_123', grade_id: 'A' },
+            { id: '2', group_name: 'General', group_type: 'Categories', created_by: 'temp_user_123', grade_id: 'NA' },
+        ];
+        // Mock groups
+        getGroupsByCreator.mockResolvedValueOnce(mockGroups);
+
+        // Mock grade and priority suggestion
+        getGradeByID.mockResolvedValueOnce({ grade: 'A' });
+        suggestGradePriority.mockReturnValueOnce(undefined);
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on Groups dropdown
+        fireEvent.press(getByTestId('Groups-button'));
+
+        await waitFor(() => {
+            // Verify that Math is displayed correctly
+            expect(getByText('Math')).toBeTruthy();
+        });
+
+        // Press Math
+        fireEvent.press(getByText('Math'));
+    
+        await waitFor(() => {
+            // Verify the console error logged that there is an error suggesting priority for group
+            expect(console.error).toHaveBeenCalledWith('Error Suggesting Priority for Group.');
+        });
+    });
+
+    // Test to show console error when no suggestion is returned for end date
+    it('should show console error when no suggestion is returned for end date', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce(undefined);
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+        // Press on end date which is 21/01/2025
+        fireEvent.press(getByText('21/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to less than one day later
+        const laterDate = new Date(mockTask.end_date + 86000000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+        
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the console error logged that there is an error suggesting priority for end date
+            expect(console.error).toHaveBeenCalledWith('Error Suggesting Priority for End Date.');
+        });
+    });
+
+    // Test to show console error when no suggestion is returned for end time
+    it('should show console error when no suggestion is returned for end time', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce(undefined);
+    
+        // Renders the EditTaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditTaskScreen route={{ params: { taskID: 'task1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the task name is displayed correctly
+            expect(getByDisplayValue('Test Edit Task')).toBeTruthy();
+        });
+    
+    
+        // Press on end time which is 12:00
+        fireEvent.press(getByText('12:00'));
+
+        // Retrieve the end time picker component
+        const endTimePicker = getByTestId('endTimePicker');
+
+        // End time set few seconds later
+        const laterTime = new Date(mockTask.end_date + 3000); 
+        const endTimeString = laterTime.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end time to an later time
+        fireEvent(endTimePicker, 'onChange', {type: 'set'}, laterTime);
+    
+        await waitFor(() => {
+            // Verify the console error logged that there is an error suggesting priority for end time
+            expect(console.error).toHaveBeenCalledWith('Error Suggesting Priority for End Time.');
         });
     });
 

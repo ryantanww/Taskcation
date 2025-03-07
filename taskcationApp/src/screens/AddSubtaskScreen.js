@@ -20,6 +20,7 @@ import ViewAttachments from '../components/ViewAttachments';
 import { createSubtask, deleteSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
 import { createAttachment } from '../services/attachmentService';
+import { suggestDatePriority } from '../utils/suggestPriority';
 import { db } from '../../firebaseConfig';
 
 const AddSubtaskScreen = () => {
@@ -143,6 +144,18 @@ const AddSubtaskScreen = () => {
                 }
                 return newDate;
             });
+
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(date);
+
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(date)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Date.');
+            }
         }
     };
     
@@ -155,6 +168,17 @@ const AddSubtaskScreen = () => {
             updatedDate.setHours(time.getHours(), time.getMinutes());
             // Update the end time
             setEndDate(updatedDate);
+
+            // Get priority suggestion based on the end date
+            const suggested = suggestDatePriority(updatedDate);
+            // If there is a priority suggestion
+            if (suggested) {
+                // Show an alert suggesting the priority level for the end date
+                Alert.alert(`I suggest a priority of ${suggested} for end date ${formatDate(updatedDate)}!`);
+            } else {
+                // Log any errors when suggesting priority for end date
+                console.error('Error Suggesting Priority for End Time.');
+            }
         }
     };
 
@@ -234,15 +258,14 @@ const AddSubtaskScreen = () => {
                 subtask_notes: subtaskNotes,
                 priority_id: selectedPriority,
                 status: false,
-                attachments: [],
             });
 
             // If there are attachments, store them into the database
             if (attachments.length > 0) {
                 const attachmentPromises = attachments.map((attachment) =>
                     createAttachment(db, {
-                        task_id: taskID,
                         subtask_id: subtaskID,
+                        created_by: userID,
                         file_name: attachment.file_name,
                         file_type: attachment.file_type,
                         uri: attachment.uri,
@@ -385,7 +408,7 @@ const AddSubtaskScreen = () => {
                             closeOnBackPressed={true}
                             closeOnBlur={true}
                             style={styles.dropdown}
-                            placeholderStyle={styles.text}
+                            placeholderStyle={styles.placeholderText}
                             textStyle={styles.text}
                             dropDownContainerStyle={styles.dropdownContainer}
                             listMode='SCROLLVIEW'

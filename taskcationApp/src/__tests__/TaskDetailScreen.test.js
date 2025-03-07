@@ -30,12 +30,12 @@ const mockGroup = {
     id: 'group1',
     group_name: 'Test Group',
     group_type: 'Subjects',
-    grade_id: 'grade1',
+    grade_id: 'A',
 };
 
 // Mock grade for the test
 const mockGrade = {
-    id: 'grade1',
+    id: 'A',
     grade: 'A',
 };
 

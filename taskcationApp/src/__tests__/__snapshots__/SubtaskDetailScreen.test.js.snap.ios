@@ -113,743 +113,756 @@ exports[`SubtaskDetailScreen should match the snapshot when subtask is completed
       }
     />
   </View>
-  <View
+  <RCTScrollView
+    nestedScrollEnabled={true}
+    showsVerticalScrollIndicator={false}
     style={
-      [
-        {
-          "backgroundColor": "#F5F5DC",
-          "flex": 1,
-          "padding": 12,
-        },
-        {
-          "backgroundColor": "transparent",
-        },
-      ]
+      {
+        "flexGrow": 1,
+        "paddingBottom": 8,
+      }
     }
   >
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Start Date
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
+    <View>
       <View
         style={
           [
             {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
+              "backgroundColor": "#F5F5DC",
+              "flex": 1,
+              "padding": 12,
             },
             {
-              "position": "relative",
+              "backgroundColor": "transparent",
             },
           ]
         }
       >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          01/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          10:00
-        </Text>
         <View
           style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
             }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          End Date
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          06/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          12:00
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Duration
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          5 days 2 hours
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Notes
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          This is a test note.
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Task
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Test Task
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Priority
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Urgent
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "minHeight": 100,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          {
-            "backgroundColor": "transparent",
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              {
-                "color": "#F5F5DC",
-              },
-            ]
-          }
-        >
-          Attachments
-        </Text>
-        <View
-          style={
-            {
-              "backgroundColor": "#F5F5DC",
-              "height": 2,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": "50%",
-            }
-          }
-        />
-      </View>
-      <View
-        pointerEvents="none"
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <View>
-          <View>
-            <Text>
-              test_attachment.pdf
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Start Date
             </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              01/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              10:00
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
           </View>
         </View>
         <View
           style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              End Date
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              06/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              12:00
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Duration
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              5 days 2 hours
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Notes
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              This is a test note.
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Task
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Test Task
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Priority
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Urgent
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "minHeight": 100,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              {
+                "backgroundColor": "transparent",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  {
+                    "color": "#F5F5DC",
+                  },
+                ]
+              }
+            >
+              Attachments
+            </Text>
+            <View
+              style={
+                {
+                  "backgroundColor": "#F5F5DC",
+                  "height": 2,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": "50%",
+                }
+              }
+            />
+          </View>
+          <View
+            pointerEvents="none"
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <View>
+              <View>
+                <Text>
+                  test_attachment.pdf
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "backgroundColor": "#8B4513",
+                  "bottom": 0,
+                  "left": 0,
+                  "opacity": 0.8,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "zIndex": 1,
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          accessibilityState={
             {
-              "backgroundColor": "#8B4513",
-              "bottom": 0,
-              "left": 0,
-              "opacity": 0.8,
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "zIndex": 1,
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": true,
+              "expanded": undefined,
+              "selected": undefined,
             }
           }
-        />
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={false}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "#8B4513",
+              "borderRadius": 8,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 6,
+              "marginTop": 5,
+              "opacity": 1,
+              "padding": 12,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 24,
+                  "fontWeight": "700",
+                },
+                {
+                  "color": "#F5F5DC",
+                },
+              ]
+            }
+          >
+            View Logged Time
+          </Text>
+          <Text
+            allowFontScaling={false}
+            selectable={false}
+            style={
+              [
+                {
+                  "color": "#F5F5DC",
+                  "fontSize": 32,
+                },
+                undefined,
+                {
+                  "fontFamily": "ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                {},
+              ]
+            }
+          >
+            
+          </Text>
+          <View
+            style={
+              {
+                "backgroundColor": "#F5F5DC",
+                "height": 2,
+                "left": 10,
+                "position": "absolute",
+                "right": 0,
+                "top": "85%",
+                "width": "100%",
+              }
+            }
+          />
+        </View>
       </View>
     </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": true,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={false}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
-          "borderColor": "#8B4513",
-          "borderRadius": 8,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginHorizontal": 6,
-          "marginTop": 5,
-          "opacity": 1,
-          "padding": 12,
-        }
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "color": "#8B4513",
-              "fontSize": 24,
-              "fontWeight": "700",
-            },
-            {
-              "color": "#F5F5DC",
-            },
-          ]
-        }
-      >
-        View Logged Time
-      </Text>
-      <Text
-        allowFontScaling={false}
-        selectable={false}
-        style={
-          [
-            {
-              "color": "#F5F5DC",
-              "fontSize": 32,
-            },
-            undefined,
-            {
-              "fontFamily": "ionicons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            {},
-          ]
-        }
-      >
-        
-      </Text>
-      <View
-        style={
-          {
-            "backgroundColor": "#F5F5DC",
-            "height": 2,
-            "left": 10,
-            "position": "absolute",
-            "right": 0,
-            "top": "85%",
-            "width": "100%",
-          }
-        }
-      />
-    </View>
-  </View>
+  </RCTScrollView>
   <View
     style={
       [
@@ -1090,548 +1103,561 @@ exports[`SubtaskDetailScreen should match the snapshot when subtask is not compl
       </Text>
     </View>
   </View>
-  <View
+  <RCTScrollView
+    nestedScrollEnabled={true}
+    showsVerticalScrollIndicator={false}
     style={
-      [
-        {
-          "backgroundColor": "#F5F5DC",
-          "flex": 1,
-          "padding": 12,
-        },
-        false,
-      ]
+      {
+        "flexGrow": 1,
+        "paddingBottom": 8,
+      }
     }
   >
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Start Date
-        </Text>
-      </View>
+    <View>
       <View
         style={
           [
             {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          01/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          10:00
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          End Date
-        </Text>
-      </View>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          06/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          12:00
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Duration
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          5 days 2 hours
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Notes
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          This is a test note.
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Task
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          Test Task
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Priority
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          Urgent
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "minHeight": 100,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Attachments
-        </Text>
-      </View>
-      <View
-        pointerEvents="auto"
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <View>
-          <View>
-            <Text>
-              test_attachment.pdf
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#F5F5DC",
-          "borderColor": "#8B4513",
-          "borderRadius": 8,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginHorizontal": 6,
-          "marginTop": 5,
-          "opacity": 1,
-          "padding": 12,
-        }
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "color": "#8B4513",
-              "fontSize": 24,
-              "fontWeight": "700",
+              "backgroundColor": "#F5F5DC",
+              "flex": 1,
+              "padding": 12,
             },
             false,
           ]
         }
       >
-        View Logged Time
-      </Text>
-      <Text
-        allowFontScaling={false}
-        selectable={false}
-        style={
-          [
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Start Date
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              01/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              10:00
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              End Date
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              06/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              12:00
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Duration
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              5 days 2 hours
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Notes
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              This is a test note.
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Task
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              Test Task
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Priority
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              Urgent
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "minHeight": 100,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Attachments
+            </Text>
+          </View>
+          <View
+            pointerEvents="auto"
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <View>
+              <View>
+                <Text>
+                  test_attachment.pdf
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          accessibilityState={
             {
-              "color": "#8B4513",
-              "fontSize": 32,
-            },
-            undefined,
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
             {
-              "fontFamily": "ionicons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            {},
-          ]
-        }
-      >
-        
-      </Text>
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderRadius": 8,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 6,
+              "marginTop": 5,
+              "opacity": 1,
+              "padding": 12,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 24,
+                  "fontWeight": "700",
+                },
+                false,
+              ]
+            }
+          >
+            View Logged Time
+          </Text>
+          <Text
+            allowFontScaling={false}
+            selectable={false}
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 32,
+                },
+                undefined,
+                {
+                  "fontFamily": "ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
+  </RCTScrollView>
   <View
     style={
       [
@@ -1868,548 +1894,561 @@ exports[`SubtaskDetailScreen should match the snapshot when updating UI on succe
       </Text>
     </View>
   </View>
-  <View
+  <RCTScrollView
+    nestedScrollEnabled={true}
+    showsVerticalScrollIndicator={false}
     style={
-      [
-        {
-          "backgroundColor": "#F5F5DC",
-          "flex": 1,
-          "padding": 12,
-        },
-        false,
-      ]
+      {
+        "flexGrow": 1,
+        "paddingBottom": 8,
+      }
     }
   >
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Start Date
-        </Text>
-      </View>
+    <View>
       <View
         style={
           [
             {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          01/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          10:00
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          End Date
-        </Text>
-      </View>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          06/01/2025
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          12:00
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Duration
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          5 days 2 hours
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Notes
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          This is a test note.
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Task
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          Updated Test Subtask
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "marginTop": 8,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-              "justifyContent": "space-between",
-            },
-            {
-              "position": "relative",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Priority
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 20,
-                "fontWeight": "500",
-                "marginTop": 4,
-              },
-              false,
-            ]
-          }
-        >
-          Urgent
-        </Text>
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "backgroundColor": "#F5F5DC",
-            "marginHorizontal": 6,
-            "minHeight": 100,
-            "paddingHorizontal": 10,
-            "paddingVertical": 8,
-          },
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#8B4513",
-                "fontSize": 24,
-                "fontWeight": "700",
-              },
-              false,
-            ]
-          }
-        >
-          Attachments
-        </Text>
-      </View>
-      <View
-        pointerEvents="auto"
-        style={
-          {
-            "position": "relative",
-          }
-        }
-      >
-        <View>
-          <View>
-            <Text>
-              test_attachment.pdf
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#F5F5DC",
-          "borderColor": "#8B4513",
-          "borderRadius": 8,
-          "borderWidth": 2,
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "marginHorizontal": 6,
-          "marginTop": 5,
-          "opacity": 1,
-          "padding": 12,
-        }
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "color": "#8B4513",
-              "fontSize": 24,
-              "fontWeight": "700",
+              "backgroundColor": "#F5F5DC",
+              "flex": 1,
+              "padding": 12,
             },
             false,
           ]
         }
       >
-        View Logged Time
-      </Text>
-      <Text
-        allowFontScaling={false}
-        selectable={false}
-        style={
-          [
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Start Date
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              01/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              10:00
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              End Date
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              06/01/2025
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              12:00
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Duration
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              5 days 2 hours
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Notes
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              This is a test note.
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Task
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              Updated Test Subtask
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "marginTop": 8,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                },
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Priority
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 20,
+                    "fontWeight": "500",
+                    "marginTop": 4,
+                  },
+                  false,
+                ]
+              }
+            >
+              Urgent
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "#F5F5DC",
+                "marginHorizontal": 6,
+                "minHeight": 100,
+                "paddingHorizontal": 10,
+                "paddingVertical": 8,
+              },
+              false,
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "color": "#8B4513",
+                    "fontSize": 24,
+                    "fontWeight": "700",
+                  },
+                  false,
+                ]
+              }
+            >
+              Attachments
+            </Text>
+          </View>
+          <View
+            pointerEvents="auto"
+            style={
+              {
+                "position": "relative",
+              }
+            }
+          >
+            <View>
+              <View>
+                <Text>
+                  test_attachment.pdf
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          accessibilityState={
             {
-              "color": "#8B4513",
-              "fontSize": 32,
-            },
-            undefined,
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
             {
-              "fontFamily": "ionicons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            {},
-          ]
-        }
-      >
-        
-      </Text>
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#F5F5DC",
+              "borderColor": "#8B4513",
+              "borderRadius": 8,
+              "borderWidth": 2,
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 6,
+              "marginTop": 5,
+              "opacity": 1,
+              "padding": 12,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 24,
+                  "fontWeight": "700",
+                },
+                false,
+              ]
+            }
+          >
+            View Logged Time
+          </Text>
+          <Text
+            allowFontScaling={false}
+            selectable={false}
+            style={
+              [
+                {
+                  "color": "#8B4513",
+                  "fontSize": 32,
+                },
+                undefined,
+                {
+                  "fontFamily": "ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
+  </RCTScrollView>
   <View
     style={
       [

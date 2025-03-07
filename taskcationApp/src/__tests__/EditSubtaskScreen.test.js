@@ -7,6 +7,7 @@ import EditSubtaskScreen from '../screens/EditSubtaskScreen';
 import { getSubtaskByID, updateSubtask } from '../services/subtaskService';
 import { getAllPriorities } from '../services/priorityLevelsService';
 import { getAttachmentsBySubtaskID, createAttachment, deleteAttachment } from '../services/attachmentService';
+import { suggestDatePriority } from '../utils/suggestPriority';
 import { Alert } from 'react-native';
 
 // Mock subtask for the test
@@ -144,9 +145,13 @@ describe('EditSubtaskScreen', () => {
         getAttachmentsBySubtaskID.mockReset();
         getAllPriorities.mockClear();
         getAllPriorities.mockReset();
+        suggestDatePriority.mockClear();
+        suggestDatePriority.mockReset();
         jest.clearAllMocks();
         // Spy on Alert.alert to verify alerts
         jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+        // Spy on console to verify errors
+        jest.spyOn(console, 'error').mockImplementation(() => {});
         // Intialise the AsyncStorage with user_id and joined_date
         AsyncStorage.getItem.mockImplementation(async (key) => {
             if (key === 'user_id') {
@@ -306,6 +311,7 @@ describe('EditSubtaskScreen', () => {
             // Verify the attachment creation information
             expect(createAttachment).toHaveBeenCalledWith(expect.any(Object), {
                 task_id: 'task1',
+                created_by: 'temp_user_123',
                 subtask_id: 'subtask1',
                 file_name: 'new_attachment.pdf',
                 file_type: 'application/pdf',
@@ -351,6 +357,186 @@ describe('EditSubtaskScreen', () => {
 
         // Press on High
         fireEvent.press(getByText('High'));
+    });
+
+    // Test to show suggestion alert for end date less than 1 day
+    it('should show suggestion alert for end date less than 1 day', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockSubtask.end_date + 86000000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with less than 1 day
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Urgent for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date when end time is selected
+    it('should show suggestion alert for end date when end time is selected', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Urgent');
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+        // Press on end time which is 12:00
+        fireEvent.press(getByText('12:00'));
+
+        // Retrieve the end time picker component
+        const endTimePicker = getByTestId('endTimePicker');
+
+        // End time set few seconds later
+        const laterTime = new Date(mockSubtask.end_date + 3000); 
+        const endTimeString = laterTime.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end time to an later time
+        fireEvent(endTimePicker, 'onChange', {type: 'set'}, laterTime);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with less than 1 day when selecting time
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Urgent for end date ${endTimeString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 1 day and less than 5 days
+    it('should show suggestion alert for end date more than 1 day and less than 5 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('High');
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockSubtask.end_date + 172800000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 1 day and less than 5 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of High for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 5 days and less than 10 days
+    it('should show suggestion alert for end date more than 5 days and less than 10 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Medium');
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockSubtask.end_date + 518400000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 5 day and less than 10 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Medium for end date ${endDateString}!`);
+        });
+    });
+
+    // Test to show suggestion alert for end date more than 10 days
+    it('should show suggestion alert for end date more than 10 days', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce('Low');
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to one day later
+        const laterDate = new Date(mockSubtask.end_date + 950400000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the priority suggestion alert is called correctly with more than 10 days
+            expect(Alert.alert).toHaveBeenCalledWith(`I suggest a priority of Low for end date ${endDateString}!`);
+        });
     });
 
     // Test to render loading indicator initially
@@ -546,7 +732,7 @@ describe('EditSubtaskScreen', () => {
         // Set an invalid end date
         const invalidEndDate = new Date('2024-12-19T10:00:00');
 
-        // Press on end date which is 21/01/2025
+        // Press on end date which is 06/01/2025
         fireEvent.press(getByText('06/01/2025'));
         // Retrieve the end date picker component
         const endDatePicker = getByTestId('endDatePicker');
@@ -577,6 +763,79 @@ describe('EditSubtaskScreen', () => {
         await waitFor(() => {
             // Verify that an error alert is shown to the user when priorities loading fails
             expect(Alert.alert).toHaveBeenCalledWith('Initialising User and Priorities Error', 'Failed to initialise user and priorities.');
+        });
+    });
+
+    // Test to show console error when no suggestion is returned for end date
+    it('should show console error when no suggestion is returned for end date', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce(undefined);
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+        // Press on end date which is 06/01/2025
+        fireEvent.press(getByText('06/01/2025'));
+
+        // Retrieve the end date picker component
+        const endDatePicker = getByTestId('endDatePicker');
+
+        // End date set to less than one day later
+        const laterDate = new Date(mockSubtask.end_date + 86000000); 
+        const endDateString = laterDate.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+        
+        // Simulate changing the end date to an later date
+        fireEvent(endDatePicker, 'onChange', {type: 'set'}, laterDate);
+    
+        await waitFor(() => {
+            // Verify the console error logged that there is an error suggesting priority for end date
+            expect(console.error).toHaveBeenCalledWith('Error Suggesting Priority for End Date.');
+        });
+    });
+
+    // Test to show console error when no suggestion is returned for end time
+    it('should show console error when no suggestion is returned for end time', async () => {
+        // Mock priority suggestion
+        suggestDatePriority.mockReturnValueOnce(undefined);
+    
+        // Renders the EditSubtaskScreen component
+        const { getByText, getByTestId, getByDisplayValue } = render(
+            <NavigationContainer>
+                <EditSubtaskScreen route={{ params: { subtaskID: 'subtask1' } }} />
+            </NavigationContainer>
+        );
+
+        await waitFor(() => {
+            // Verify that the subtask name is displayed correctly
+            expect(getByDisplayValue('Test Edit Subtask')).toBeTruthy();
+        });
+    
+    
+        // Press on end time which is 12:00
+        fireEvent.press(getByText('12:00'));
+
+        // Retrieve the end time picker component
+        const endTimePicker = getByTestId('endTimePicker');
+
+        // End time set few seconds later
+        const laterTime = new Date(mockSubtask.end_date + 3000); 
+        const endTimeString = laterTime.toLocaleDateString('en-GB', {day: '2-digit', month:'2-digit', year:'numeric'});
+
+        // Simulate changing the end time to an later time
+        fireEvent(endTimePicker, 'onChange', {type: 'set'}, laterTime);
+    
+        await waitFor(() => {
+            // Verify the console error logged that there is an error suggesting priority for end time
+            expect(console.error).toHaveBeenCalledWith('Error Suggesting Priority for End Time.');
         });
     });
 
