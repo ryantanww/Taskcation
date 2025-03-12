@@ -24,7 +24,8 @@ import { createAttachment } from '../services/attachmentService';
 import { getGradeByID } from '../services/gradesService';
 import { suggestGradePriority, suggestDatePriority } from '../utils/suggestPriority';
 import { db } from '../../firebaseConfig';
-
+// Import ML functions.
+import { loadModel, predictPriority } from '../mlModels/baselineModel.js';
 
 const AddTaskScreen = () => {
     // Access the navigation object
@@ -121,6 +122,8 @@ const AddTaskScreen = () => {
             });
             // Map priorities to dropdown format
             setPriorities(orderedPriorities.map(priority => ({ label: priority.priority_name, value: priority.id })));
+            
+            await loadModel();
         } catch (error) {
             // Log any errors when initialising user, groups and priorities
             console.error('Initialisation User, Groups and Priorities Error:', error);
@@ -239,6 +242,30 @@ const AddTaskScreen = () => {
     // Function to handle deleting attachment from the list
     const handleDeleteAttachment = (attachment) => {
         setAttachments((prev) => prev.filter((item) => item.uri !== attachment.uri));
+    };
+
+    const handleGroupChange = async (groupId) => {
+        setSelectedGroup(groupId);
+        const groupObj = groups.find(g => g.id === groupId);
+        if (groupObj && groupObj.group_type === "Subjects") {
+            if (!groupObj.grade_id || groupObj.grade_id === "NA" || groupObj.grade_id === "N/A") {
+                return;
+            }
+            try {
+                const gradeData = await getGradeByID(db, groupObj.grade_id);
+                const gradeLetter = gradeData?.grade;
+                if (!gradeLetter || gradeLetter === "N/A") {
+                    return;
+                }
+                const suggested = predictPriority(gradeLetter);
+                if (suggested) {
+                    Alert.alert(`Suggested Priority: ${suggested}`);
+                    setSelectedPriority(suggested);
+                }
+            } catch (error) {
+                console.error("Error fetching grade or predicting priority:", error);
+            }
+        }
     };
 
     // Function to handle adding task and attachment into database
@@ -432,43 +459,7 @@ const AddTaskScreen = () => {
                             value={selectedGroup}
                             items={groups}
                             setOpen={setGroupOpen}
-                            setValue={(callback) => {
-                                // Determines the new selected group value based on whether the callback is a function
-                                const newGroup = typeof callback === 'function' ? callback(selectedGroup) : callback;
-                                
-                                // Update the state with the new selected group
-                                setSelectedGroup(newGroup);
-
-                                // Find the corresponding group from the groups list
-                                const group = groups.find(g => g.value === newGroup);
-
-                                // Check if the selected group exists and is group type Subjects and has a grade that is not NA
-                                if (group && group.group_type === 'Subjects' && group.grade_id && group.grade_id !== 'NA') {
-                                    // Fetch the grade details using the group grade_id
-                                    getGradeByID(db, group.grade_id)
-                                        .then(gradeData => {
-                                            // Extract the grade letter from the fetched data
-                                            const gradeLetter = gradeData?.grade;
-
-                                            // Get priority suggestion based on the grade letter
-                                            const suggested = suggestGradePriority(gradeLetter);
-                                            // If there is a priority suggestion
-                                            if (suggested) {
-                                                // Show an alert suggesting the priority level for the grade
-                                                Alert.alert(`I suggest a priority of ${suggested} for grade ${gradeLetter}!`);
-                                            } else {
-                                                // Log any errors when suggesting priority for group
-                                                console.error('Error Suggesting Priority for Group.');
-                                            }
-                                        })
-                                        .catch(error => {
-                                            // Log any errors when fetching grade fails
-                                            console.error('Error Fetching Grade:', error);
-                                            // Set error if fetching grade fails
-                                            Alert.alert('Error Fetching Grade', 'Failed to fetch grade.');
-                                        });
-                                }
-                            }}
+                            onChangeValue={handleGroupChange}
                             setItems={setGroups}
                             placeholder='Groups'
                             onOpen={() => setPriorityOpen(false)}
