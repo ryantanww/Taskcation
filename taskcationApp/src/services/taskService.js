@@ -134,7 +134,7 @@ export async function updateTask(db, taskID, updatedData) {
     });
 }
 
-// Function to delete a task and all its related data such as subtasks and attachments
+// Function to delete a task and all its related data such as subtasks, attachments and time records
 export async function deleteTask(db, taskID) {
     try {
         // Create a Firestore query to filter subtasks by task_id
