@@ -1,5 +1,5 @@
 // Import dependencies and libraries used in Subtask Detail Screen
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     View,

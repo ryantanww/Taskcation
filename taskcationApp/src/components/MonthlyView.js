@@ -2,7 +2,16 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek, endOfWeek, isSameDay, isSameMonth } from 'date-fns';
+import { 
+    format,
+    startOfMonth, 
+    endOfMonth, 
+    eachDayOfInterval, 
+    startOfWeek, 
+    endOfWeek, 
+    isSameDay, 
+    isSameMonth 
+} from 'date-fns';
 
 const MonthlyView = ({ selectedDate, setSelectedDate, tasks, onTaskPress, onPrevMonth, onNextMonth, toggleTaskCompletion }) => {
     // Store the start of the month 
