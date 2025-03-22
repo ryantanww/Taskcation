@@ -320,7 +320,7 @@ const AddTaskScreen = () => {
             navigation.goBack();
         } catch (error) {
             // Log any errors when creating task or attachments
-            console.log('Error creating task or attachments:', error);
+            console.error('Error creating task or attachments:', error);
 
             // If there is taskID, due to attachment creation failure, delete the task 
             if (taskID) {

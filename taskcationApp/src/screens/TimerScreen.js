@@ -109,7 +109,7 @@ const TimerScreen = () => {
             setSubtasks((fetchedSubtasks || []).filter(subtask => !subtask.status));
         } catch (error) {
             // Log error in fetching tasks or subtasks
-            console.log('Error fetching tasks or subtasks: ', error);
+            console.error('Error fetching tasks or subtasks: ', error);
             // Alert error when failed to fetch tasks or subtasks
             Alert.alert('Error Fetching Tasks or Subtasks', 'Failed to fetch tasks or subtasks.');
         }
@@ -252,7 +252,7 @@ const TimerScreen = () => {
             }
         } catch (error) {
             // Log any errors when creating time record
-            console.log('Error creating time record:', error);
+            console.error('Error creating time record:', error);
             // Alert error for time record creation 
             Alert.alert('Error Creating Time Record', 'Failed to create time record.');
         }

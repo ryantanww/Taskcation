@@ -103,7 +103,7 @@ const AddGroupScreen = () => {
             navigation.goBack();
         } catch (error) {
             // Log any errors when creating group
-            console.log('Error creating group:', error);
+            console.error('Error creating group:', error);
             // Alert error for group creation 
             Alert.alert('Group Creation Error', 'Failed to create the group.');
         }

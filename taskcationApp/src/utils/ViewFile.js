@@ -21,7 +21,7 @@ const ViewFile = async (originalUri, fileName, mimeType = '*/*') => {
                 localUri = copyPath;
             } catch (error) {
                 // Log any errors when copying files from Storage Access Framework
-                console.log('Error copying file via Storage Access Framework:', error);
+                console.error('Error copying file via Storage Access Framework:', error);
                 // Alert error when copying files from Storage Access Framework
                 Alert.alert('Error', 'Unable to copy file from Storage Access Framework.');
                 return;

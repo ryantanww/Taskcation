@@ -82,7 +82,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
             }
         } catch (error) {
             // Log any errors when picking document
-            console.log('Error picking document:', error);
+            console.error('Error picking document:', error);
             // Alert error when picking document
             Alert.alert('File Error', 'Error picking document.');
         } finally {
@@ -120,7 +120,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
             }
         } catch (error) {
             // Log any errors when opening camera
-            console.log('Error opening camera:', error);
+            console.error('Error opening camera:', error);
             // Alert error when opening camera
             Alert.alert('Camera Error', 'Error opening camera.');
 
@@ -159,7 +159,7 @@ const AddAttachment = ({ attachments, onAttachmentsChange }) => {
             }
         } catch (error) {
             // Log any errors when opening gallery
-            console.log('Error opening gallery:', error);
+            console.error('Error opening gallery:', error);
             // Alert error when opening gallery
             Alert.alert('Gallery Error', 'Error opening gallery.');
 

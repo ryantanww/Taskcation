@@ -103,7 +103,7 @@ const EditGroupScreen = () => {
             navigation.goBack();
         } catch (error) {
             // Log any errors when updating group
-            console.log('Error updating group:', error);
+            console.error('Error updating group:', error);
             // Alert error for group update 
             Alert.alert('Group Update Error', 'Failed to update the group.');
         }

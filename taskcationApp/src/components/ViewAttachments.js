@@ -193,12 +193,10 @@ const ViewAttachment = ({ attachments, onDeleteAttachment }) => {
         // Function 
         const viewAttachment = async () => {
             if (isImage) {
-                console.log('item.uri', item.uri)
                 // Set the image URI
                 setCurrentImageUri(item.uri);
                 // Open image modal
                 setImageModalVisible(true);
-                console.log('currentImageUri', currentImageUri)
             } else if (isAudio) {
                 // Set the audio URI
                 setCurrentAudioUri(item.uri);

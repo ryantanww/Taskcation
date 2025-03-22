@@ -61,8 +61,6 @@ const Subheader = ({ title, hasKebab = false, itemID, itemType }) => {
                             } else if (itemType === 'Group') {
                                 await deleteGroup(db, itemID);
                             }
-                            // Log the successful deletion
-                            console.log(`${itemType} with ID ${itemID} deleted successfully`);
                             // Navigate back to the previous screen
                             navigation.goBack();
                         } catch (error) {

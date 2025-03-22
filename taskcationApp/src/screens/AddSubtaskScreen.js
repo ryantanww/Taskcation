@@ -291,7 +291,7 @@ const AddSubtaskScreen = () => {
             navigation.goBack();
         } catch (error) {
             // Log any errors when creating subtask or attachments
-            console.log('Error creating subtask or attachments:', error);
+            console.error('Error creating subtask or attachments:', error);
 
             // If there is subtaskID, due to attachment creation failure, delete the subtask 
             if (subtaskID) {
