@@ -153,6 +153,7 @@ const TimerScreen = () => {
         savedTimeRef.current = timer;
     };
 
+    // Function to reset the timer
     const resetTimer = () => {
         // Prevent multiple intervals
         if (intervalRef.current) {
